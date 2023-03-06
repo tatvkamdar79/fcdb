@@ -1,5 +1,7 @@
+import Routing from "./Views/Routing";
+
 function App() {
-  return <div className="font-semibold text-7xl font-playfair">Home</div>;
+  return <Routing />;
 }
 
 export default App;
