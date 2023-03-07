@@ -18,12 +18,13 @@ const Home = () => {
             </p>
             <div className="mt-6 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                <button
+                <a
+                  href="/signup"
                   className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
                   type="button"
                 >
                   Get started
-                </button>
+                </a>
               </div>
             </div>
           </div>
