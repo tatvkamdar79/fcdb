@@ -6,9 +6,18 @@ const clientSchema= new Schema({
         type:String,
         require:true
     },
-    contact:{
-        type:Number,
+    password:{
+        type:String,
         require:true
+    },
+    contact:{
+        type:String,
+        require:true
+    },
+    email:{
+        type: String,
+        unique: true,
+        require: true
     },
     workingwith:[
         {
@@ -18,4 +27,6 @@ const clientSchema= new Schema({
     ]
 })
 
-mongoose.model('client' , clientSchema);
+const client = mongoose.model('client' , clientSchema);
+
+module.exports = client;

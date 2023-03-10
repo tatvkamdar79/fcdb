@@ -1,22 +1,35 @@
 const Client = require("../models/clientSchema");
 
-module.exports.signUp = function(req,res){
+module.exports.signUp = async function(req,res){
 
-    Client.findOne({email:req.body.email},function(err,client){
+    try{
+        const client = await Client.findOne({email:req.body.email});
         if(!client){
-            Client.create(req.body,function(err,newClient){
+            try{
+                const newClient = await Client.create(req.body);
+                if(!newClient){
+                    return res.json({
+                        status: 200,
+                        message: "Some error occurred"
+                    });
+                }else{
+                    return res.json({
+                        status: 200,
+                        message: "User created successfully"
+                    });
+                }
+            } catch(err){
                 return res.json({
                     status: 200,
-                    message: "User created successfully"
+                    message: "Some error occurred"
                 });
-            });
-        } else{
-            return res.json({
-                status: 200,
-                message: "User already has an account, please login"
-            });
+            }
         }
-    });
-
-};
+    } catch(err){
+        return res.json({
+            status: 200,
+            message: "Some error occurred"
+        });
+    }
+}
 
