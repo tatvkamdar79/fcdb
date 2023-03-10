@@ -14,7 +14,7 @@ const ClientSignup = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     const headers = {
-      "Content-Type": "text/plain",
+      "content-type": "application/x-www-form-urlencoded",
     };
 
     console.log(name, password);
