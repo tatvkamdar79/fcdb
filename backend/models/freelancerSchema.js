@@ -11,7 +11,40 @@ const freelancer = new Schema({
     type: String,
     require: true,
   },
-  ads: [
-    
-  ]
+  contact: {
+    email: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+  },
+
+  // ADS
+
+  // ads: [
+  //   {
+  //     adId: Schema.Types.ObjectId,
+  //     ref: "ads",
+  //   },
+  // ],
+
+  // TRANSACTIONS
+  // transactionDetails: {
+  //   accountNumber: {
+  //     type: String,
+  //     required: true,
+  //   },
+  //   upiId: {
+  //     type: String,
+  //     required: false,
+  //   },
+  //   upiNumber: {
+  //     type: String,
+  //     required: false,
+  //   },
+
+  // },
 });
