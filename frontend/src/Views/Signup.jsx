@@ -3,10 +3,12 @@ import client from "../Assets/client.png";
 import freelancer from "../Assets/freelancer.png";
 const Signup = () => {
   const [btn, setBtn] = useState("Create Account");
+  const [route, setRoute] = useState("");
   const [disabled, SetDisabled] = useState(false);
   const optionChange = (e) => {
     SetDisabled(true);
     console.log(e.target.value);
+    setRoute(e.target.value);
     setBtn("Join as a " + e.target.value);
   };
   const clicked = () => {
@@ -49,15 +51,16 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <button
+      <a
         className={`bg-blue ${
           btn === "Create Account" ? "opacity-25" : ""
-        } border-2 border-black w-[250px] h-[40px] rounded-xl font-semibold text-xl font-playfair`}
-        disabled={!disabled}
+        } border-2 border-black text-center w-[250px] h-[40px] rounded-xl font-semibold text-xl font-playfair`}
+        disabled={true}
         onClick={clicked}
+        href={`signup/${route}`}
       >
         {btn}
-      </button>
+      </a>
     </div>
   );
 };

@@ -15,10 +15,6 @@ app.set("port", PORT);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./assests"));
 
-//Set up the view engine
-app.set("view engine", "ejs");
-app.set("views", "./views");
-
 //Use express router
 app.use("/", require("./routes/index.js"));
 
