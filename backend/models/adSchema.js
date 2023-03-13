@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
+const mongoose = required("mongoose");
 
 const Schema = mongoose.Schema;
 
-const ad = new Schema({
+const adSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  about: {
+  description: {
     type: String,
     required: true,
   },
@@ -24,6 +24,22 @@ const ad = new Schema({
   viewState: {
     type: Boolean,
     default: true,
-    require: true,
+    required: true,
+  },
+  minPrice: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 100000,
+  },
+  maxPrice: {
+    type: Number,
+    required: true,
+    min: this.minPrice,
+    max: 100000,
   },
 });
+
+const ad = mongoose.model("ad", adSchema);
+
+module.exports = ad;
