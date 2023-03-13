@@ -1,32 +1,40 @@
-const mongoose = require("mongoose")
-const {Schema} = mongoose;
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const clientSchema= new Schema({
-    name: {
-        type:String,
-        require:true
-    },
-    password:{
-        type:String,
-        require:true
-    },
-    contact:{
-        type:String,
-        require:true
-    },
-    email:{
-        type: String,
-        unique: true,
-        require: true
-    },
-    workingwith:[
-        {
-            type:Schema.Types.ObjectId,
-            refs:"freeLancers"
-        }
-    ]
-})
+const clientSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  recoveryEmail: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-const client = mongoose.model('client' , clientSchema);
+  ifOAuth: {
+    type: Boolean,
+  },
+
+  password: {
+    type: String,
+    required: this.ifOAuth ? false : true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+});
+
+const client = mongoose.model("client", clientSchema);
 
 module.exports = client;

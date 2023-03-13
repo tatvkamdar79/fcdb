@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const freelancer = new Schema({
+const freelancerSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -21,9 +21,14 @@ const freelancer = new Schema({
     required: true,
     unique: true,
   },
+
+  ifOAuth: {
+    type: Boolean,
+  },
+
   password: {
     type: String,
-    required: true,
+    required: this.ifOAuth ? false : true,
   },
   phoneNumber: {
     type: String,
@@ -36,7 +41,42 @@ const freelancer = new Schema({
   ads: [
     {
       adId: Schema.Types.ObjectId,
+      unique: true,
       ref: "ads",
+    },
+  ],
+  workingWith: [
+    {
+      clientDetails: {
+        clientId: {
+          type: Schema.Types.ObjectId,
+          ref: "clients",
+          required: true,
+        },
+      },
+      adDetails: {
+        adId: {
+          type: Schema.Types.ObjectId,
+          ref: "ads",
+          required: true,
+        },
+      },
+      conversations: [
+        {
+          sender: {
+            type: Schema.Types.ObjectId,
+            required: true,
+          },
+          reciever: {
+            type: Schema.Types.ObjectId,
+            required: true,
+          },
+          message: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
     },
   ],
   transactionDetails: {
@@ -54,3 +94,7 @@ const freelancer = new Schema({
     },
   },
 });
+
+const freelancer = mongoose.model("freelancer", freelancerSchema);
+
+module.exports = client;
