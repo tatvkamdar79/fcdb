@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ad = new Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -26,5 +26,4 @@ const ad = new Schema({
     default: true,
     require: true,
   },
-  ongoing: Boolean,
 });
