@@ -61,22 +61,6 @@ const freelancerSchema = new Schema({
           required: true,
         },
       },
-      conversations: [
-        {
-          sender: {
-            type: Schema.Types.ObjectId,
-            required: true,
-          },
-          reciever: {
-            type: Schema.Types.ObjectId,
-            required: true,
-          },
-          message: {
-            type: String,
-            required: true,
-          },
-        },
-      ],
     },
   ],
   transactionDetails: {
@@ -88,7 +72,7 @@ const freelancerSchema = new Schema({
       type: String,
       required: false,
     },
-    upiNumber: {
+    upiNumber: {  
       type: String,
       required: false,
     },
@@ -97,4 +81,4 @@ const freelancerSchema = new Schema({
 
 const freelancer = mongoose.model("freelancer", freelancerSchema);
 
-module.exports = client;
+module.exports = freelancer;
