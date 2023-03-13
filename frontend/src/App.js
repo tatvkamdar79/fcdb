@@ -2,7 +2,6 @@ import Home from "./Views/Home";
 import Signup from "./Views/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUpForm from "./Views/SignUpForm";
-// import Routing from "./Views/Routing";
 
 function App() {
   return (

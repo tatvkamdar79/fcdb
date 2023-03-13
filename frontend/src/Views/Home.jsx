@@ -30,8 +30,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Searchbar />
-
+      <div>
+        <Searchbar />
+      </div>
       <div className="bg-white text-blue">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center pb-12">
