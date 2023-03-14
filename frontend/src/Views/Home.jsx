@@ -1,6 +1,7 @@
 import React from "react";
 import Searchbar from "../Components/Searchbar";
 import ServiceCard from "../Components/ServiceCard";
+import Carousel from "../Components/Carousel";
 
 const Home = () => {
   return (
@@ -59,6 +60,7 @@ const Home = () => {
               StartingPrice={50}
             />
           </div>
+          <Carousel/>
         </div>
       </div>
     </div>
