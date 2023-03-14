@@ -36,10 +36,6 @@ app.use(
 const authRoutes = require('./routes/OAuth');
 authRoutes(app);
 
-//Set up the view engine
-app.set("view engine", "ejs");
-app.set("views", "./views");
-
 //Use express router
 app.use("/", require("./routes/index.js"));
 
