@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ClientSignup from "./Views/ClientSignup";
 import Carousel from "./Components/Carousel";
 import SignUpForm from "./Views/SignUpForm";
-// import Routing from "./Views/Routing";
+import PostSignUpModal from "./Components/PostSignUpModal";
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,8 @@ function App() {
         <Route path={"/test/Carousel"} element={<Carousel/>}/>
 
         <Route path={"/signup/client"} element={<SignUpForm />} />
+        <Route path={"/signup/freelancer"} element={<SignUpForm />} />
+        <Route path={"/test"} element={<PostSignUpModal />} />
       </Routes>
     </BrowserRouter>
   );
