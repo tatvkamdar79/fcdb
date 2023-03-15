@@ -62,7 +62,7 @@ const SignInForm = () => {
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
-            <h3 className="text-4xl font-bold text-purple-600">FCDB</h3>
+            <h3 className="text-4xl font-bold text-blue">FCDB</h3>
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
@@ -101,22 +101,19 @@ const SignInForm = () => {
                 />
               </div>
             </div>
-            <a href="#" className="text-xs text-purple-600 hover:underline">
+            <a href="#" className="text-xs text-blue hover:underline">
               Forgot Password?
             </a>
             <div className="flex items-center mt-4">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
-                Register
+              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue rounded-md hover:bg-blue focus:outline-none focus:bg-blue">
+                Login
               </button>
             </div>
           </form>
           <div className="mt-4 text-grey-600">
             Create an account?{" "}
             <span>
-              <a
-                className="text-purple-600 hover:underline"
-                href="/signup/client"
-              >
+              <a className="text-blue hover:underline" href="/signup/client">
                 Sign up
               </a>
             </span>

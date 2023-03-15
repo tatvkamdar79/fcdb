@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Users = [
   {
@@ -15,8 +17,6 @@ const Users = [
     password: "12345",
   },
 ];
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 
 const SignUpForm = () => {
   const initialFormDetails = {
