@@ -5,6 +5,7 @@ import Carousel from "./Components/Carousel";
 import SignUpForm from "./Views/SignUpForm";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import SignInForm from "./Views/SignInForm";
+import Admin from "./Views/Admin";
 
 // import Routing from "./Views/Routing";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path={"/signup/freelancer"} element={<SignUpForm />} />
         <Route path={"/test"} element={<PostSignUpModal />} />
         <Route path={"/signin/client"} element={<SignInForm />} />
+        <Route path={"/admin"} element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
