@@ -1,5 +1,20 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const Users = [
+  {
+    email: "aman@gmail.com",
+    password: "12345",
+  },
+  {
+    email: "hrithik@gmail.com",
+    password: "12345",
+  },
+  {
+    email: "tatv@gmail.com",
+    password: "12345",
+  },
+];
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
@@ -12,11 +27,38 @@ const SignUpForm = () => {
   };
   const [formDetails, setFormDetails] = useState(initialFormDetails);
 
+  useEffect(() => {
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify(Users));
+    }
+  }, []);
+
   const changeDetails = (e) => {
     let updatedValue = { ...formDetails };
     updatedValue[e.target.name] = e.target.value;
     setFormDetails(updatedValue);
   };
+
+  async function handleStaticSubmit(e) {
+    e.preventDefault();
+    console.log(formDetails);
+    let usersList = JSON.parse(localStorage.getItem("users"));
+    console.log(usersList);
+    let isUserRegistered = usersList.filter(
+      (user) => user.email == formDetails.email
+    );
+    if (
+      isUserRegistered.length == 0 &&
+      formDetails.password == formDetails.confirmPassword
+    ) {
+      const newUser = {
+        email: formDetails.email,
+        password: formDetails.password,
+      };
+      const newUsersList = [...usersList, newUser];
+      localStorage.setItem("users", JSON.stringify(newUsersList));
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,7 +87,7 @@ const SignUpForm = () => {
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-y-2">
+          <form onSubmit={handleStaticSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -126,7 +168,10 @@ const SignUpForm = () => {
           <div className="mt-2 text-grey-600">
             Already have an account?{" "}
             <span>
-              <a className="text-blue hover:underline" href="/signin">
+              <a
+                className="text-purple-600 hover:underline"
+                href="/signin/client"
+              >
                 Log in
               </a>
             </span>
