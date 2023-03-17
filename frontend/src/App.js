@@ -6,6 +6,7 @@ import SignUpForm from "./Views/SignUpForm";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import SignInForm from "./Views/SignInForm";
 import Admin from "./Views/Admin";
+import AdCard from "./Components/AdCard";
 
 // import Routing from "./Views/Routing";
 
@@ -13,7 +14,21 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={<Home />} />
+        <Route
+          path={"/ad"}
+          element={
+            <AdCard
+              ad={{
+                img: "https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr",
+                pp: "https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr",
+                description: "I can build full stack web applications",
+                username: "Aman Jolly",
+                star: 5,
+                price: 100,
+              }}
+            />
+          }
+        />
         <Route path={"/home"} element={<Home />} />
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/signup/client"} element={<SignUpForm />} />
