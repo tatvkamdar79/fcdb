@@ -1,10 +1,11 @@
-import Home from "./Views/Home";
+import Home from "./Views/Landing";
 import Signup from "./Views/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Carousel from "./Components/Carousel";
 import SignUpForm from "./Views/SignUpForm";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import Navbar from "./Components/Navbar";
+import Landing from "./Views/Landing";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Navbar />
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<Home />} />
+          <Route path={"/"} element={<Landing />} />
           <Route path={"/home"} element={<Home />} />
           <Route path={"/signup"} element={<Signup />} />
           <Route path={"/signup/client"} element={<SignUpForm />} />

@@ -8,8 +8,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   const smallScreen = useMediaQuery("(max-width: 490px");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   // console.log(smallScreen);
-  const [header, setHeader] = useState("");
   const navItems = [
     { id: 1, title: "Explore", link: "/explore", style: "" },
     { id: 2, title: "About", link: "/about", style: "" },
@@ -24,11 +24,11 @@ const Navbar = () => {
   ];
 
   const listenScrollEvent = (event) => {
-    if (window.scrollY < 5) {
-      return setHeader("");
+    if (window.scrollY > 5) {
+      console.log(window.scrollY);
+      setScrolled(true);
     } else {
-      console.log("Scrolled");
-      return setHeader("header2");
+      setScrolled(false);
     }
   };
   useEffect(() => {
@@ -37,7 +37,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
   return (
-    <div className="w-screen h-[90px] sticky py-5 border-b-2 border-gray-700">
+    <nav
+      className={`fixed z-[999999] w-screen h-[90px] py-5 border-b-2 border-gray-700 bg-gradient-to-b to-white ${
+        scrolled && "from-gray-400"
+      }`}
+    >
       {/* <Icon /> */}
       <div className="flex justify-between w-full pl-4 relative">
         <div className="text-3xl font-playfair font-bold">
@@ -95,7 +99,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
