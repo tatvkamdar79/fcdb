@@ -6,8 +6,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 // import { Icon } from "./Menu/Icon";
 
 const Navbar = () => {
-  const smallScreen = useMediaQuery("(max-width: 600px");
-  const [toggleMenuIcon, setToggleMenuIcon] = useState(true);
+  const smallScreen = useMediaQuery("(max-width: 490px");
+  const [isMenuToggled, setIsMenuToggled] = useState(false);
   // console.log(smallScreen);
   const [header, setHeader] = useState("");
   const navItems = [
@@ -37,42 +37,53 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
   return (
-    <div className="w-screen h-[90px] py-5 border-b-2 border-gray-700">
+    <div className="w-screen h-[90px] sticky py-5 border-b-2 border-gray-700">
       {/* <Icon /> */}
-      <div className="flex justify-between w-5/6 mx-auto relative">
+      <div className="flex justify-between w-full pl-4 relative">
         <div className="text-3xl font-playfair font-bold">
           FCDB<span className="text-4xl text-green-400">.</span>
         </div>
         {smallScreen ? (
-          // toggleMenuIcon ? (
+          // isMenuToggled ? (
+          <div className={`overflow-clip`}>
+            <GiHamburgerMenu
+              size={25}
+              onClick={() => setIsMenuToggled(!isMenuToggled)}
+              className={`absolute right-4 top-3 ${
+                isMenuToggled ? "opacity-0" : ""
+              } transition-all duration-1000`}
+            />
+            {/* // ) : ( */}
             <div
-              className={`group-[1] h-screen w-[200px] z-50 bg-cyan-500 ${
-                toggleMenuIcon ? "ml-0" : "ml-[300px]"
-              } overflow-hidden transition duration-1000 ease-in-out`}
+              className={`border-l-2 border-gray-300 ${
+                isMenuToggled ? "h-screen ml-0" : "h-[69px] ml-96"
+              } transition-all duration-[1300ms] bg-gradient-to-br from-white via-cyan-50 to-cyan-300`}
             >
               <AiOutlineClose
                 size={30}
-                onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
-                className="relative left-4 group-[1]"
+                onClick={() => setIsMenuToggled(!isMenuToggled)}
               />
-              <div className="mt-10 group-[1]">
-                <ul>
-                  <li>tatv</li>
-                  <li>tatv</li>
-                  <li>tatv</li>
-                  <li>tatv</li>
-                  <li>tatv</li>
+              <div className="mt-10">
+                <ul className="flex flex-col justify-start gap-y-20">
+                  {navItems.map(({ id, title, link, style }) => (
+                    <li
+                      key={id}
+                      className="px-16 font-semibold font-playfair text-xl text-center"
+                    >
+                      <a
+                        href={link}
+                        className={"flex w-20 justify-start mx-auto"}
+                      >
+                        {title}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-          // ) : (
-            // <GiHamburgerMenu
-            //   size={25}
-            //   onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
-            //   className="absolute right-0 top-[30%]"
-            // />
-          // )
+          </div>
         ) : (
+          // )
           <div>
             <ul className="flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair">
               {navItems.map(({ id, title, link, style }) => (
