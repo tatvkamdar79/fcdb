@@ -2,14 +2,15 @@ import React from "react";
 import Searchbar from "../Components/Searchbar";
 import ServiceCard from "../Components/ServiceCard";
 import Carousel from "../Components/Carousel";
+import CategoryIcons from "../Components/CategoryIcons";
 
 const Landing = () => {
   return (
     <div className="pt-20">
       {/* Hero section */}
-      <div className="bg-gray-50">
+      <div>
         <div className="mx-auto py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className=" mx-auto text-center">
             <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
               Find freelancers for your projects
             </h1>
@@ -34,9 +35,10 @@ const Landing = () => {
           </div>
         </div>
       </div>
+      <hr />
       <div className="bg-white text-blue">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center my-10 py-6">
+          <div className=" mx-auto text-center my-10 py-6">
             <h2 className="text-3xl font-extrabold text-gray-900">
               Popular services
             </h2>
@@ -67,9 +69,11 @@ const Landing = () => {
               StartingPrice={50}
             />
           </div>
+          <hr />
           <Carousel />
         </div>
       </div>
+      <CategoryIcons />
     </div>
   );
 };

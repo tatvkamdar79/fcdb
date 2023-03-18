@@ -38,8 +38,8 @@ const Navbar = () => {
   }, []);
   return (
     <nav
-      className={`fixed z-[999999] w-screen h-[90px] py-5 border-b-2 border-gray-700 bg-gradient-to-b to-white ${
-        scrolled && "from-gray-400"
+      className={`fixed z-[99999] w-screen h-[90px] py-5 px-5 border-b-2 border-gray-700 bg-gradient-to-b to-white ${
+        scrolled && "from-gray-300"
       }`}
     >
       {/* <Icon /> */}
