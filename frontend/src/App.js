@@ -12,8 +12,8 @@ function App() {
       <Navbar />
       <BrowserRouter>
         <Routes>
-          {/* <Route path={"/"} element={<Home />} /> */}
-          {/* <Route path={"/home"} element={<Home />} /> */}
+          <Route path={"/"} element={<Home />} />
+          <Route path={"/home"} element={<Home />} />
           <Route path={"/signup"} element={<Signup />} />
           <Route path={"/signup/client"} element={<SignUpForm />} />
           <Route path={"/test/Carousel"} element={<Carousel />} />

@@ -32,15 +32,15 @@ export const Icon = () => {
   const { height } = useDimensions(containerRef);
 
   return (
-    <motion.nav
+    <motion.div
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
-      <motion.div className="background" variants={sidebar} />
-      <Navigation />
+      <motion.div variants={sidebar} />
       <MenuToggle toggle={() => toggleOpen()} />
-    </motion.nav>
+      <Navigation toggle={isOpen} />
+    </motion.div>
   );
 };
