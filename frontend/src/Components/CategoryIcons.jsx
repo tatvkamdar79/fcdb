@@ -75,17 +75,17 @@ const CategoryIcons = () => {
   ];
   return (
     <div className="my-20 w-5/6 flex flex-col mx-auto">
-      <h4 className="text-4xl font-playfair font-semibold my-10 underline">
-        Explore the Marketplace
+      <h4 className="text-4xl font-bold my-10">
+        You name it, we've got it
       </h4>
       <div className="mb-20 py-5 grid grid-cols-2 md:grid-cols-5 sm:grid-cols-3 gap-y-7 pb-10 w-full mx-auto place-items-center justify-center">
         {Categories.map(({ id, category, element, link }) => (
           <a
             key={id}
             href={link}
-            className="flex flex-col justify-center place-items-center text-emerald-500 group group-hover:text-green-500"
+            className="flex flex-col justify-center place-items-center text-emerald-500 group"
           >
-            <div className="px-4 py-3 border-b-2 border-gray-400 group-hover:px-7 group-hover:border-blue transition-all duration-500">
+            <div className="px-4 py-3 border-b-2 border-gray-400 group-hover:px-7 group-hover:border-emerald-500 transition-all duration-500">
               {element}
             </div>
             <p className="text-gray-600 font-semibold mt-3 text-center h-10">
