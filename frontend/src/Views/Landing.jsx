@@ -37,8 +37,45 @@ const Landing = () => {
         </div>
       </div>
       <hr />
-      <div className="w-full flex bg-[#e2ffeca2] text-gray-600 justify-between place-items-center px-40">
-        <div className="w-full sm:w-1/2 my-20 px-20">
+      <div className="bg-white text-blue">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className=" mx-auto text-center my-5">
+            <h2 className="text-3xl font-extrabold text-gray-900">
+              Popular services
+            </h2>
+          </div>
+          <hr />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 my-8">
+            <ServiceCard
+              ServiceName={"Website development"}
+              Link={"/"}
+              Description={"Custom website development for your business"}
+              StartingPrice={50}
+            />
+            <ServiceCard
+              ServiceName={"Website development"}
+              Link={"/"}
+              Description={"Custom website development for your business"}
+              StartingPrice={50}
+            />
+            <ServiceCard
+              ServiceName={"Website development"}
+              Link={"/"}
+              Description={"Custom website development for your business"}
+              StartingPrice={50}
+            />
+            <ServiceCard
+              ServiceName={"Website development"}
+              Link={"/"}
+              Description={"Custom website development for your business"}
+              StartingPrice={50}
+            />
+          </div>
+        </div>
+      </div>
+      <Carousel />
+      <div className="w-screen flex flex-col sm:flex-row bg-[#e2ffeca2] text-gray-600 justify-evenly place-items-center overflow-visible">
+        <div className="w-fit my-20 flex flex-col justify-center place-items-center">
           <p className="font-bold text-3xl text-gray-900 pl-1">
             The best part? Everything.
           </p>
@@ -88,52 +125,16 @@ const Landing = () => {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="w-1/2 ">
           <img
             src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_600,dpr_1.0/v1/attachments/generic_asset/asset/089e3bb9352f90802ad07ad9f6a4a450-1599517407052/selling-proposition-still-1400-x1.png"
             alt="best part"
-            width={750}
+            className="w-screen sm:w-full mb-16 sm:mb-0"
+            // width={750}
           />
         </div>
       </div>
       <hr />
-      <div className="bg-white text-blue">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className=" mx-auto text-center my-5">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              Popular services
-            </h2>
-          </div>
-          <Carousel />
-          <hr />
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 my-8">
-            <ServiceCard
-              ServiceName={"Website development"}
-              Link={"/"}
-              Description={"Custom website development for your business"}
-              StartingPrice={50}
-            />
-            <ServiceCard
-              ServiceName={"Website development"}
-              Link={"/"}
-              Description={"Custom website development for your business"}
-              StartingPrice={50}
-            />
-            <ServiceCard
-              ServiceName={"Website development"}
-              Link={"/"}
-              Description={"Custom website development for your business"}
-              StartingPrice={50}
-            />
-            <ServiceCard
-              ServiceName={"Website development"}
-              Link={"/"}
-              Description={"Custom website development for your business"}
-              StartingPrice={50}
-            />
-          </div>
-        </div>
-      </div>
       <CategoryIcons />
     </div>
   );
