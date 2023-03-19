@@ -3,6 +3,7 @@ import Searchbar from "../Components/Searchbar";
 import ServiceCard from "../Components/ServiceCard";
 import Carousel from "../Components/Carousel";
 import CategoryIcons from "../Components/CategoryIcons";
+import { BsCheck2Circle } from "react-icons/bs";
 
 const Landing = () => {
   return (
@@ -36,13 +37,75 @@ const Landing = () => {
         </div>
       </div>
       <hr />
+      <div className="w-full flex bg-[#e2ffeca2] text-gray-600 justify-between place-items-center px-40">
+        <div className="w-full sm:w-1/2 my-20 px-20">
+          <p className="font-bold text-3xl text-gray-900 pl-1">
+            The best part? Everything.
+          </p>
+          <ul className="flex flex-col py-8 gap-y-8">
+            <li className="max-w-[400px]">
+              <p className="text-xl font-semibold text-gray-700">
+                <BsCheck2Circle
+                  className="text-green-400 inline pb-1"
+                  size={32}
+                />
+                Stick to your budget
+              </p>
+              Find the right service for every price point. No hourly rates,
+              just project-based pricing.
+            </li>
+            <li className="max-w-[400px]">
+              <p className="text-xl font-semibold text-gray-700">
+                <BsCheck2Circle
+                  className="text-green-400 inline pb-1"
+                  size={32}
+                />
+                Get quality work done quickly
+              </p>
+              Hand your project over to a talented freelancer in minutes, get
+              long-lasting results.
+            </li>
+            <li className="max-w-[400px]">
+              <p className="text-xl font-semibold text-gray-700">
+                <BsCheck2Circle
+                  className="text-green-400 inline pb-1"
+                  size={32}
+                />
+                Pay when you're happy{" "}
+              </p>
+              Upfront quotes mean no surprises.
+            </li>
+            <li className="max-w-[400px]">
+              <p className="text-xl font-semibold text-gray-700">
+                <BsCheck2Circle
+                  className="text-green-400 inline pb-1"
+                  size={32}
+                />
+                Payments only get released when you approve.
+              </p>
+              Count on 24/7 support Our round-the-clock support team is
+              available to help anytime, anywhere.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <img
+            src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_600,dpr_1.0/v1/attachments/generic_asset/asset/089e3bb9352f90802ad07ad9f6a4a450-1599517407052/selling-proposition-still-1400-x1.png"
+            alt="best part"
+            width={750}
+          />
+        </div>
+      </div>
+      <hr />
       <div className="bg-white text-blue">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className=" mx-auto text-center my-10 py-6">
+          <div className=" mx-auto text-center my-5">
             <h2 className="text-3xl font-extrabold text-gray-900">
               Popular services
             </h2>
           </div>
+          <Carousel />
+          <hr />
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 my-8">
             <ServiceCard
               ServiceName={"Website development"}
@@ -69,8 +132,6 @@ const Landing = () => {
               StartingPrice={50}
             />
           </div>
-          <hr />
-          <Carousel />
         </div>
       </div>
       <CategoryIcons />
