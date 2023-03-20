@@ -1,281 +1,124 @@
 import React, { useEffect, useState } from "react";
 import "../Assets/css/AdCard.css";
 import { Link, useParams } from "react-router-dom";
-
+import { FaUserCircle } from "react-icons/fa";
+import { SlLike } from "react-icons/sl";
+import useMediaQuery from "../Hooks/useMediaQuery";
 const AdPage = () => {
-  // To Do, get the ad details and stuff from the api and update things that way
-  // useParams()
-  const [ad, setAd] = useState({
-    username: "Loading...",
-  });
+  const [ads, setAds] = useState([
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      Description: "This is my name bla bla bla some content",
+      Price: "aukat ke bahar",
+    },
+  ]);
+  const isAboveSmallScreens = useMediaQuery("(min-width: 1500px)");
+  const filterByPriceRanges = () => {
+    let min = document.getElementById("minPrice").value;
+    let max = document.getElementById("maxPrice").value;
 
-  useEffect(() => {
-    setTimeout(() => {
-      setAd({ username: "aman" });
-      console.log(ad);
-    }, 5000);
-  }, []);
+    console.log(min, max);
+  };
 
   return (
-    <div className="gig">
-      <div className="container">
-        <div className="left">
-          <span className="breadcrumbs">Liverr Graphics & Design </span>
-          <h1>I will create ai generated art for you</h1>
-          <div className="user">
-            <img
-              className="pp"
-              src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-            <span>Anna Bell</span>
-            <div className="stars">
-              <img src="/img/star.png" alt="" />
-              <img src="/img/star.png" alt="" />
-              <img src="/img/star.png" alt="" />
-              <img src="/img/star.png" alt="" />
-              <img src="/img/star.png" alt="" />
-              <span>5</span>
-            </div>
-          </div>
-          <Slider slidesToShow={1} arrowsScroll={1} className="slider">
-            <img
-              src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-            <img
-              src="https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-            <img
-              src="https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-          </Slider>
-          <h2>About This Gig</h2>
-          <p>
-            {ad.description}
-          </p>
-          <div className="seller">
-            <h2>About The Seller</h2>
-            <div className="user">
-              <img
-                src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="info">
-                <span>{ad.user.name}</span>
-                <div className="stars">
-                  <img src="/img/star.png" alt="" />
-                  <img src="/img/star.png" alt="" />
-                  <img src="/img/star.png" alt="" />
-                  <img src="/img/star.png" alt="" />
-                  <img src="/img/star.png" alt="" />
-                  <span>5</span>
-                </div>
-                <button>Contact Me</button>
-              </div>
-            </div>
-            <div className="box">
-              <div className="items">
-                <div className="item">
-                  <span className="title">From</span>
-                  <span className="desc">USA</span>
-                </div>
-                <div className="item">
-                  <span className="title">Member since</span>
-                  <span className="desc">Aug 2022</span>
-                </div>
-                <div className="item">
-                  <span className="title">Avg. response time</span>
-                  <span className="desc">4 hours</span>
-                </div>
-                <div className="item">
-                  <span className="title">Last delivery</span>
-                  <span className="desc">1 day</span>
-                </div>
-                <div className="item">
-                  <span className="title">Languages</span>
-                  <span className="desc">English</span>
-                </div>
-              </div>
-              <hr />
-              <p>
-                My name is Anna, I enjoy creating AI generated art in my spare
-                time. I have a lot of experience using the AI program and that
-                means I know what to prompt the AI with to get a great and
-                incredibly detailed result.
-              </p>
-            </div>
-          </div>
-          <div className="reviews">
-            <h2>Reviews</h2>
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Garner David</span>
-                  <div className="country">
-                    <img
-                      src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
-                      alt=""
-                    />
-                    <span>United States</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>5</span>
-              </div>
-              <p>
-                I just want to say that art_with_ai was the first, and after
-                this, the only artist Ill be using on Fiverr. Communication was
-                amazing, each and every day he sent me images that I was free to
-                request changes to. They listened, understood, and delivered
-                above and beyond my expectations. I absolutely recommend this
-                gig, and know already that Ill be using it again very very soon
-              </p>
-              <div className="helpful">
-                <span>Helpful?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Yes</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>No</span>
-              </div>
-            </div>
-            <hr />
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/4124367/pexels-photo-4124367.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Sidney Owen</span>
-                  <div className="country">
-                    <img
-                      src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1e9-1f1ea.png"
-                      alt=""
-                    />
-                    <span>Germany</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>5</span>
-              </div>
-              <p>
-                The designer took my photo for my book cover to the next level!
-                Professionalism and ease of working with designer along with
-                punctuality is above industry standards!! Whatever your project
-                is, you need this designer!
-              </p>
-              <div className="helpful">
-                <span>Helpful?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Yes</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>No</span>
-              </div>
-            </div>
-            <hr />
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Lyle Giles </span>
-                  <div className="country">
-                    <img
-                      src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
-                      alt=""
-                    />
-                    <span>United States</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>5</span>
-              </div>
-              <p>
-                Amazing work! Communication was amazing, each and every day he
-                sent me images that I was free to request changes to. They
-                listened, understood, and delivered above and beyond my
-                expectations. I absolutely recommend this gig, and know already
-                that Ill be using it again very very soon
-              </p>
-              <div className="helpful">
-                <span>Helpful?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Yes</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>No</span>
-              </div>
-            </div>
-          </div>
+    <div className="w-screen flex flex-col">
+      <div className="flex flex-col px-16 py-10">
+        <p className="text-3xl font-semibold font-playfair">
+          FCDB Category Name
+        </p>
+        <p className="py-4 text-2xl font-playfair">
+          Expore the Boundaries of art and technology with FCDB
+        </p>
+        <p className="font-semibold underline">Budget</p>
+        <div className="flex gap-x-4 my-3">
+          <input
+            type="Number"
+            id="minPrice"
+            className="border-2 border-gray-500 px-4 w-[200px] rounded-md focus:outline-blue transition-all duration-300 ease-in-out"
+            placeholder="Starting Range"
+          />
+          <input
+            type="Number"
+            id="maxPrice"
+            className="border-2 border-gray-500 px-4 w-[200px] rounded-md focus:outline-blue transition-all duration-300 ease-in-out"
+            placeholder="Max Range"
+          />
+          <input
+            type="submit"
+            className="border-2 border-black bg-gray-300 rounded-md px-2 py-1 cursor-pointer"
+            onClick={filterByPriceRanges}
+          />
         </div>
-        <div className="right">
-          <div className="price">
-            <h3>1 AI generated image</h3>
-            <h2>$ 59.99</h2>
-          </div>
-          <p>
-            I will create a unique high quality AI generated image based on a
-            description that you give me
-          </p>
-          <div className="details">
-            <div className="item">
-              <img src="/img/clock.png" alt="" />
-              <span>2 Days Delivery</span>
+      </div>
+      <div
+        className={`w-screen grid ${
+          isAboveSmallScreens ? "grid-cols-4" : "grid-cols-2 md:grid-cols-3"
+        } justify-center mx-auto place-items-center gap-y-10`}
+      >
+        {ads.map(({ id, user, Description, price }) => (
+          <Link
+            to={"/categories/"}
+            className="border-2 border-gray-500 rounded-lg shadow-lg shadow-gray-400 w-[350px]"
+          >
+            <img
+              src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="gigimg"
+              className=""
+            />
+            <div className="flex justify-start place-items-center px-2 my-2 py-2 font-semibold">
+              <FaUserCircle size={22} className="mr-2" />
+              <h2>Tatv Kamdar</h2>
             </div>
-            <div className="item">
-              <img src="/img/recycle.png" alt="" />
-              <span>3 Revisions</span>
+            <p className="px-1 py-1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum.
+            </p>
+            <hr />
+            <div className="flex justify-between place-items-center px-4">
+              <SlLike size={22} />
+              <div className="flex flex-col justify-end place-items-end">
+                <p>Starting at</p>
+                <p>99/-</p>
+              </div>
             </div>
-          </div>
-          <div className="features">
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Prompt writing</span>
-            </div>
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Artwork delivery</span>
-            </div>
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Image upscaling</span>
-            </div>
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Additional design</span>
-            </div>
-          </div>
-          <button>Continue</button>
-        </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

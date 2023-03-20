@@ -58,8 +58,8 @@ const SignInForm = () => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+    <div className="w-screen">
+      <div className="flex flex-col w-full items-center h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
             <h3 className="text-4xl font-bold text-blue">FCDB</h3>

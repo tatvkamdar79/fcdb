@@ -17,7 +17,7 @@ const Navbar = () => {
     {
       id: 4,
       title: "Join",
-      link: "/join",
+      link: "/signup",
       style:
         "border-2 border-gray-500 rounded-md px-4 py-1 hover:bg-green-400 hover:scale-105 transition duration-300 ease-in",
     },
