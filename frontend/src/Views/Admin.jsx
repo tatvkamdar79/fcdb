@@ -3,7 +3,23 @@ import Searchbar from "../Components/Searchbar";
 import ServiceCard from "../Components/ServiceCard";
 import Carousel from "../Components/Carousel";
 
-const Home = () => {
+const Admin = () => {
+  const users = JSON.parse(localStorage.getItem("users"));
+
+  return (
+    <div>
+      {users.map((user) => {
+        return (
+          <div>
+            <h1>Name: {user.name}</h1>
+            <h2>Email: {user.email}</h2>
+            <br />
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div>
       {/* Hero section */}
@@ -61,11 +77,11 @@ const Home = () => {
               StartingPrice={50}
             />
           </div>
-          <Carousel/>
+          <Carousel />
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Admin;

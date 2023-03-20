@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Users = [
   {
@@ -87,7 +89,7 @@ const SignUpForm = () => {
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleStaticSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -168,7 +170,10 @@ const SignUpForm = () => {
           <div className="mt-2 text-grey-600">
             Already have an account?{" "}
             <span>
-              <a className="text-purple-600 hover:underline" href="#">
+              <a
+                className="text-purple-600 hover:underline"
+                href="/signin/client"
+              >
                 Log in
               </a>
             </span>
