@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const db = require("./config/mongoose");
+const db = require("./config/mongoose");
 const cors = require("cors");
 
 app.use(cors());
@@ -97,8 +97,8 @@ app.get("/ads", (req, res) => {
 });
 
 //Use express router
-// app.use("/", require("./routes/index.js"));
+app.use("/api", require("./routes/index.js"));
 
 app.listen(PORT, () => {
-  console.log("Yay");
+  console.log(`Server listening on port ${PORT}`);
 });
