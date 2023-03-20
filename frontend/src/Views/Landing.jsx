@@ -4,6 +4,7 @@ import ServiceCard from "../Components/ServiceCard";
 import Carousel from "../Components/Carousel";
 import CategoryIcons from "../Components/CategoryIcons";
 import { BsCheck2Circle } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -21,19 +22,46 @@ const Landing = () => {
             </p>
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                <a
-                  href="/signup"
+                <Link
+                  to={"/signup"}
+                  // href="/signup"
                   className="py-4 px-6 bg-blue shadow-md shadow-gray-400 hover:scale-105 focus:ring-black text-white text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-500"
                   type="button"
                 >
                   Get started
-                </a>
+                </Link>
               </div>
             </div>
             <div className="mt-10 w-full">
               <Searchbar />
             </div>
           </div>
+        </div>
+      </div>
+      <hr />
+      <div className="w-screen h-20 flex justify-center place-items-center">
+        <p className="hidden xs:flex text-gray-400">Trusted By:</p>
+        <div className="flex justify-between gap-x-5">
+          <img
+            src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/meta.12b5e5c.png"
+            alt="Meta"
+          />
+          <img
+            src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/google.61e78c8.png"
+            alt="Google"
+          />
+          <img
+            src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/netflix.96c5e3f.png"
+            alt="Netflix"
+          />
+          <img
+            src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/pandg.0f4cfc2.png"
+            alt="P&G"
+          />
+          <img
+            src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/paypal.305e264.png"
+            alt="PayPal"
+          />
         </div>
       </div>
       <hr />

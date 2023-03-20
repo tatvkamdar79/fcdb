@@ -17,6 +17,7 @@ const Carousel = () => {
     async function fetchCards() {
       axios.get("http://localhost:8080/ads").then((res) => {
         console.log(res.data);
+        console.log(cards);
         setCards(res.data);
       });
     }
