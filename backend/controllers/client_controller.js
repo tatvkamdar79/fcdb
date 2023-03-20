@@ -1,8 +1,5 @@
 const Client = require("../models/clientSchema");
-
-module.exports.yes = (req, res) => {
-  console.log("YESSS");
-};
+const utils = require("../utils/response");
 
 module.exports.signUp = async function (req, res) {
   try {
@@ -10,29 +7,20 @@ module.exports.signUp = async function (req, res) {
     if (!client) {
       try {
         const newClient = await Client.create(req.body);
-        console.log("In here");
         if (!newClient) {
-          return res.json({
-            status: 200,
-            message: "Some error occurred",
-          });
+          utils.sendError(res, "Failed to create");
         } else {
-          return res.json({
-            status: 200,
-            message: "User created successfully",
+          utils.sendSuccess(res, "User created successfully", {
+            userId: newClient._id,
           });
         }
       } catch (err) {
-        return res.json({
-          status: 200,
-          message: "Some error occurred",
-        });
+        utils.sendError(res, "Server error", {}, 500);
       }
+    } else {
+      utils.sendError(res, "Failed to create");
     }
   } catch (err) {
-    return res.json({
-      status: 200,
-      message: "Some error occurred",
-    });
+    utils.sendError(res, "Server error", {}, 500);
   }
 };
