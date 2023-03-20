@@ -4,7 +4,7 @@ const ServiceCard = ({ id, ServiceName, Link, Description, StartingPrice }) => {
   return (
     <div
       key={id ? id : Math.random()}
-      className="bg-white shadow-md rounded-lg hover:shadow-lg transition duration-300"
+      className="bg-white shadow-md rounded-lg hover:shadow-lg hover:scale-105 transition duration-500"
     >
       <div className="p-4">
         <div className="uppercase tracking-wide text-sm font-semibold">

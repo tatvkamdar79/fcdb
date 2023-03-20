@@ -20,7 +20,7 @@ const Signup = () => {
         <h1 className="font-playfair font-semibold text-5xl text-center my-6 p-4">
           Join as a client or freelancer
         </h1>
-        <div className="z-50 w-full flex flex-col sm:flex-row gap-3 my-4 font-playfair font-semibold text-xl justify-center items-center sm:justify-evenly">
+        <div className="w-full flex flex-col sm:flex-row gap-3 my-4 font-playfair font-semibold text-xl justify-center items-center sm:justify-evenly">
           {/* Client Card */}
           <button
             onClick={setTypeOfUser}
