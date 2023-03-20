@@ -1,15 +1,13 @@
 import Home from "./Views/Landing";
 import Signup from "./Views/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Carousel from "./Components/Carousel";
 import SignUpForm from "./Views/SignUpForm";
 import SignInForm from "./Views/SignInForm";
-import AdCard from "./Components/AdCard";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import Navbar from "./Components/Navbar";
 import Landing from "./Views/Landing";
-import SignInForm from "./Views/SignInForm";
-import AdPage from "./Views/AdPage";
+
+import AdPage from "./Views/CategoryPage";
 
 function App() {
   return (
@@ -26,7 +24,7 @@ function App() {
           <Route path={"/adpage"} element={<AdPage />} />
           // {/* <Route path={"/test"} element={<PostSignUpModal />} /> */}
           <Route path={"/test"} element={<PostSignUpModal />} />
-          <Route path={"/category/:categoryName"} element={<Ads />} />
+          <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -9,7 +9,9 @@ const Navbar = () => {
   const smallScreen = useMediaQuery("(max-width: 490px");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
   // console.log(smallScreen);
+
   const navItems = [
     { id: 1, title: "Explore", link: "/explore", style: "" },
     { id: 2, title: "About", link: "/about", style: "" },
@@ -25,20 +27,22 @@ const Navbar = () => {
 
   const listenScrollEvent = (event) => {
     if (window.scrollY > 5) {
-      console.log(window.scrollY);
+      // console.log(window.scrollY);
       setScrolled(true);
     } else {
       setScrolled(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", listenScrollEvent);
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
+
   return (
     <nav
-      className={`sticky top-0 z-50 w-screen h-[90px] py-5 px-5 border-b-2 border-gray-700 bg-gradient-to-b to-white ${
+      className={`sticky top-0 z-50 w-screen h-[90px] py-5 px-5 border-b-2 border-gray-400 bg-gradient-to-b to-white ${
         scrolled && "from-gray-300"
       }`}
     >
