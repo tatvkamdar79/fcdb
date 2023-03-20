@@ -4,10 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Carousel from "./Components/Carousel";
 import SignUpForm from "./Views/SignUpForm";
 import SignInForm from "./Views/SignInForm";
-
+import AdCard from "./Components/AdCard";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import Navbar from "./Components/Navbar";
 import Landing from "./Views/Landing";
+import Ads from "./Views/Ads";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path={"/signup/client"} element={<SignUpForm />} />
           <Route path={"/signup/freelancer"} element={<SignUpForm />} />
           <Route path={"/test"} element={<PostSignUpModal />} />
+          <Route path={"/category/:categoryName"} element={<Ads />} />
         </Routes>
       </BrowserRouter>
     </>
