@@ -1,34 +1,37 @@
 import Home from "./Views/Landing";
 import Signup from "./Views/Signup";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import SignUpForm from "./Views/SignUpForm";
 import SignInForm from "./Views/SignInForm";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import Navbar from "./Components/Navbar";
 import Landing from "./Views/Landing";
 import CategoryPage from "./Views/CategoryPage";
+import AdPage from "./Views/AdPage";
+import { createContext } from "react";
 
 function App() {
+  const ad = createContext({});
   return (
     <>
       <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<Landing />} />
-          <Route path={"/home"} element={<Home />} />
 
-          {/* Signup Routes */}
-          <Route path={"/signup"} element={<Signup />} />
-          <Route path={"/signup/client"} element={<SignUpForm />} />
-          <Route path={"/signup/freelancer"} element={<SignUpForm />} />
+      <Routes>
+        <Route path={"/"} element={<Landing />} />
+        <Route path={"/home"} element={<Home />} />
 
-          {/* Signin Routes */}
-          <Route path={"/signin"} element={<SignInForm />} />
+        {/* Signup Routes */}
+        <Route path={"/signup"} element={<Signup />} />
+        <Route path={"/signup/client"} element={<SignUpForm />} />
+        <Route path={"/signup/freelancer"} element={<SignUpForm />} />
 
-          {/* Individual Category Page */}
-          <Route path={"/categories/:categoryName"} element={<CategoryPage />} />
-        </Routes>
-      </BrowserRouter>
+        {/* Signin Routes */}
+        <Route path={"/signin"} element={<SignInForm />} />
+
+        {/* Individual Category and Ad Page */}
+        <Route path={"/categories/:categoryName"} element={<CategoryPage />} />
+        <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
+      </Routes>
     </>
   );
 }

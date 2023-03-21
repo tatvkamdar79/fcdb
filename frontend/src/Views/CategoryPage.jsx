@@ -4,19 +4,54 @@ import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import axios from "axios";
+
 const CategoryPage = () => {
   const { categoryName } = useParams();
-  const [ads, setAds] = useState([]);
-
-  // const [ads, setAds] = useState([
-  //   {id: 1,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 2,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 3,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 4,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 5,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 6,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  //   {id: 7,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
-  // ]);
+  // const [ads, setAds] = useState([]);
+  const [ads, setAds] = useState([
+    {
+      id: 1,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 2,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 3,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 4,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 5,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 6,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+    {
+      id: 7,
+      user: "Tatva Kamdar",
+      description: "This is my name bla bla bla some content",
+      price: 2000,
+    },
+  ]);
 
   // Styling Properties
   const isAboveSmallScreens = useMediaQuery("(min-width: 1730px)");
@@ -30,36 +65,36 @@ const CategoryPage = () => {
     // Filter Logic
   };
 
-  useEffect(() => {
-    async function getCategoryData() {
-      const apiUrl = "";
-      try {
-        const data = await axios.get(apiUrl);
-        return data;
-      } catch (error) {
-        console.log("error", error.response.status);
-        return [];
-      }
-    }
-    // getCategoryData();
-    async function setLocalStrorageCache() {
-      if (localStorage.categories === undefined) {
-        localStorage.setItem("categories", JSON.stringify({}));
-      }
+  // useEffect(() => {
+  //   async function getCategoryData() {
+  //     const apiUrl = "";
+  //     try {
+  //       const data = await axios.get(apiUrl);
+  //       return data;
+  //     } catch (error) {
+  //       console.log("error", error.response.status);
+  //       return [];
+  //     }
+  //   }
+  //   // getCategoryData();
+  //   async function setLocalStrorageCache() {
+  //     if (localStorage.categories === undefined) {
+  //       localStorage.setItem("categories", JSON.stringify({}));
+  //     }
 
-      let categories = JSON.parse(localStorage.getItem("categories"));
+  //     let categories = JSON.parse(localStorage.getItem("categories"));
 
-      if (categories[categoryName] === undefined) {
-        categories[categoryName] = ads; //await getCategoryData();
-      }
+  //     if (categories[categoryName] === undefined) {
+  //       categories[categoryName] = ads; //await getCategoryData();
+  //     }
 
-      setAds(categories[categoryName]);
+  //     setAds(categories[categoryName]);
 
-      localStorage.setItem("categories", JSON.stringify(categories));
-    }
+  //     localStorage.setItem("categories", JSON.stringify(categories));
+  //   }
 
-    setLocalStrorageCache();
-  }, []);
+  //   setLocalStrorageCache();
+  // }, []);
 
   return (
     <div className="w-screen flex flex-col">
@@ -98,10 +133,11 @@ const CategoryPage = () => {
             : "grid-cols-1 xs:grid-cols-2 lg:grid-cols-3"
         } justify-center mx-auto place-items-center gap-y-10`}
       >
-        {ads.map(({ id, user, Description, price }) => (
+        {ads.map((ad) => (
           <Link
-            key={id}
-            to={"/categories/"}
+            key={ad.id}
+            to={`/categories/${categoryName}/${ad.id}`}
+            state={ad}
             className="shadow-md shadow-gray-400 w-[250px] sm:w-[300px] md:w-[350px] hover:scale-105 transition-all duration-500"
           >
             <img
@@ -111,17 +147,15 @@ const CategoryPage = () => {
             />
             <div className="flex justify-start place-items-center px-2 my-2 py-2 font-semibold">
               <FaUserCircle size={22} className="mr-2" />
-              <h2>Tatv Kamdar</h2>
+              <h2>{ad.user}</h2>
             </div>
-            <p className="px-1 py-1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum.
-            </p>
+            <p className="px-1 py-1">{ad.description}</p>
             <hr className="my-2" />
             <div className="flex justify-between place-items-center px-4 pb-1">
               <SlLike size={22} />
               <div className="flex flex-col justify-end place-items-end">
                 <p>Starting at</p>
-                <p>99/-</p>
+                <p>{ad.price}</p>
               </div>
             </div>
           </Link>
