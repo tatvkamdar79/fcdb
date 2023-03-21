@@ -6,8 +6,7 @@ import SignInForm from "./Views/SignInForm";
 import PostSignUpModal from "./Components/PostSignUpModal";
 import Navbar from "./Components/Navbar";
 import Landing from "./Views/Landing";
-
-import AdPage from "./Views/CategoryPage";
+import CategoryPage from "./Views/CategoryPage";
 
 function App() {
   return (
@@ -17,14 +16,17 @@ function App() {
         <Routes>
           <Route path={"/"} element={<Landing />} />
           <Route path={"/home"} element={<Home />} />
+
+          {/* Signup Routes */}
           <Route path={"/signup"} element={<Signup />} />
           <Route path={"/signup/client"} element={<SignUpForm />} />
           <Route path={"/signup/freelancer"} element={<SignUpForm />} />
+
+          {/* Signin Routes */}
           <Route path={"/signin"} element={<SignInForm />} />
-          <Route path={"/adpage"} element={<AdPage />} />
-          // {/* <Route path={"/test"} element={<PostSignUpModal />} /> */}
-          <Route path={"/test"} element={<PostSignUpModal />} />
-          <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
+
+          {/* Individual Category Page */}
+          <Route path={"/categories/:categoryName"} element={<CategoryPage />} />
         </Routes>
       </BrowserRouter>
     </>

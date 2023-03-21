@@ -4,53 +4,19 @@ import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import axios from "axios";
-const AdPage = () => {
+const CategoryPage = () => {
   const { categoryName } = useParams();
+  const [ads, setAds] = useState([]);
 
-  const [ads, setAds] = useState([
-    {
-      id: 1,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 2,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 3,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 4,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 5,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 6,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-    {
-      id: 7,
-      user: "Tatva Kamdar",
-      Description: "This is my name bla bla bla some content",
-      Price: "aukat ke bahar",
-    },
-  ]);
+  // const [ads, setAds] = useState([
+  //   {id: 1,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 2,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 3,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 4,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 5,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 6,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  //   {id: 7,user: "Tatva Kamdar",Description: "This is my name bla bla bla some content",Price: "aukat ke bahar",},
+  // ]);
 
   // Styling Properties
   const isAboveSmallScreens = useMediaQuery("(min-width: 1730px)");
@@ -84,7 +50,7 @@ const AdPage = () => {
       let categories = JSON.parse(localStorage.getItem("categories"));
 
       if (categories[categoryName] === undefined) {
-        categories[categoryName] = ads//await getCategoryData();
+        categories[categoryName] = ads; //await getCategoryData();
       }
 
       setAds(categories[categoryName]);
@@ -165,4 +131,4 @@ const AdPage = () => {
   );
 };
 
-export default AdPage;
+export default CategoryPage;
