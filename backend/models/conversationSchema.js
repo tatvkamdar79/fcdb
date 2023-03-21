@@ -7,7 +7,7 @@ const objectId = Schema.Types.ObjectId;
 const conversationSchema = new Schema({
   adId: {
     type: objectId,
-    red: "ads",
+    ref: "ads",
     required: true,
   },
   freelancer: {

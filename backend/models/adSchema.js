@@ -26,17 +26,15 @@ const adSchema = new Schema({
     default: true,
     required: true,
   },
-  minPrice: {
+  price: {
     type: Number,
     required: true,
     min: 0,
     max: 100000,
   },
-  maxPrice: {
-    type: Number,
+  category: {
+    type: String,
     required: true,
-    min: this.minPrice,
-    max: 100000,
   },
 });
 
