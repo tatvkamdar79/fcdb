@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const db = require("./config/mongoose");
 const cors = require("cors");
-const client = require("./models/clientSchema");
+
 app.use(cors());
 
 const PORT = process.env.PORT || 8080;
@@ -15,6 +15,7 @@ app.set("port", PORT);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./assests"));
+app.use(require("./middlewares/auth").setAuthenticatedUser);
 
 //Initializing passport
 // const passport = require("passport")
@@ -35,7 +36,9 @@ app.use(express.static("./assests"));
 // const authRoutes = require('./routes/OAuth');
 // authRoutes(app);
 
-app.get("/ads", (req, res) => {
+app.get("/ads", async (req, res) => {
+  // const d = await fetch("http://localhost:8080/ads");
+  // console.log(d);
   res.json([
     {
       id: 1,

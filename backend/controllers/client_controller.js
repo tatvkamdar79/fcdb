@@ -42,6 +42,7 @@ module.exports.signUp = async function (req, res) {
 
 module.exports.signIn = async function (req, res) {
   const userEmail = req.body.email;
+  console.log(req.user);
   try {
     const user = await Client.findOne({ email: userEmail });
     if (!user) {
@@ -54,7 +55,10 @@ module.exports.signIn = async function (req, res) {
       if (!validPassword) {
         utils.sendError(res, "Invalid password");
       } else {
-        const token = jsonWebToken.sign({ userId: user._id }, secretKey);
+        const token = jsonWebToken.sign(
+          { id: user._id, role: "client" },
+          secretKey
+        );
         utils.sendSuccess(res, "User logged in successfully", {
           token: token,
         });

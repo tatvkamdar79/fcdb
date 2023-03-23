@@ -12,23 +12,12 @@ const freelancerSchema = new Schema({
     required: true,
     unique: true,
   },
-  recoveryEmail: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
   ifOAuth: {
     type: Boolean,
   },
 
   password: {
     type: String,
-    required: this.ifOAuth ? false : true,
   },
   phoneNumber: {
     type: String,
@@ -40,9 +29,11 @@ const freelancerSchema = new Schema({
   },
   ads: [
     {
-      adId: Schema.Types.ObjectId,
-      unique: true,
-      ref: "ads",
+      adId: {
+        type: Schema.Types.ObjectId,
+        unique: true,
+        ref: "ads",
+      },
     },
   ],
   workingWith: [
