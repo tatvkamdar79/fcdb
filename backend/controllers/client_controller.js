@@ -46,8 +46,9 @@ module.exports.signIn = async function (req, res) {
   console.log(req.body);
   try {
     const user = await Client.findOne({ email: userEmail });
+    console.log(user);
     if (!user) {
-      utils.sendSuccess(res, "User not found", { email: userEmail });
+      utils.sendError(res, "User not found", {}, 401);
     } else {
       const validPassword = await bcrypt.compare(
         req.body.password,
