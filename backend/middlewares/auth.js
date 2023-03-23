@@ -5,8 +5,11 @@ const utils = require("../utils/response");
 
 module.exports.setAuthenticatedUser = async function (req, res, next) {
   console.log(req.headers.authorization);
+  console.log("Hello");
   if (!req.headers || !req.headers.authorization) {
-    return next();
+    console.log("NO cookie");
+    next();
+    return;
   }
   let user;
   const token = req.headers.authorization.split(" ")[1];

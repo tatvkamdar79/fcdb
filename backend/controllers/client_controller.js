@@ -41,8 +41,9 @@ module.exports.signUp = async function (req, res) {
 };
 
 module.exports.signIn = async function (req, res) {
+  console.log("Reached here");
   const userEmail = req.body.email;
-  console.log(req.user);
+  console.log(req.body);
   try {
     const user = await Client.findOne({ email: userEmail });
     if (!user) {
