@@ -5,15 +5,6 @@ const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
 
 module.exports.signUp = async function (req, res) {
-  req.body.ifOAuth = true;
-  console.log(typeof req.body.ifOAuth);
-
-  if (!req.body.password) {
-    const newClient = await Client.create({
-      ...req.body,
-    });
-    return utils.sendSuccess(res, "noice", newClient);
-  }
   try {
     const client = await Client.findOne({ email: req.body.email });
     if (!client) {

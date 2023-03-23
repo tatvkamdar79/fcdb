@@ -19,10 +19,6 @@ const clientSchema = new Schema({
   password: {
     type: String,
   },
-  phoneNumber: {
-    type: String,
-    required: true,
-  },
 });
 
 const client = mongoose.model("client", clientSchema);

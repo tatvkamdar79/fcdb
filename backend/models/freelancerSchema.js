@@ -72,7 +72,7 @@ const freelancerSchema = new Schema({
       type: String,
       required: false,
     },
-    upiNumber: {  
+    upiNumber: {
       type: String,
       required: false,
     },
