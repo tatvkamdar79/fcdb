@@ -17,24 +17,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./assests"));
 app.use(require("./middlewares/auth").setAuthenticatedUser);
 
-//Initializing passport
-// const passport = require("passport")
-// app.use(passport.initialize())
-// app.use(passport.session())
-// require('./services/passport');
+// Managing cookies
 
-//Managing cookies
-// const cookieSession = require("cookie-session")
-// app.use(
-//     cookieSession({
-//         maxAge:30*24*60*60*1000,
-//         keys:[process.env.cookieKey]
-//     })
-// )
+const cookieSession = require("cookie-session")
+app.use(
+    cookieSession({
+        maxAge:30*24*60*60*1000,
+        keys:[process.env.cookieKey]
+    })
+)
 
-//Importing OAuth routes
-// const authRoutes = require('./routes/OAuth');
-// authRoutes(app);
+// Initializing passport
+const passport = require("passport")
+require('./controllers/passport');
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
+
+// Importing OAuth routes
+const authRoutes = require('./routes/OAuth');
+authRoutes(app);
 
 app.get("/ads", async (req, res) => {
   // const d = await fetch("http://localhost:8080/ads");
