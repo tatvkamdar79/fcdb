@@ -45,11 +45,11 @@ const SignUpForm = () => {
     let usersList = JSON.parse(localStorage.getItem("users"));
     console.log(usersList);
     let isUserRegistered = usersList.filter(
-      (user) => user.email == formDetails.email
+      (user) => user.email === formDetails.email
     );
     if (
-      isUserRegistered.length == 0 &&
-      formDetails.password == formDetails.confirmPassword
+      isUserRegistered.length === 0 &&
+      formDetails.password === formDetails.confirmPassword
     ) {
       const newUser = {
         email: formDetails.email,
@@ -67,7 +67,7 @@ const SignUpForm = () => {
       "content-type": "application/x-www-form-urlencoded",
     };
 
-    const url = "http://localhost:8080/client/sign-up";
+    const url = "http://localhost:8080/api/client/signup";
     await axios
       .post(url, formDetails, { headers })
       .then((response) => {
@@ -87,7 +87,7 @@ const SignUpForm = () => {
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-          <form onSubmit={handleStaticSubmit}>
+          <form onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
