@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
-import axios from "axios";
+// import axios from "axios";
 
 const CategoryPage = () => {
   const { categoryName } = useParams();

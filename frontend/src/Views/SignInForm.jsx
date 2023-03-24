@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import { bake_cookie, read_cookie } from "sfcookies";
 
 const Users = [
   {
@@ -20,6 +20,7 @@ const Users = [
 
 const SignInForm = () => {
   const navigate = useNavigate();
+  // console.log(read_cookie("JWT_AUT").length === 0);
   const initialFormDetails = {
     email: "",
     password: "",
@@ -34,6 +35,7 @@ const SignInForm = () => {
 
   async function getUserDetails() {
     const jwtToken = read_cookie("JWT_AUTH");
+
     const headers = {
       authorization: `Bearer ${jwtToken}`,
     };
@@ -59,10 +61,15 @@ const SignInForm = () => {
           console.log(response);
           // code to set jwt and user details in cookies
           const cookieKey = "JWT_AUTH";
-          bake_cookie(cookieKey, response.data.data.token);
+          let d = new Date();
+          d.setTime(d.getTime() + 10 * 1000);
+          bake_cookie(
+            cookieKey,
+            response.data.data.token + ";expires=" + d.toUTCString() + ";"
+          );
           let user = await getUserDetails();
           console.log(user);
-          
+
           navigate("/home");
         }
       })
