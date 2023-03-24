@@ -10,7 +10,6 @@ const freelancerSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   ifOAuth: {
     type: Boolean,
