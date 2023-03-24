@@ -9,18 +9,9 @@ const freelancerSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
-  ifOAuth: {
-    type: Boolean,
-  },
-
   password: {
     type: String,
-  },
-  phoneNumber: {
-    type: String,
-    required: true,
   },
   about: {
     type: String,
@@ -34,26 +25,22 @@ const freelancerSchema = new Schema({
   ],
   workingWith: [
     {
-      clientDetails: {
-        clientId: {
-          type: Schema.Types.ObjectId,
-          ref: "clients",
-          required: true,
-        },
+      clientId: {
+        type: Schema.Types.ObjectId,
+        ref: "clients",
+        required: true,
       },
-      adDetails: {
-        adId: {
-          type: Schema.Types.ObjectId,
-          ref: "ads",
-          required: true,
-        },
+      adId: {
+        type: Schema.Types.ObjectId,
+        ref: "ads",
+        required: true,
       },
     },
   ],
   transactionDetails: {
     accountNumber: {
       type: String,
-      required: true,
+      required: false,
     },
     upiId: {
       type: String,
