@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 
 const Users = [
   {
@@ -17,6 +19,7 @@ const Users = [
 ];
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const initialFormDetails = {
     email: "",
     password: "",
@@ -29,14 +32,16 @@ const SignInForm = () => {
     setFormDetails(updatedValue);
   };
 
-  async function handleStaticSubmit(e) {
-    e.preventDefault();
-    let usersList = JSON.parse(localStorage.getItem("users"));
-    const user = usersList.filter(
-      (user) =>
-        user.email == formDetails.email && user.password == formDetails.password
-    );
-    console.log(user.length > 0 ? "Signed In" : "Invalid Credentials");
+  async function getUserDetails() {
+    const jwtToken = read_cookie("JWT_AUTH");
+    const headers = {
+      authorization: `Bearer ${jwtToken}`,
+    };
+    const response = await axios.get("http://localhost:8080/api/getUser", {
+      headers,
+    });
+    console.log(response);
+    return response.data.data;
   }
 
   async function handleSubmit(e) {
@@ -46,11 +51,20 @@ const SignInForm = () => {
       "content-type": "application/x-www-form-urlencoded",
     };
 
-    const url = "http://localhost:8080/client/sign-up";
+    const url = "http://localhost:8080/api/client/signin";
     await axios
       .post(url, formDetails, { headers })
-      .then((response) => {
-        console.log(response);
+      .then(async (response) => {
+        if (response.status + 100 >= 300) {
+          console.log(response);
+          // code to set jwt and user details in cookies
+          const cookieKey = "JWT_AUTH";
+          bake_cookie(cookieKey, response.data.data.token);
+          let user = await getUserDetails();
+          console.log(user);
+          
+          navigate("/home");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +80,7 @@ const SignInForm = () => {
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-          <form onSubmit={handleStaticSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="mt-4">
               <label
                 htmlFor="email"
