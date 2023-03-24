@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Freelancer = require("./freelancerSchema");
 const Schema = mongoose.Schema;
 
 const adSchema = new Schema({
@@ -17,14 +17,10 @@ const adSchema = new Schema({
       required: false,
     },
   ],
-  freelancerId: {
-    type: mongoose.ObjectId,
-    ref: "freelancers",
-  },
+  freelancer: [Freelancer.schema],
   viewState: {
     type: Boolean,
     default: true,
-    required: true,
   },
   price: {
     type: Number,
