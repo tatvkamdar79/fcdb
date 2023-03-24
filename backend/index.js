@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const db = require("./config/mongoose");
 const cors = require("cors");
 const f = require("./models/freelancerSchema");
+const a = require("./models/adSchema");
+const c = require("./models/clientSchema");
 
 app.use(cors());
 

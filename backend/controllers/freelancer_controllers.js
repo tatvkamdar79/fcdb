@@ -24,7 +24,7 @@ module.exports.signUp = async function (req, res) {
           });
         }
       } catch (err) {
-        utils.sendError(res, "Server error 1", {}, 500);
+        // utils.sendError(res, "Server error 1", {}, 500);
         throw err;
       }
     } else {
