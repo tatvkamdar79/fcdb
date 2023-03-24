@@ -9,6 +9,7 @@ import Landing from "./Views/Landing";
 import CategoryPage from "./Views/CategoryPage";
 import AdPage from "./Views/AdPage";
 import { createContext } from "react";
+import { Test } from "./Components/Test";
 
 function App() {
   const ad = createContext({});
@@ -31,6 +32,7 @@ function App() {
         {/* Individual Category and Ad Page */}
         <Route path={"/categories/:categoryName"} element={<CategoryPage />} />
         <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
+        <Route path={"/oauth"} element={<Test/>}></Route>
       </Routes>
     </>
   );
