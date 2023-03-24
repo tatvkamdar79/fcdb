@@ -4,10 +4,8 @@ const jsonWebToken = require("jsonwebtoken");
 const utils = require("../utils/response");
 
 module.exports.setAuthenticatedUser = async function (req, res, next) {
-  console.log(req.headers.authorization);
-  console.log("Hello");
   if (!req.headers || !req.headers.authorization) {
-    console.log("NO cookie");
+    console.log("NO Header provided, sign in");
     next();
     return;
   }
@@ -16,13 +14,13 @@ module.exports.setAuthenticatedUser = async function (req, res, next) {
   const data = jsonWebToken.verify(token, process.env.SECRET_KEY);
   if (data.role == "client") {
     try {
-      user = await Client.findById(data.id);
+      user = await Client.findById(data.id, { password: 0 });
     } catch (err) {
       return utils.sendError(res, err);
     }
   } else {
     try {
-      user = await Freelancer.findById(data.id);
+      user = await Freelancer.findById(data.id, { password: 0 });
     } catch (err) {
       return utils.sendError(res, err);
     }
