@@ -15,6 +15,14 @@ const userData = createContext({});
 function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState({}); //{ name: "TATV" });
+  useEffect(() => {
+    console.log(document.cookie.split("="));
+    if (document.cookie.split("=").length > 0) {
+      // api call here
+      setUser({ name: "TATV" });
+      navigate("/home");
+    }
+  }, []);
   return (
     <>
       <Navbar />

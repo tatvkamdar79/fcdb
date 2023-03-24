@@ -62,13 +62,15 @@ const SignInForm = () => {
           // code to set jwt and user details in cookies
           const cookieKey = "JWT_AUTH";
           let d = new Date();
-          d.setTime(d.getTime() + 10 * 1000);
-          bake_cookie(
-            cookieKey,
-            response.data.data.token + ";expires=" + d.toUTCString() + ";"
-          );
-          let user = await getUserDetails();
-          console.log(user);
+          d.setTime(d.getTime() + 3600 * 1000);
+          document.cookie =
+            cookieKey +
+            "=" +
+            response.data.data.token +
+            ";expires=" +
+            d.toUTCString() +
+            ";" +
+            "path=/;";
 
           navigate("/home");
         }
