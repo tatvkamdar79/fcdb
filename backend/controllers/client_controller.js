@@ -12,31 +12,27 @@ module.exports.signUp = async function (req, res) {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         console.log(req.body);
-        try {
-          const newClient = await Client.create({
-            ...req.body,
-            password: hashedPassword,
+        const newClient = await Client.create({
+          ...req.body,
+          password: hashedPassword,
+        });
+        if (!newClient) {
+          utils.sendError(res, "Failed to create, server error");
+        } else {
+          utils.sendSuccess(res, "User created successfully", {
+            userId: newClient._id,
           });
-
-          console.log(newClient);
-          if (!newClient) {
-            utils.sendError(res, "Failed to create");
-          } else {
-            utils.sendSuccess(res, "User created successfully", {
-              userId: newClient._id,
-            });
-          }
-        } catch (e) {
-          console.log(e);
         }
       } catch (err) {
         utils.sendError(res, "Server error 1", {}, 500);
+        throw err;
       }
     } else {
-      utils.sendError(res, "Failed to create 2");
+      utils.sendError(res, "Failed to create, User already exists");
     }
   } catch (err) {
-    utils.sendError(res, "Server error 2", {}, 500);
+    utils.sendError(res, "Server error", {}, 500);
+    throw err;
   }
 };
 
@@ -68,5 +64,6 @@ module.exports.signIn = async function (req, res) {
     }
   } catch (err) {
     utils.sendError(res, err);
+    throw err;
   }
 };

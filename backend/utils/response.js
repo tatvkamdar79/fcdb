@@ -1,5 +1,3 @@
-const express = require("express");
-
 function sendResponse(response, message, data, success, statusCode) {
   response.status(statusCode).send({
     success,
