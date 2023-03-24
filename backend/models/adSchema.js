@@ -1,58 +1,7 @@
 const mongoose = require("mongoose");
 const Freelancer = require("./freelancerSchema");
-const Schema = mongoose.Schema;
 
-const l = {
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-  },
-  about: {
-    type: String,
-    required: true,
-  },
-  ads: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "ad",
-    },
-  ],
-  workingWith: [
-    {
-      clientId: {
-        type: Schema.Types.ObjectId,
-        ref: "clients",
-        required: true,
-      },
-      adId: {
-        type: Schema.Types.ObjectId,
-        ref: "ads",
-        required: true,
-      },
-    },
-  ],
-  transactionDetails: {
-    accountNumber: {
-      type: String,
-      required: false,
-    },
-    upiId: {
-      type: String,
-      required: false,
-    },
-    upiNumber: {
-      type: String,
-      required: false,
-    },
-  },
-};
+const Schema = mongoose.Schema;
 
 const adSchema = new Schema({
   title: {
@@ -69,10 +18,11 @@ const adSchema = new Schema({
       required: false,
     },
   ],
-  freelancer: l,
+  freelancer: Freelancer.schema,
   viewState: {
     type: Boolean,
     default: true,
+    required: true,
   },
   price: {
     type: Number,
