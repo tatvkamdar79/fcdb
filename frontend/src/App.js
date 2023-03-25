@@ -32,6 +32,8 @@ function App() {
         {/* Individual Category and Ad Page */}
         <Route path={"/categories/:categoryName"} element={<CategoryPage />} />
         <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
+
+        {/* Tested OAuth route */}
         <Route path={"/oauth"} element={<Test/>}></Route>
       </Routes>
     </>
