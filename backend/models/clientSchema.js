@@ -23,7 +23,6 @@ const clientSchema = new Schema({
       freelancerId: {
         type: Schema.Types.ObjectId,
         ref: "freelancers",
-        required: true,
       },
       freelancerName: {
         type: String,
@@ -41,6 +40,10 @@ const clientSchema = new Schema({
       adTitle: {
         type: String,
         required: true,
+      },
+      isAdActive: {
+        type: Boolean,
+        default: true,
       },
     },
   ],

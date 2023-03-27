@@ -1,32 +1,22 @@
-const Client = require("../models/clientSchema");
-const Freelancer = require("../models/freelancerSchema");
-const jsonWebToken = require("jsonwebtoken");
 const utils = require("../utils/response");
+const Conversation = require("../models/conversationSchema");
 
 module.exports = async (req, res) => {
-  let user;
-  const token = req.headers.authorization.split(" ")[1];
-  const data = jsonWebToken.verify(token, process.env.SECRET_KEY);
-  if (data.role == "client") {
-    try {
-      user = await Client.findById(data.id, (Omit = { password: false }));
-    } catch (err) {
-      return utils.sendError(res, err);
-    }
-  } else {
-    try {
-      user = await Freelancer.findById(data.id);
-    } catch (err) {
-      return utils.sendError(res, err);
+  let result = {
+    user: req.user,
+    messages: [],
+  };
+  let conversations = await Conversation.find({
+    $or: [{ clientId: req.user._id }, { freelancerId: req.user._id }],
+  });
+  for (let conversation of conversations) {
+    for (let message of conversation.messages) {
+      result.messages.push(message);
     }
   }
-  if (!user) {
-    return utils.sendError(res, "User not found");
-  } else {
-    console.log(typeof user);
-    delete user.password;
-    console.log(user);
-
-    utils.sendSuccess(res, "Got User Successfully", user, 200);
-  }
+  result.messages.sort(function (a, b) {
+    return a - b < 0 ? 1 : -1;
+  });
+  if (req.user) utils.sendSuccess(res, "Got User Successfully", result, 200);
+  else utils.sendError(res, "Please sign in");
 };

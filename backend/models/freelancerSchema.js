@@ -28,7 +28,6 @@ const freelancerSchema = new Schema({
     {
       adId: {
         type: Schema.Types.ObjectId,
-        unique: true,
         ref: "ads",
       },
     },
@@ -56,6 +55,10 @@ const freelancerSchema = new Schema({
       adTitle: {
         type: String,
         required: true,
+      },
+      isAdActive: {
+        type: Boolean,
+        default: true,
       },
     },
   ],
