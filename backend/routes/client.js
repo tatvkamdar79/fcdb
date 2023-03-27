@@ -4,5 +4,7 @@ const clientController = require("../controllers/client_controller");
 
 router.post("/signup", clientController.signUp);
 router.post("/signin", clientController.signIn);
+router.get("/getActiveAds", clientController.getActiveAds);
+router.get("/getPreviousAds", clientController.getPreviousAds);
 
 module.exports = router;

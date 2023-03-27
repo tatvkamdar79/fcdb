@@ -9,7 +9,7 @@ function sendResponse(response, message, data, success, statusCode) {
 module.exports.sendSuccess = function (
   response,
   message,
-  data,
+  data = {},
   statusCode = 200
 ) {
   sendResponse(response, message, data, true, statusCode);

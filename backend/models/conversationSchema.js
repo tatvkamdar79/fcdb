@@ -24,12 +24,9 @@ const conversationSchema = new Schema({
     {
       message: {
         type: String,
-        required: true,
       },
       sender: {
         type: objectId,
-        enum: [this.freelancer, this.client],
-        require: true,
       },
       timestamps: { createdAt: true, updatedAt: false },
     },

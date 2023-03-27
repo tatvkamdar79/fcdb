@@ -8,24 +8,18 @@ module.exports.signUp = async function (req, res) {
   try {
     const freelancer = await Freelancer.findOne({ email: req.body.email });
     if (!freelancer) {
-      try {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log(req.body);
-        const newFreelancer = await Freelancer.create({
-          ...req.body,
-          password: hashedPassword,
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      const newFreelancer = await Freelancer.create({
+        ...req.body,
+        password: hashedPassword,
+      });
+      if (!newFreelancer) {
+        utils.sendError(res, "Failed to create, server error");
+      } else {
+        utils.sendSuccess(res, "User created successfully", {
+          userId: newFreelancer._id,
         });
-        if (!newFreelancer) {
-          utils.sendError(res, "Failed to create, server error");
-        } else {
-          utils.sendSuccess(res, "User created successfully", {
-            userId: newFreelancer._id,
-          });
-        }
-      } catch (err) {
-        // utils.sendError(res, "Server error 1", {}, 500);
-        throw err;
       }
     } else {
       utils.sendError(res, "Failed to create, User already exists");
@@ -65,4 +59,20 @@ module.exports.signIn = async function (req, res) {
     utils.sendError(res, err);
     throw err;
   }
+};
+
+module.exports.getFreelancer = async (req, res) => {
+  let freelancer = await freelancer.findById(req.params.clientId);
+  if (freelancer) {
+    utils.sendSuccess(res, `freelancer ${freelancer.name}`, freelancer);
+  } else {
+    utils.sendError(res, "No such freelancer found");
+  }
+};
+
+module.exports.updateFreelancer = async (req, res) => {
+  const freelancer = await Freelancer.findByIdAndUpdate(req.user._id, {
+    ...req.body,
+  });
+  return utils.sendSuccess(res, "Settings updated");
 };

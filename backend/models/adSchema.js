@@ -19,6 +19,12 @@ const adSchema = new Schema({
     },
   ],
   freelancer: Freelancer.schema,
+  clientIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "clients",
+    },
+  ],
   viewState: {
     type: Boolean,
     default: true,
