@@ -10,12 +10,12 @@ const conversationSchema = new Schema({
     ref: "ads",
     required: true,
   },
-  freelancer: {
+  freelancerId: {
     type: objectId,
     ref: "freelancers",
     required: true,
   },
-  client: {
+  clientId: {
     type: objectId,
     ref: "clients",
     required: true,
@@ -28,7 +28,14 @@ const conversationSchema = new Schema({
       sender: {
         type: objectId,
       },
-      timestamps: { createdAt: true, updatedAt: false },
+      isViewed: {
+        type: Boolean,
+        default: false,
+      },
+      timestamps: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
 });
