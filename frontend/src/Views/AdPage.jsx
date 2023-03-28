@@ -9,6 +9,7 @@ import { RiStarSFill } from "react-icons/ri";
 
 const AdPage = () => {
   const { categoryName, id } = useParams();
+  console.log(id);
   let { state } = useLocation();
   const ad = { ...state };
   console.log(ad);

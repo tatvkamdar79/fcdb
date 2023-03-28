@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../App";
 import Carousel from "../Components/Carousel";
 
@@ -9,38 +10,40 @@ const Home = () => {
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
     setTimeout(() => {
-      console.log("waiting");
+      // console.log("waiting");
       setCurrentUser(user.user);
     }, 2000);
-    console.log(currentUser);
+    // console.log(currentUser);
   }, []);
-  console.log("CU", currentUser);
+  // console.log("CU", currentUser);
   // console.log(conversations);
   // const x = "https://media.tenor.com/5JWmM_Hd3rIAAAAC/loading-windows98.gif";
   // const x = "https://media.tenor.com/FawYo00tBekAAAAC/loading-thinking.gif";
   // const x =
   // "";
   return (
-    <div className="w-11/12 xl:w-5/6 mx-auto">
+    <div className="w-screen lg:w-11/12 xl:w-5/6 mx-auto">
       <div className="flex flex-col">
-        <p className="text-3xl font-serif font-bold text-gray-800">
+        <p className="text-3xl font-serif font-bold text-gray-800 pt-5">
           Welcome, {currentUser?.name}
         </p>
-        <div className="flex justify-center p-10">
-          <div className="grid grid-cols-3 w-full place-items-center justify-between">
+        <div className="flex justify-center py-5">
+          <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 w-full place-items-center justify-between gap-y-5 transition-all">
+            <Link to={"/client/ads-in-progress"}>
+              <div
+                className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+                style={{
+                  backgroundImage:
+                    "url(" +
+                    "https://bestanimations.com/media/loading-gears/2074796765loading-gears-animation-3.gif" +
+                    ")",
+                }}
+              >
+                Ads in Progress
+              </div>
+            </Link>
             <div
-              className="border border-gray-500 rounded-md w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
-              style={{
-                backgroundImage:
-                  "url(" +
-                  "https://bestanimations.com/media/loading-gears/2074796765loading-gears-animation-3.gif" +
-                  ")",
-              }}
-            >
-              Ads in Progress
-            </div>
-            <div
-              className="border border-gray-500 rounded-md w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+              className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
               style={{
                 backgroundImage:
                   "url(" +
@@ -51,7 +54,7 @@ const Home = () => {
               Completed Ads
             </div>
             <div
-              className="border border-gray-500 rounded-md w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+              className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
               style={{
                 backgroundImage:
                   "url(" +
@@ -63,7 +66,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         <p className="text-2xl font-serif font-bold">Categories</p>
         <Carousel />
       </div>

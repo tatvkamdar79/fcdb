@@ -22,7 +22,7 @@ const CategoryPage = () => {
   // const [ads, setAds] = useState([]);
   const [ads, setAds] = useState([
     {
-      id: 1,
+      id: "6421749b53a93676f3f21689",
       user: "Tatva Kamdar",
       title: "Title: Full Stack App",
       aboutAd: "About the Ad: I will make a full stack application for you",

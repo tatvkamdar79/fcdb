@@ -20,6 +20,7 @@ import { getCookie, setCookie } from "./Hooks/useCookies";
 import axios from "axios";
 import Chat from "./Views/Chat";
 import CreateAd from "./Views/CreateAd";
+import AdsInProgress from "./Views/AdsInProgress";
 
 const UserContext = createContext({});
 
@@ -80,18 +81,25 @@ function App() {
           {/* User Authenticated Routes */}
           <Route element={<UserAuthContext user={user} />}>
             <Route path={"/home"} element={<Home />} />
+            <Route
+              path={"/categories/:categoryName"}
+              element={<CategoryPage />}
+            />
+            <Route path={"/createAd"} element={<CreateAd />} />
+            <Route
+              path={"/categories/:categoryName/:id"}
+              element={<AdPage />}
+            />
+            <Route
+              path={"/categories/:categoryName/:id/chat"}
+              element={<Chat />}
+            />
+            <Route
+              path={"/client/ads-in-progress"}
+              element={<AdsInProgress />}
+            />
           </Route>
           {/* User Authenticated Routes */}
-          <Route
-            path={"/categories/:categoryName"}
-            element={<CategoryPage />}
-          />
-          <Route path={"/createAd"} element={<CreateAd />} />
-          <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
-          <Route
-            path={"/categories/:categoryName/:id/chat"}
-            element={<Chat />}
-          />
 
           {/* Signup Routes */}
           <Route path={"/signup"} element={<Signup />} />
