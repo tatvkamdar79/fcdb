@@ -49,6 +49,7 @@ function App() {
       console.log("messages", messages);
       fetchedData["loggedIn"] = true;
       setUser(fetchedData);
+      console.log("fetch", fetchedData);
       return;
     }
     if (!user.loggedIn) {
@@ -86,7 +87,6 @@ function App() {
             element={<CategoryPage />}
           />
           <Route path={"/createAd"} element={<CreateAd />} />
-
           <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
           <Route
             path={"/categories/:categoryName/:id/chat"}
