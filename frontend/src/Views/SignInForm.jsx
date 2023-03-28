@@ -5,34 +5,26 @@ import { getCookie, setCookie } from "../Hooks/useCookies";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
-const Users = [
-  {
-    email: "aman@gmail.com",
-    password: "12345",
-  },
-  {
-    email: "hrithik@gmail.com",
-    password: "12345",
-  },
-  {
-    email: "tatv@gmail.com",
-    password: "12345",
-  },
-];
-
 const SignInForm = () => {
   const { user, setUser } = useContext(UserContext);
-  useEffect(() => {
-    if (user.loggedIn) {
-      navigate("/home");
-    }
-  }, []);
   const navigate = useNavigate();
   const initialFormDetails = {
     email: "",
     password: "",
   };
   const [formDetails, setFormDetails] = useState(initialFormDetails);
+
+  useEffect(() => {
+    if (user.loggedIn) {
+      navigate("/home");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user.loggedIn) {
+      navigate("/home");
+    }
+  }, [user.loggedIn]);
 
   const changeDetails = (e) => {
     let updatedValue = { ...formDetails };
@@ -46,15 +38,14 @@ const SignInForm = () => {
     const headers = {
       authorization: `Bearer ${jwtToken}`,
     };
-    const response = await axios.post(
+    const response = await axios.get(
       "http://localhost:8080/api/getUserDetails",
-      { token: getCookie("JWT_AUTH") },
       {
         headers,
       }
     );
-    console.log(response.data.data);
-    return response.data.data;
+    console.log(response.data.data.user);
+    return response.data.data.user;
   }
 
   async function handleSubmit(e) {

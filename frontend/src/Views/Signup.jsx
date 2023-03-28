@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import client from "../Assets/client.png";
 import freelancer from "../Assets/freelancer.png";
+
 const Signup = () => {
   const options = {
     default: "Create Account",

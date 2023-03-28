@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router";
 import { AiOutlineSend } from "react-icons/ai";
 import { RiStarSFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Chat = () => {
   const { state } = useLocation();
   const ad = state;
   const { freelancer } = state;
+
+  const { user, setUser } = useContext(UserContext);
+  console.log(user);
   //   const freelancer = state.freelancer;
   let stars = [];
   for (let i = 0; i < freelancer.rating; i++) {
@@ -89,7 +93,9 @@ const Chat = () => {
       </div>
       <div className="flex max-w-[400px] lg:w-1/5 justify-center place-self-center lg:place-self-start">
         <div className="p-4 pt-0">
-          <p className="font-serif font-semibold text-xl underline">For Ad : {ad.title}</p>
+          <p className="font-serif font-semibold text-xl underline">
+            For Ad : {ad.title}
+          </p>
           <p className="my-2 font-semibold font-serif underline text-lg text-gray-800">
             About the Seller
           </p>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
@@ -7,6 +7,8 @@ import useMediaQuery from "../Hooks/useMediaQuery";
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
+  console.log(categoryName);
+  const navigate = useNavigate();
   // const [ads, setAds] = useState([]);
   const [ads, setAds] = useState([
     {
@@ -113,8 +115,11 @@ const CategoryPage = () => {
   useEffect(() => {
     // API to get all ads in the current category
     // To send Params -> [categoryname]
-  }, []);
-
+    if (categoryName !== "abc") {
+      navigate("/home");
+    }
+  }, [categoryName]);
+  useEffect(() => {}, []);
   return (
     <div className="w-screen flex flex-col">
       <div className="flex flex-col px-16 py-10">

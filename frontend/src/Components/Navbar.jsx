@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { UserContext } from "../App";
 // import Hamburger from "./HamburgerIcon";
 // import { Icon } from "./Menu/Icon";
 
 const Navbar = () => {
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
   const smallScreen = useMediaQuery("(max-width: 490px");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -14,7 +17,7 @@ const Navbar = () => {
   // console.log(smallScreen);
 
   const navItems = [
-    { id: 1, title: "Explore", link: "/explore", style: "" },
+    { id: 1, title: "Home", link: "/home", style: "" },
     { id: 2, title: "About", link: "/about", style: "" },
     { id: 3, title: "Sign in", link: "/signin", style: "" },
     {
@@ -37,9 +40,13 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", listenScrollEvent);
-
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
+  useEffect(() => {
+    if (user.loggedIn) {
+      navigate("/home");
+    }
+  }, [user.loggedIn]);
 
   return (
     <nav
@@ -97,7 +104,7 @@ const Navbar = () => {
             <ul className="flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair">
               {navItems.map(({ id, title, link, style }) => (
                 <li key={id} className={style}>
-                  <a href={link}>{title}</a>
+                  <Link to={link}>{title}</Link>
                 </li>
               ))}
             </ul>

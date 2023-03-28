@@ -19,6 +19,7 @@ import Home from "./Views/Home";
 import { getCookie, setCookie } from "./Hooks/useCookies";
 import axios from "axios";
 import Chat from "./Views/Chat";
+import CreateAd from "./Views/CreateAd";
 
 const UserContext = createContext({});
 
@@ -36,20 +37,20 @@ function App() {
       const headers = {
         authorization: `Bearer ${jwt}`,
       };
-      const response = await axios.post(
+      const response = await axios.get(
         "http://localhost:8080/api/getUserDetails",
-        { token: getCookie("JWT_AUTH") },
         {
           headers,
         }
       );
-      console.log("Got data on first fetch", response.data.data);
+      console.log("Got data on first fetch", response.data.data.user);
       const fetchedData = response.data.data;
+      const messages = response.data.data;
+      console.log("messages", messages);
       fetchedData["loggedIn"] = true;
       setUser(fetchedData);
       return;
     }
-    console.log("reached here");
     if (!user.loggedIn) {
       getUserDetails();
       console.log(user);
@@ -65,13 +66,18 @@ function App() {
         </Link>
         <Link to={"/signin"} className="border-2 border-black px-3">
           Signin
+        </Link>{" "}
+        <Link to={"/categories/abcd"} className="border-2 border-black px-3">
+          abcd
+        </Link>
+        <Link to={"/categories/abc"} className="border-2 border-black px-3">
+          abc
         </Link>
         <Routes>
           <Route path={"/"} element={<Landing />} />
 
           {/* User Authenticated Routes */}
           <Route element={<UserAuthContext user={user} />}>
-            <Route path={"/"} element={<Home />} />
             <Route path={"/home"} element={<Home />} />
           </Route>
           {/* User Authenticated Routes */}
@@ -79,6 +85,8 @@ function App() {
             path={"/categories/:categoryName"}
             element={<CategoryPage />}
           />
+          <Route path={"/createAd"} element={<CreateAd />} />
+
           <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
           <Route
             path={"/categories/:categoryName/:id/chat"}
