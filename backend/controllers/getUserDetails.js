@@ -14,9 +14,6 @@ module.exports = async (req, res) => {
       result.messages.push(message);
     }
   }
-  result.messages.sort(function (a, b) {
-    return a - b < 0 ? 1 : -1;
-  });
   if (req.user) utils.sendSuccess(res, "Got User Successfully", result, 200);
   else utils.sendError(res, "Please sign in");
 };
