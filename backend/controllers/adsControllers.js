@@ -1,7 +1,9 @@
 const Ads = require("../models/adSchema");
 const Freelancer = require("../models/freelancerSchema");
 const Client = require("../models/clientSchema");
+const UnconfirmedPurchase = require("../models/unconfirmedPurchaseSchema");
 const utils = require("../utils/response");
+const { response } = require("express");
 
 module.exports.getAdsOnCategoryName = async function (req, res) {
   const categoryName = req.params.categoryName;
@@ -38,45 +40,6 @@ function buildObjectDetails(prefix, document) {
   obj[prefix + "Email"] = document.email;
   return obj;
 }
-
-module.exports.buyAd = async (req, res) => {
-  if (req.role == "freelancer") {
-    return utils.sendError(res, "You are not allowed to buy Ads");
-  }
-  try {
-    const ad = await Ads.findById(req.params.adId);
-    if (!ad) {
-      return utils.sendError(res, "Ad not found");
-    }
-    const isAdAlreadyBought = ad.clientIds.filter((id) =>
-      id.equals(req.user._id)
-    );
-    if (isAdAlreadyBought.length > 0) {
-      return utils.sendError(res, "Ad is already bought");
-    }
-    const getClient = Client.findById(req.user._id);
-    const getFreelancer = Freelancer.findById(ad.freelancer._id);
-    let [client, freelancer] = await Promise.all([getClient, getFreelancer]);
-    const adDetails = {
-      adId: ad._id,
-      adTitle: ad.title,
-    };
-    ad.clientIds.push(client._id);
-    client.workingWith.push({
-      ...buildObjectDetails("freelancer", freelancer),
-      ...adDetails,
-    });
-    freelancer.workingWith.push({
-      ...buildObjectDetails("client", client),
-      ...adDetails,
-    });
-    await Promise.all([ad.save(), client.save(), freelancer.save()]);
-    utils.sendSuccess(res, "Ad bought", {});
-  } catch (err) {
-    utils.sendError(res, "Some error has occurred");
-    console.log(err);
-  }
-};
 
 module.exports.deleteAd = async (req, res) => {
   if (req.role == "client") {
@@ -162,4 +125,71 @@ module.exports.getAd = async (req, res) => {
   } else {
     utils.sendError(res, "No such Ad found");
   }
+};
+
+const buyAd = async (req, res) => {
+  try {
+    const ad = await Ads.findById(req.body.adId);
+    if (!ad) {
+      return utils.sendError(res, "Ad not found");
+    }
+    const isAdAlreadyBought = ad.clientIds.filter((id) =>
+      id.equals(req.user._id)
+    );
+    if (isAdAlreadyBought.length > 0) {
+      return utils.sendError(res, "Ad is already bought");
+    }
+    const getClient = Client.findById(req.body.clientId);
+    const getFreelancer = Freelancer.findById(ad.freelancer._id);
+    let [client, freelancer] = await Promise.all([getClient, getFreelancer]);
+    const adDetails = {
+      adId: ad._id,
+      adTitle: ad.title,
+    };
+    ad.clientIds.push(client._id);
+    client.workingWith.push({
+      ...buildObjectDetails("freelancer", freelancer),
+      ...adDetails,
+    });
+    freelancer.workingWith.push({
+      ...buildObjectDetails("client", client),
+      ...adDetails,
+    });
+    await Promise.all([ad.save(), client.save(), freelancer.save()]);
+    utils.sendSuccess(res, "Ad bought", {});
+  } catch (err) {
+    utils.sendError(res, "Some error has occurred");
+    console.log(err);
+  }
+};
+
+module.exports.confirmAd = async (req, res) => {
+  const adId = req.body.adId;
+  const freelancerId = req.body.freelancerId;
+  const clientId = req.body.clientId;
+  let unconfirmedPurchase = await UnconfirmedPurchase.findOne({
+    adId: adId,
+    freelancerId: freelancerId,
+    clientId: clientId,
+  });
+  if (unconfirmedPurchase == null) {
+    unconfirmedPurchase = await UnconfirmedPurchase.create({
+      adId: adId,
+      freelancerId: freelancerId,
+      clientId: clientId,
+    });
+  }
+  if (req.role == "client") {
+    unconfirmedPurchase.clientStatus = "true";
+  } else {
+    unconfirmedPurchase.freelancerStatus = "true";
+  }
+  await unconfirmedPurchase.save();
+  if (
+    unconfirmedPurchase.clientStatus == true &&
+    unconfirmedPurchase.freelancerStatus == true
+  ) {
+    return buyAd(req, res);
+  }
+  utils.sendSuccess(res, "Confirmation of the order sent", {});
 };
