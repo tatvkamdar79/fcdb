@@ -8,6 +8,16 @@ import useMediaQuery from "../Hooks/useMediaQuery";
 const CategoryPage = () => {
   const { categoryName } = useParams();
   console.log(categoryName);
+  const categories = [
+    "graphics-and-design",
+    "video-and-animation",
+    "writing-and-translation",
+    "ai-services",
+    "digital-marketing",
+    "music-and-audio",
+    "programming-and-tech",
+    "business",
+  ];
   const navigate = useNavigate();
   // const [ads, setAds] = useState([]);
   const [ads, setAds] = useState([
@@ -115,7 +125,7 @@ const CategoryPage = () => {
   useEffect(() => {
     // API to get all ads in the current category
     // To send Params -> [categoryname]
-    if (categoryName !== "abc") {
+    if (!categories.includes(categoryName)) {
       navigate("/home");
     }
   }, [categoryName]);

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Card = ({
   id,
@@ -8,7 +9,11 @@ export const Card = ({
   RedirectLink,
 }) => {
   return (
-    <a key={id} href={RedirectLink} className="rounded-lg hover:scale-105 transition-all duration-700 group">
+    <Link
+      key={id}
+      to={RedirectLink}
+      className="rounded-lg hover:scale-105 transition-all duration-700 group"
+    >
       <div
         className="bg-white w-[280px] h-[400px] m-2 rounded-lg shadow-lg bg-no-repeat bg-cover relative"
         style={{
@@ -20,10 +25,12 @@ export const Card = ({
             {ServiceName}
           </div>
 
-          <div className="flex items-center text-white font-semibold">{Description}</div>
+          <div className="flex items-center text-white font-semibold">
+            {Description}
+          </div>
           {/* <div className="flex items-center my-2 text-white absolute bottom-0">Click here to explore!</div> */}
         </div>
       </div>
-    </a>
+    </Link>
   );
 };

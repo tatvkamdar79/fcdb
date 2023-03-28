@@ -29,6 +29,17 @@ const Navbar = () => {
     },
   ];
 
+  const categories = [
+    { id: 1, category: "Graphics & Design", link: "categories/graphics-and-design" },
+    { id: 2, category: "Video & Animation", link: "/categories/video-and-animation" },
+    { id: 3, category: "Writing & Translation", link: "/categories/writing-and-translation" },
+    { id: 4, category: "AI Services", link: "/categories/ai-services" },
+    { id: 5, category: "Digital Marketing", link: "/categories/digital-marketing" },
+    { id: 6, category: "Music & Audio", link: "/categories/music-and-audio" },
+    { id: 7, category: "Programming & Tech", link: "/categories/programming-and-tech" },
+    { id: 8, category: "Business", link: "/categories/business" },
+  ];
+
   const listenScrollEvent = (event) => {
     if (window.scrollY > 5) {
       // console.log(window.scrollY);
@@ -49,69 +60,82 @@ const Navbar = () => {
   }, [user.loggedIn]);
 
   return (
-    <nav
-      className={`sticky top-0 z-50 w-screen h-[90px] py-5 px-5 border-b-2 border-gray-400 bg-gradient-to-b to-white ${
-        scrolled && "from-gray-300"
-      }`}
-    >
-      {/* <Icon /> */}
-      <div className="flex justify-between w-full pl-4 relative">
-        <div className="text-3xl font-playfair font-bold">
-          FCDB<span className="text-4xl text-green-400">.</span>
-        </div>
-        {smallScreen ? (
-          // isMenuToggled ? (
-          <div className={`overflow-clip`}>
-            <GiHamburgerMenu
-              size={25}
-              onClick={() => setIsMenuToggled(!isMenuToggled)}
-              className={`absolute right-4 top-3 ${
-                isMenuToggled ? "opacity-0" : ""
-              } transition-all duration-1000`}
-            />
-            {/* // ) : ( */}
-            <div
-              className={`border-l-2 border-gray-300 ${
-                isMenuToggled ? "h-screen ml-0" : "h-[69px] ml-96"
-              } transition-all duration-[1300ms] bg-gradient-to-br from-white via-cyan-50 to-cyan-300`}
-            >
-              <AiOutlineClose
-                size={30}
+    <div className="sticky top-0 z-50">
+      <nav
+        className={`w-full h-[90px] py-5 px-5 border-b-2 border-gray-400 bg-gradient-to-b to-white ${
+          scrolled && "from-gray-300"
+        }`}
+      >
+        {/* <Icon /> */}
+        <div className="flex justify-between w-full pl-4 relative">
+          <div className="text-3xl font-playfair font-bold">
+            FCDB<span className="text-4xl text-green-400">.</span>
+          </div>
+          {smallScreen ? (
+            // isMenuToggled ? (
+            <div className={`overflow-clip`}>
+              <GiHamburgerMenu
+                size={25}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
+                className={`absolute right-4 top-3 ${
+                  isMenuToggled ? "opacity-0" : ""
+                } transition-all duration-1000`}
               />
-              <div className="mt-10">
-                <ul className="flex flex-col justify-start gap-y-20">
-                  {navItems.map(({ id, title, link, style }) => (
-                    <li
-                      key={id}
-                      className="px-16 font-semibold font-playfair text-xl text-center"
-                    >
-                      <Link
-                        href={link}
-                        className={"flex w-20 justify-start mx-auto"}
+              {/* // ) : ( */}
+              <div
+                className={`border-l-2 border-gray-300 ${
+                  isMenuToggled ? "h-screen ml-0" : "h-[69px] ml-96"
+                } transition-all duration-[1300ms] bg-gradient-to-br from-white via-cyan-50 to-cyan-300`}
+              >
+                <AiOutlineClose
+                  size={30}
+                  onClick={() => setIsMenuToggled(!isMenuToggled)}
+                />
+                <div className="mt-10">
+                  <ul className="flex flex-col justify-start gap-y-20">
+                    {navItems.map(({ id, title, link, style }) => (
+                      <li
+                        key={id}
+                        className="px-16 font-semibold font-playfair text-xl text-center"
                       >
-                        {title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                        <Link
+                          href={link}
+                          className={"flex w-20 justify-start mx-auto"}
+                        >
+                          {title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          // )
-          <div>
-            <ul className="flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair">
-              {navItems.map(({ id, title, link, style }) => (
-                <li key={id} className={style}>
-                  <Link to={link}>{title}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </nav>
+          ) : (
+            // )
+            <div>
+              <ul className="flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair">
+                {navItems.map(({ id, title, link, style }) => (
+                  <li key={id} className={style}>
+                    <Link to={link}>{title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </nav>
+      {scrolled && (
+        <div className="hidden xl:block border border-gray-500 z-50 bg-white">
+          <ul className="flex justify-between px-10">
+            {categories.map(({ id, category, link }) => (
+              <Link key={id} to={link}>
+                <li className="text-gray-600 m-1">{category}</li>
+              </Link>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 
