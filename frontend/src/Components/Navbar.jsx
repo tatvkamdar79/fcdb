@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -78,12 +79,12 @@ const Navbar = () => {
                       key={id}
                       className="px-16 font-semibold font-playfair text-xl text-center"
                     >
-                      <a
+                      <Link
                         href={link}
                         className={"flex w-20 justify-start mx-auto"}
                       >
                         {title}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
