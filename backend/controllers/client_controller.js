@@ -10,6 +10,7 @@ module.exports.signUp = async function (req, res) {
     const client = await Client.findOne({ email: req.body.email });
     if (!client) {
       const salt = await bcrypt.genSalt();
+      console.log(req.body.password);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
       console.log(req.body);
       const newClient = await Client.create({

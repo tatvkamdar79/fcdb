@@ -7,7 +7,8 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     let f = file.originalname.split(".");
-    let newFileName = f[0] + 5 + "." + f[1]+Math.random();
+    let newFileName = f[0] + 5 + +Math.random() +"."+ f[1];
+    req.uploadedFilePath =  newFileName;
     cb(null, newFileName);
   },
 });

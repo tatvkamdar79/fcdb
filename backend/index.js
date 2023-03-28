@@ -17,7 +17,9 @@ app.set("port", PORT);
 // Parsing the request parameters
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("./assests"));
+// app.use(express.static("./assests"));
+app.use(express.static("./uploads"))
+
 app.use(require("./middlewares/auth").setAuthenticatedUser);
 
 //Initializing passport
@@ -38,6 +40,7 @@ app.use(require("./middlewares/auth").setAuthenticatedUser);
 //Importing OAuth routes
 // const authRoutes = require('./routes/OAuth');
 // authRoutes(app);
+
 
 app.get("/ads", async (req, res) => {
   // const d = await fetch("http://localhost:8080/ads");

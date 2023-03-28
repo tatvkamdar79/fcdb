@@ -10,6 +10,8 @@ import AdPage from "./Views/AdPage";
 import { createContext, useContext, useEffect, useState } from "react";
 import { read_cookie } from "sfcookies";
 import Home from "./Views/Home";
+import { ProfilePic } from "./Components/ProfilePic";
+
 
 const userData = createContext({});
 function App() {
@@ -26,7 +28,7 @@ function App() {
   return (
     <>
       <Navbar />
-
+      <ProfilePic/>
       <Routes>
         <Route path={"/"} element={<Landing />} />
       </Routes>

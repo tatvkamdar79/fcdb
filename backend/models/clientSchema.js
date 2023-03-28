@@ -18,6 +18,9 @@ const clientSchema = new Schema({
   password: {
     type: String,
   },
+  profilePicPath:{
+    type:String
+  },
   workingWith: [
     {
       freelancerId: {
