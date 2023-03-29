@@ -19,13 +19,17 @@ module.exports.getAdsOnCategoryName = async function (req, res) {
 module.exports.createAd = async function (req, res) {
   try {
     console.log(req.file)
+    if(req.role == "client"){
+      return utils.sendError(res, "You are not allowed to create Ads");
+    }
     // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);
     const newAd = await Ads.create({ ...req.body, freelancer: req.user, coverPicPath: req.uploadedFilePath });
-    
+    console.log(newAd);
     const res1 = await Freelancer.updateOne(
       { email: req.user.email },
       { $push: { ads: newAd._id } }
     );
+    console.log(res1);
     if (newAd && res1.modifiedCount == 1) {
       utils.sendSuccess(res, "Ad created successfully", newAd);
     } else {

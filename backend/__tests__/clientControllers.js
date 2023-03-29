@@ -9,8 +9,6 @@ const mockRequest = () => {
     email:"test@999",password:"12345",name:"test"
   };
 };
-
-
 describe("Testing api/client/signup", () => {
   
   test("should return 200" , async () => {
