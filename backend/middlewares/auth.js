@@ -5,7 +5,7 @@ const utils = require("../utils/response");
 
 module.exports.setAuthenticatedUser = async function (req, res, next) {
   if (!req.headers || !req.headers.authorization) {
-    console.log("NO Header provided, sign in");
+    // console.log("NO Header provided, sign in");
     next();
     return;
   }
