@@ -62,12 +62,11 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <ProfilePic/>
-      <Routes>
-        <Route path={"/"} element={<Landing />} />
-      </Routes>
       <UserContext.Provider value={{ user, setUser }}>
+        <Navbar />
+        <Routes>
+          <Route path={"/"} element={<Landing />} />
+        </Routes>
         {/* <Link to={"/home"} className="border-2 border-black px-3">
           Home
           </Link>
