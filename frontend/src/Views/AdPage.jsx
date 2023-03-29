@@ -11,22 +11,16 @@ const AdPage = () => {
   const { categoryName, id } = useParams();
   console.log(id);
   let { state } = useLocation();
-  const ad = { ...state };
-  console.log(ad);
-  const freelancer = {
-    id: 1,
-    name: "Tatva Kamdar",
-    about:
-      "My name is tatv and I like to build projects. I do my work really well and I give deadlines only when I know I can compelete them My name is tatv and I like to build projects. I do my work really well and I give deadlines only when I know I can compelete them.",
-    rating: 5,
-  };
+  const ad = state;
+  console.log("from adpage of ad", ad, ad.freelancer);
+  const freelancer = ad.freelancer;
   // state["freelancer"] = freelancer;
   let stars = [];
   for (let i = 0; i < freelancer.rating; i++) {
     stars.push(i);
   }
   return (
-    <div className="flex flex-col md:flex-row w-5/6 justify-center md:justify-between mx-auto">
+    <div className="flex flex-col xl:flex-row w-5/6 justify-center md:justify-between mx-auto">
       <div className="flex flex-col">
         <p>FCDB</p>
         <div className="flex flex-col pr-16 justify-center mx-auto md:mx-0">
@@ -36,19 +30,13 @@ const AdPage = () => {
             {ad.user}
           </p>
           <div className="flex justify-center place-items-center bg-gray-200 my-4">
-            <img
-              src={ad.link}
-              alt="Ad Img"
-              className="my-3 max-h-[500px]"
-              width={800}
-              height={900}
-            />
+            <img src={ad.link} alt="Ad Img" className="my-3 max-h-[500px]" />
           </div>
           <div>
             <p className="text-3xl font-semibold text-gray-700 underline">
               About This Ad
             </p>
-            <p className="text-md my-2">{ad.aboutAd.repeat(5)}</p>
+            <p className="text-md my-2">{ad.description}</p>
           </div>
         </div>
         <br />
@@ -87,16 +75,16 @@ const AdPage = () => {
             </span>
           </p>
           <div className="flex text-justify px-5 my-4">
-            <p className="text-md text-gray-600 font-serif">
-              {ad.aboutAd.repeat(2)}
-            </p>
+            <p className="text-md text-gray-600 font-serif">{ad.aboutAd}</p>
           </div>
           <div className="flex justify-between place-items-center font-serif text-sm px-5 py-2">
             <p className="flex place-items-center">
-              <BsClock size={17} className="mx-2" />2 Days Delivery
+              <BsClock size={17} className="mx-2" />
+              {ad.deliveryTime} Days Delivery
             </p>
             <p className="flex">
-              <FiRefreshCcw size={17} className="mx-2" />3 Revisions
+              <FiRefreshCcw size={17} className="mx-2" />
+              {ad.revisions} Revisions
             </p>
           </div>
           <div className="flex flex-col px-5 py-3 text-gray-500">
@@ -119,7 +107,7 @@ const AdPage = () => {
           </div>
           <Link
             to={`/categories/${categoryName}/${id}/chat`}
-            state={{ ...state, freelancer }}
+            state={{ ad: ad, freelancer: ad.freelancer }}
             className="flex justify-center bg-green-500 w-11/12 mx-auto font-serif text-center text-xl text-white opacity-90 py-1 my-3"
           >
             Continue

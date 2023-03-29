@@ -62,30 +62,30 @@ function App() {
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <Navbar />
-        <Link to={"/home"} className="border-2 border-black px-3">
+        {/* <Link to={"/home"} className="border-2 border-black px-3">
           Home
-        </Link>
-        <Link to={"/signin"} className="border-2 border-black px-3">
+          </Link>
+          <Link to={"/signin"} className="border-2 border-black px-3">
           Signin
-        </Link>{" "}
-        <Link to={"/categories/abcd"} className="border-2 border-black px-3">
+          </Link>{" "}
+          <Link to={"/categories/abcd"} className="border-2 border-black px-3">
           abcd
-        </Link>
-        <Link to={"/categories/abc"} className="border-2 border-black px-3">
-          abc
-        </Link>
+          </Link>
+          // <Link to={"/categories/abc"} className="border-2 border-black px-3">
+          //   abc
+        // </Link> */}
+        <Navbar />
         <Routes>
           <Route path={"/"} element={<Landing />} />
+          <Route path={"/createAd"} element={<CreateAd />} />
 
+          <Route
+            path={"/categories/:categoryName"}
+            element={<CategoryPage />}
+          />
           {/* User Authenticated Routes */}
           <Route element={<UserAuthContext user={user} />}>
             <Route path={"/home"} element={<Home />} />
-            <Route
-              path={"/categories/:categoryName"}
-              element={<CategoryPage />}
-            />
-            <Route path={"/createAd"} element={<CreateAd />} />
             <Route
               path={"/categories/:categoryName/:id"}
               element={<AdPage />}

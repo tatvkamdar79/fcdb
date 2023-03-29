@@ -25,23 +25,30 @@ const CreateAd = () => {
             id=""
             className="border border-gray-500 rounded-md outline-none focus:border-blue focus:outline-blue transition-all duration-500 m-2 p-3 mb-10"
           >
-            <option value="Category-1" className="font-serif text-lg">
-              Category 1
+            <option value="Select a Category" selected disabled hidden>Select a Category</option>
+            <option value="graphics-and-design" className="font-serif text-lg">
+              Graphics and Design
             </option>
-            <option value="Category-2" className="font-serif text-lg">
-              Category 1
+            <option value="video-and-animation" className="font-serif text-lg">
+              Video and Animation
             </option>
-            <option value="Category-3" className="font-serif text-lg">
-              Category 1
+            <option value="writing-and-translation" className="font-serif text-lg">
+              Writing and Translation
             </option>
-            <option value="Category-4" className="font-serif text-lg">
-              Category 1
+            <option value="ai-services" className="font-serif text-lg">
+              AI Services
             </option>
-            <option value="Category-5" className="font-serif text-lg">
-              Category 1
+            <option value="digital-marketing" className="font-serif text-lg">
+              Digital Marketing
             </option>
-            <option value="Category-6" className="font-serif text-lg">
-              Category 1
+            <option value="music-and-audio" className="font-serif text-lg">
+              Music and Audio
+            </option>
+            <option value="programming-and-tech" className="font-serif text-lg">
+              Programming and tech
+            </option>
+            <option value="business" className="font-serif text-lg">
+              Business
             </option>
           </select>
           <br />

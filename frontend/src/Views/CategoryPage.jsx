@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
+import { getCookie } from "../Hooks/useCookies";
+import axios from "axios";
 // import axios from "axios";
 
 const CategoryPage = () => {
@@ -20,62 +22,69 @@ const CategoryPage = () => {
   ];
   const navigate = useNavigate();
   // const [ads, setAds] = useState([]);
+  // {
+  //   id: "6421749b53a93676f3f21689",
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/1200x900",
+  // },
+  // {
+  //   id: 2,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
+  // {
+  //   id: 3,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
+  // {
+  //   id: 4,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
+  // {
+  //   id: 5,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
+  // {
+  //   id: 6,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
+  // {
+  //   id: 7,
+  //   user: "Tatva Kamdar",
+  //   title: "Title: Full Stack App",
+  //   aboutAd: "About the Ad: I will make a full stack application for you",
+  //   price: 2000,
+  //   link: "https://source.unsplash.com/random/400x300",
+  // },
   const [ads, setAds] = useState([
     {
-      id: "6421749b53a93676f3f21689",
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
+      id: 1,
+      title: "Ad Title",
+      aboutAd: "about Ad",
+      price: 3000,
       link: "https://source.unsplash.com/random/1200x900",
-    },
-    {
-      id: 2,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
-    },
-    {
-      id: 3,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
-    },
-    {
-      id: 4,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
-    },
-    {
-      id: 5,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
-    },
-    {
-      id: 6,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
-    },
-    {
-      id: 7,
-      user: "Tatva Kamdar",
-      title: "Title: Full Stack App",
-      aboutAd: "About the Ad: I will make a full stack application for you",
-      price: 2000,
-      link: "https://source.unsplash.com/random/400x300",
     },
   ]);
 
@@ -91,36 +100,43 @@ const CategoryPage = () => {
     // Filter Logic
   };
 
-  // useEffect(() => {
-  //   async function getCategoryData() {
-  //     const apiUrl = "";
-  //     try {
-  //       const data = await axios.get(apiUrl);
-  //       return data;
-  //     } catch (error) {
-  //       console.log("error", error.response.status);
-  //       return [];
-  //     }
-  //   }
-  //   // getCategoryData();
-  //   async function setLocalStrorageCache() {
-  //     if (localStorage.categories === undefined) {
-  //       localStorage.setItem("categories", JSON.stringify({}));
-  //     }
+  useEffect(() => {
+    async function getAdsByCategory() {
+      const apiUrl = `http://localhost:8080/api/ads/category/${categoryName}`;
+      const headers = {
+        authentication: `Bearer ${getCookie("JWT_AUTH")}`,
+      };
+      try {
+        const response = await axios.get(apiUrl, { headers });
+        console.log(response.data.data);
+        setAds(response.data.data);
+        console.log(response.data.data[1]._id);
+        return response.data.data;
+      } catch (error) {
+        console.log("error", error);
+        alert(error.message);
+        return [];
+      }
+    }
+    getAdsByCategory();
+    // async function setLocalStrorageCache() {
+    //   if (localStorage.categories === undefined) {
+    //     localStorage.setItem("categories", JSON.stringify({}));
+    //   }
 
-  //     let categories = JSON.parse(localStorage.getItem("categories"));
+    //   let categories = JSON.parse(localStorage.getItem("categories"));
 
-  //     if (categories[categoryName] === undefined) {
-  //       categories[categoryName] = ads; //await getCategoryData();
-  //     }
+    //   if (categories[categoryName] === undefined) {
+    //     categories[categoryName] = ads; //await getCategoryData();
+    //   }
 
-  //     setAds(categories[categoryName]);
+    //   setAds(categories[categoryName]);
 
-  //     localStorage.setItem("categories", JSON.stringify(categories));
-  //   }
+    //   localStorage.setItem("categories", JSON.stringify(categories));
+    // }
 
-  //   setLocalStrorageCache();
-  // }, []);
+    // setLocalStrorageCache();
+  }, []);
 
   useEffect(() => {
     // API to get all ads in the current category
@@ -129,7 +145,6 @@ const CategoryPage = () => {
       navigate("/home");
     }
   }, [categoryName]);
-  useEffect(() => {}, []);
   return (
     <div className="w-screen flex flex-col">
       <div className="flex flex-col px-16 py-10">
@@ -169,8 +184,9 @@ const CategoryPage = () => {
       >
         {ads.map((ad) => (
           <Link
-            key={ad.id}
-            to={`/categories/${categoryName}/${ad.id}`}
+            // key={ad._id}
+            key={ad._id}
+            to={`/categories/${categoryName}/${ad._id}`}
             state={{ ...ad }}
             className="shadow-md shadow-gray-400 max-w-[300px] sm:max-w-[400px] md:w-[350px] hover:scale-105 transition-all duration-500"
           >
@@ -184,7 +200,10 @@ const CategoryPage = () => {
               <FaUserCircle size={22} className="mr-2" />
               <h2>{ad.user}</h2>
             </div>
-            <p className="px-1 py-1">{ad.title}</p>
+            <p className="px-1 py-1 text-lg text-gray-900">{ad.title}</p>
+            <p className="text-sm px-1 py-1 font-serif text-gray-600">
+              {ad.shortDescription}
+            </p>
             <hr className="my-2" />
             <div className="flex justify-between place-items-center px-4 pb-1">
               <SlLike size={22} />

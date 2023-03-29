@@ -30,7 +30,20 @@ const AdsInProgress = () => {
             <Link
               to={`/categories/${categoryName}/${adId}/chat`}
               key={_id}
-              state={{ freelancer: {}, hi: 123 }}
+              state={{
+                ad: {
+                  id: adId,
+                  title: adTitle,
+                  aboutAd: "About the Ad",
+                  price: 2000,
+                  user: currentUser.name,
+                },
+                freelancer: {
+                  freelancerId: freelancerId,
+                  freelancerEmail: freelancerEmail,
+                  freelancerName: freelancerName,
+                },
+              }}
               className="h-fit w-[290px] xs:w-[90%] border border-gray-700 shadow-lg shadow-gray-700 bg-gray-200 rounded-md hover:scale-105 transition-all duration-500 overflow-hidden"
             >
               <img

@@ -33,7 +33,7 @@ const Navbar = () => {
     {
       id: 1,
       category: "Graphics & Design",
-      link: "categories/graphics-and-design",
+      link: "/categories/graphics-and-design",
     },
     {
       id: 2,
@@ -45,19 +45,31 @@ const Navbar = () => {
       category: "Writing & Translation",
       link: "/categories/writing-and-translation",
     },
-    { id: 4, category: "AI Services", link: "/categories/ai-services" },
+    {
+      id: 4,
+      category: "AI Services",
+      link: "/categories/ai-services",
+    },
     {
       id: 5,
       category: "Digital Marketing",
       link: "/categories/digital-marketing",
     },
-    { id: 6, category: "Music & Audio", link: "/categories/music-and-audio" },
+    {
+      id: 6,
+      category: "Music & Audio",
+      link: "/categories/music-and-audio",
+    },
     {
       id: 7,
       category: "Programming & Tech",
       link: "/categories/programming-and-tech",
     },
-    { id: 8, category: "Business", link: "/categories/business" },
+    {
+      id: 8,
+      category: "Business",
+      link: "/categories/business",
+    },
   ];
 
   const listenScrollEvent = (event) => {
@@ -106,7 +118,7 @@ const Navbar = () => {
   // }, [user.user.loggedIn]);
 
   useEffect(() => {
-    navigate("/home");
+    // navigate("/home");
   }, [user.loggedIn]);
 
   return (

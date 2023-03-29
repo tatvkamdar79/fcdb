@@ -7,18 +7,18 @@ import { UserContext } from "../App";
 
 const Chat = () => {
   const { state } = useLocation();
-  // console.log(state);
-  const ad = state;
-  const { freelancer } = state;
-  
+  // console.log(Object.keys(state), state.ad);
+  const ad = state.ad;
+  const freelancer = state.freelancer;
+  console.log("freelancer", freelancer, "ad", ad);
+
   const { user, setUser } = useContext(UserContext);
   const currentUser = user.user;
-  console.log(currentUser);
-  //   const freelancer = state.freelancer;
+  // console.log(currentUser);
   let stars = [];
-  for (let i = 0; i < freelancer.rating; i++) {
-    stars.push(i);
-  }
+  // for (let i = 0; i < freelancer.rating; i++) {
+  //   stars.push(i);
+  // }
   useEffect(() => {
     // API to get conversation between the client and freelancer
     // To send params -> [ad.id, freelancer.id, client.id]
