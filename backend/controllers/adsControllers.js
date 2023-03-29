@@ -4,6 +4,7 @@ const Client = require("../models/clientSchema");
 const UnconfirmedPurchase = require("../models/unconfirmedPurchaseSchema");
 const utils = require("../utils/response");
 const { response } = require("express");
+const pictureController = require("./pictures_controllers");
 
 module.exports.getAdsOnCategoryName = async function (req, res) {
   const categoryName = req.params.categoryName;
@@ -17,7 +18,10 @@ module.exports.getAdsOnCategoryName = async function (req, res) {
 
 module.exports.createAd = async function (req, res) {
   try {
-    const newAd = await Ads.create({ ...req.body, freelancer: req.user });
+    console.log(req.file)
+    // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);
+    const newAd = await Ads.create({ ...req.body, freelancer: req.user, coverPicPath: req.uploadedFilePath });
+    
     const res1 = await Freelancer.updateOne(
       { email: req.user.email },
       { $push: { ads: newAd._id } }

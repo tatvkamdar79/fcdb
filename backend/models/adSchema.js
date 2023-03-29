@@ -12,6 +12,9 @@ const adSchema = new Schema({
     type: String,
     required: true,
   },
+  coverPicPath:{
+    type: String
+  },
   links: [
     {
       type: String,
@@ -40,6 +43,23 @@ const adSchema = new Schema({
     type: String,
     required: true,
   },
+  shortDescription: {
+    type: String,
+    required: true,
+  },
+  deliveryTime: {
+    type: Number,
+    required: true,
+  },
+  revisions: {
+    type: Number,
+    required: true,
+  },
+  tags: [
+    {
+      type: String,
+    },
+  ],
 });
 
 const ad = mongoose.model("ad", adSchema);

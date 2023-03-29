@@ -1,18 +1,27 @@
 const multer = require("multer");
 
-// const upload = multer({ dest: "upload/" }).single("file");
 const storage = multer.diskStorage({
+
   destination: function (req, file, cb) {
-    // console.log("Hello before upload");
-    // console.log(req.file);
-    cb(null, "./upload");
+    cb(null, process.cwd()+ "/uploads");
   },
   filename: function (req, file, cb) {
     let f = file.originalname.split(".");
-    let newFileName = f[0] + 5 + "." + f[1];
+    let newFileName = f[0] + 5 + +Math.random() +"."+ f[1];
+    req.uploadedFilePath =  newFileName;
     cb(null, newFileName);
   },
 });
-const upload = multer({ storage: storage }).single("myfile");
+
+const imageFileFilter = (req, file, cb) =>{
+  if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      req.fileValidationError = "File Type not supported";
+      return cb(null,false, req.fileValidationError);
+  }
+  cb(null, true)
+};
+
+
+const upload = multer({ storage: storage , fileFilter: imageFileFilter});
 
 module.exports = upload;
