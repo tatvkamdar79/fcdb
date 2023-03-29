@@ -12,6 +12,9 @@ const adSchema = new Schema({
     type: String,
     required: true,
   },
+  coverPicPath:{
+    type: String
+  },
   links: [
     {
       type: String,

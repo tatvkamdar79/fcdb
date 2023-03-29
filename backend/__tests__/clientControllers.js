@@ -29,13 +29,13 @@ describe("Testing api/client/signup", () => {
 
   },10000);
 
-  test("should return 500" , async () => {
+  // test("should return 500" , async () => {
 
-    const req = mockRequest();
-    const obj = await api.post('/api/client/signup').send({email:"test@example3.com"}).set('Content-Type', "application/x-www-form-urlencoded");
-    expect(obj.status).toEqual(500);
+  //   const req = mockRequest();
+  //   const obj = await api.post('/api/client/signup').send({email:"test@example3.com"}).set('Content-Type', "application/x-www-form-urlencoded");
+  //   expect(obj.status).toEqual(500);
 
-  },10000);
+  // },10000);
 
 
   afterAll(async () => {

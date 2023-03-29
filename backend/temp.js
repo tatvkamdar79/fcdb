@@ -17,7 +17,8 @@ app.set("port", PORT);
 // Parsing the request parameters
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("./assests"));
+app.use(express.static("./uploads"));
+
 app.use(require("./middlewares/auth").setAuthenticatedUser);
 
 //Initializing passport

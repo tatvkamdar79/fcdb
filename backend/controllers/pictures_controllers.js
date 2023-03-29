@@ -2,6 +2,7 @@
 const FreeLancer = require("../models/freelancerSchema")
 const Client = require("../models/clientSchema");
 const utils = require("../utils/response");
+const Ads = require("../models/adSchema");
 
 module.exports.getPicture = async (req,res) => {
 
@@ -64,4 +65,16 @@ module.exports.postPicture = async (req,res) => {
     }
     console.log("Posting pic!")   
     res.send("Posted picture successfully")
+}
+
+module.exports.postAdCoverPhoto = async (req,res) => {
+    const ad_id = req.params.adId;
+    try{
+        await Ads.findByIdAndUpdate(ad_id,{$set:{
+            coverPicPath:req.uploadedFilePath
+        }})
+    }
+    catch(err){
+        return utils.sendError(res,err);
+    }
 }
