@@ -39,9 +39,9 @@ const Landing = () => {
         </div>
       </div>
       <hr />
-      <div className="w-screen h-20 flex justify-center place-items-center">
+      <div className="w-full xs:h-20 flex justify-center place-items-center">
         <p className="hidden xs:flex text-gray-400">Trusted By:</p>
-        <div className="flex justify-between gap-x-5">
+        <div className="flex flex-col xs:flex-row justify-between gap-x-5">
           <img
             src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/meta.12b5e5c.png"
             alt="Meta"
@@ -102,7 +102,7 @@ const Landing = () => {
         </div>
       </div>
       <Carousel />
-      <div className="w-screen flex flex-col sm:flex-row bg-[#e2ffeca2] text-gray-600 justify-evenly place-items-center overflow-visible">
+      <div className="w-full flex flex-col sm:flex-row bg-[#e2ffeca2] text-gray-600 justify-evenly place-items-center overflow-visible">
         <div className="w-fit my-20 flex flex-col justify-center place-items-center">
           <p className="font-bold text-3xl text-gray-900 pl-1">
             The best part? Everything.

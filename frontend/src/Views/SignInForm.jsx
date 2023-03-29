@@ -1,31 +1,30 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { bake_cookie, read_cookie } from "sfcookies";
-
-const Users = [
-  {
-    email: "aman@gmail.com",
-    password: "12345",
-  },
-  {
-    email: "hrithik@gmail.com",
-    password: "12345",
-  },
-  {
-    email: "tatv@gmail.com",
-    password: "12345",
-  },
-];
+import { getCookie, setCookie } from "../Hooks/useCookies";
+import { UserContext } from "../App";
+import { Link } from "react-router-dom";
 
 const SignInForm = () => {
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  // console.log(read_cookie("JWT_AUT").length === 0);
   const initialFormDetails = {
     email: "",
     password: "",
   };
   const [formDetails, setFormDetails] = useState(initialFormDetails);
+
+  useEffect(() => {
+    if (user.loggedIn) {
+      navigate("/home");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user.loggedIn) {
+      navigate("/home");
+    }
+  }, [user.loggedIn]);
 
   const changeDetails = (e) => {
     let updatedValue = { ...formDetails };
@@ -34,16 +33,19 @@ const SignInForm = () => {
   };
 
   async function getUserDetails() {
-    const jwtToken = read_cookie("JWT_AUTH");
+    const jwtToken = getCookie("JWT_AUTH");
 
     const headers = {
       authorization: `Bearer ${jwtToken}`,
     };
-    const response = await axios.get("http://localhost:8080/api/getUser", {
-      headers,
-    });
-    console.log(response);
-    return response.data.data;
+    const response = await axios.get(
+      "http://localhost:8080/api/getUserDetails",
+      {
+        headers,
+      }
+    );
+    console.log(response.data.data.user);
+    return response.data.data.user;
   }
 
   async function handleSubmit(e) {
@@ -58,25 +60,31 @@ const SignInForm = () => {
       .post(url, formDetails, { headers })
       .then(async (response) => {
         if (response.status + 100 >= 300) {
-          console.log(response);
+          // console.log(response);
           // code to set jwt and user details in cookies
-          const cookieKey = "JWT_AUTH";
-          let d = new Date();
-          d.setTime(d.getTime() + 3600 * 1000);
-          document.cookie =
-            cookieKey +
-            "=" +
-            response.data.data.token +
-            ";expires=" +
-            d.toUTCString() +
-            ";" +
-            "path=/;";
+          setCookie("JWT_AUTH", response.data.data.token, 1);
+          console.log("Set cookie for jwt");
+
+          const fetchedUser = await getUserDetails();
+          fetchedUser["loggedIn"] = true;
+
+          setUser(fetchedUser);
 
           navigate("/home");
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("err", err.response.status);
+        switch (err.response.status) {
+          case 400:
+            alert("Invalid Credentials");
+            break;
+          case 401:
+            alert("User Not Found!");
+            break;
+          default:
+            alert("User Not Authenticated");
+        }
       });
   }
 
@@ -84,9 +92,9 @@ const SignInForm = () => {
     <div className="w-screen">
       <div className="flex flex-col w-full items-center h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
-          <a href="/">
+          <Link to="/">
             <h3 className="text-4xl font-bold text-blue">FCDB</h3>
-          </a>
+          </Link>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
           <form onSubmit={handleSubmit}>

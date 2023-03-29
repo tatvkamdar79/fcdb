@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import useMediaQuery from "../Hooks/useMediaQuery";
@@ -7,49 +7,75 @@ import useMediaQuery from "../Hooks/useMediaQuery";
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
+  console.log(categoryName);
+  const categories = [
+    "graphics-and-design",
+    "video-and-animation",
+    "writing-and-translation",
+    "ai-services",
+    "digital-marketing",
+    "music-and-audio",
+    "programming-and-tech",
+    "business",
+  ];
+  const navigate = useNavigate();
   // const [ads, setAds] = useState([]);
   const [ads, setAds] = useState([
     {
-      id: 1,
+      id: "6421749b53a93676f3f21689",
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/1200x900",
     },
     {
       id: 2,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
     {
       id: 3,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
     {
       id: 4,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
     {
       id: 5,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
     {
       id: 6,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
     {
       id: 7,
       user: "Tatva Kamdar",
-      description: "This is my name bla bla bla some content",
+      title: "Title: Full Stack App",
+      aboutAd: "About the Ad: I will make a full stack application for you",
       price: 2000,
+      link: "https://source.unsplash.com/random/400x300",
     },
   ]);
 
@@ -96,6 +122,14 @@ const CategoryPage = () => {
   //   setLocalStrorageCache();
   // }, []);
 
+  useEffect(() => {
+    // API to get all ads in the current category
+    // To send Params -> [categoryname]
+    if (!categories.includes(categoryName)) {
+      navigate("/home");
+    }
+  }, [categoryName]);
+  useEffect(() => {}, []);
   return (
     <div className="w-screen flex flex-col">
       <div className="flex flex-col px-16 py-10">
@@ -127,21 +161,22 @@ const CategoryPage = () => {
         </div>
       </div>
       <div
-        className={`w-5/6 grid ${
+        className={`w-full xs:w-5/6 grid ${
           isAboveSmallScreens
             ? "grid-cols-4"
-            : "grid-cols-1 xs:grid-cols-2 lg:grid-cols-3"
-        } justify-center mx-auto place-items-center gap-y-10`}
+            : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+        } justify-center mx-auto place-items-center gap-y-10 gap-x-2`}
       >
         {ads.map((ad) => (
           <Link
             key={ad.id}
             to={`/categories/${categoryName}/${ad.id}`}
-            state={ad}
-            className="shadow-md shadow-gray-400 w-[250px] sm:w-[300px] md:w-[350px] hover:scale-105 transition-all duration-500"
+            state={{ ...ad }}
+            className="shadow-md shadow-gray-400 max-w-[300px] sm:max-w-[400px] md:w-[350px] hover:scale-105 transition-all duration-500"
           >
             <img
-              src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              // src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              src={ad.link}
               alt="gigimg"
               className=""
             />
@@ -149,7 +184,7 @@ const CategoryPage = () => {
               <FaUserCircle size={22} className="mr-2" />
               <h2>{ad.user}</h2>
             </div>
-            <p className="px-1 py-1">{ad.description}</p>
+            <p className="px-1 py-1">{ad.title}</p>
             <hr className="my-2" />
             <div className="flex justify-between place-items-center px-4 pb-1">
               <SlLike size={22} />
