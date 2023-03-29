@@ -16,10 +16,12 @@ import CategoryPage from "./Views/CategoryPage";
 import AdPage from "./Views/AdPage";
 import { createContext, useContext, useEffect, useState } from "react";
 import Home from "./Views/Home";
+import { ProfilePic } from "./Components/ProfilePic";
 import { getCookie, setCookie } from "./Hooks/useCookies";
 import axios from "axios";
 import Chat from "./Views/Chat";
 import CreateAd from "./Views/CreateAd";
+import AdsInProgress from "./Views/AdsInProgress";
 
 const UserContext = createContext({});
 
@@ -49,6 +51,7 @@ function App() {
       console.log("messages", messages);
       fetchedData["loggedIn"] = true;
       setUser(fetchedData);
+      console.log("fetch", fetchedData);
       return;
     }
     if (!user.loggedIn) {
@@ -59,6 +62,11 @@ function App() {
 
   return (
     <>
+      <Navbar />
+      <ProfilePic/>
+      <Routes>
+        <Route path={"/"} element={<Landing />} />
+      </Routes>
       <UserContext.Provider value={{ user, setUser }}>
         <Navbar />
         <Link to={"/home"} className="border-2 border-black px-3">
@@ -79,19 +87,25 @@ function App() {
           {/* User Authenticated Routes */}
           <Route element={<UserAuthContext user={user} />}>
             <Route path={"/home"} element={<Home />} />
+            <Route
+              path={"/categories/:categoryName"}
+              element={<CategoryPage />}
+            />
+            <Route path={"/createAd"} element={<CreateAd />} />
+            <Route
+              path={"/categories/:categoryName/:id"}
+              element={<AdPage />}
+            />
+            <Route
+              path={"/categories/:categoryName/:id/chat"}
+              element={<Chat />}
+            />
+            <Route
+              path={"/client/ads-in-progress"}
+              element={<AdsInProgress />}
+            />
           </Route>
           {/* User Authenticated Routes */}
-          <Route
-            path={"/categories/:categoryName"}
-            element={<CategoryPage />}
-          />
-          <Route path={"/createAd"} element={<CreateAd />} />
-
-          <Route path={"/categories/:categoryName/:id"} element={<AdPage />} />
-          <Route
-            path={"/categories/:categoryName/:id/chat"}
-            element={<Chat />}
-          />
 
           {/* Signup Routes */}
           <Route path={"/signup"} element={<Signup />} />

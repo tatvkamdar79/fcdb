@@ -7,11 +7,13 @@ import { UserContext } from "../App";
 
 const Chat = () => {
   const { state } = useLocation();
+  // console.log(state);
   const ad = state;
   const { freelancer } = state;
-
+  
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
+  const currentUser = user.user;
+  console.log(currentUser);
   //   const freelancer = state.freelancer;
   let stars = [];
   for (let i = 0; i < freelancer.rating; i++) {

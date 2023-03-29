@@ -74,7 +74,17 @@ const SignInForm = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("err", err.response.status);
+        switch (err.response.status) {
+          case 400:
+            alert("Invalid Credentials");
+            break;
+          case 401:
+            alert("User Not Found!");
+            break;
+          default:
+            alert("User Not Authenticated");
+        }
       });
   }
 

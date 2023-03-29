@@ -10,6 +10,7 @@ module.exports.signUp = async function (req, res) {
     const client = await Client.findOne({ email: req.body.email });
     if (!client) {
       const salt = await bcrypt.genSalt();
+      console.log(req.body.password);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
       console.log(req.body);
       const newClient = await Client.create({
@@ -62,6 +63,7 @@ module.exports.signIn = async function (req, res) {
 };
 
 module.exports.getActiveAds = (req, res) => {
+  console.log("here", req);
   const activeAds = req.user.workingWith.filter((obj) => obj.isAdActive);
   utils.sendSuccess(res, "", activeAds);
 };
@@ -78,4 +80,21 @@ module.exports.getClient = async (req, res) => {
   } else {
     utils.sendError(res, "No such Client found");
   }
+};
+
+module.exports.createGmeet = async (req, res) => {
+  const Meeting = require("google-meet-api").meet;
+
+  Meeting({
+    clientId: req.body.clientId,
+    clientSecret: req.body.clientSecret,
+    refreshToken: req.body.clientRefreshToken,
+    date: "2023-03-29",
+    time: "03:00",
+    summary: "summary",
+    location: "location",
+    description: "description",
+  }).then(function (result) {
+    console.log(result); //result it the final link
+  });
 };
