@@ -79,7 +79,6 @@ function App() {
           // <Link to={"/categories/abc"} className="border-2 border-black px-3">
           //   abc
         // </Link> */}
-        <Navbar />
         <Routes>
           <Route path={"/"} element={<Landing />} />
           <Route path={"/createAd"} element={<CreateAd />} />
