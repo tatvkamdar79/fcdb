@@ -16,6 +16,7 @@ import CategoryPage from "./Views/CategoryPage";
 import AdPage from "./Views/AdPage";
 import { createContext, useContext, useEffect, useState } from "react";
 import Home from "./Views/Home";
+import { ProfilePic } from "./Components/ProfilePic";
 import { getCookie, setCookie } from "./Hooks/useCookies";
 import axios from "axios";
 import Chat from "./Views/Chat";
@@ -61,6 +62,11 @@ function App() {
 
   return (
     <>
+      <Navbar />
+      <ProfilePic/>
+      <Routes>
+        <Route path={"/"} element={<Landing />} />
+      </Routes>
       <UserContext.Provider value={{ user, setUser }}>
         <Navbar />
         <Link to={"/home"} className="border-2 border-black px-3">
