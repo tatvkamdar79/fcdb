@@ -18,8 +18,14 @@ const clientSchema = new Schema({
   password: {
     type: String,
   },
-  profilePicPath:{
-    type:String
+  profilePicPath: {
+    type: String,
+  },
+  accessToken: {
+    type: String,
+  },
+  refreshToken: {
+    type: String,
   },
   workingWith: [
     {

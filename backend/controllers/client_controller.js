@@ -47,10 +47,7 @@ module.exports.signIn = async function (req, res) {
       if (!validPassword) {
         utils.sendError(res, "Invalid password");
       } else {
-        const token = jsonWebToken.sign(
-          { id: user._id, role: "client" },
-          secretKey
-        );
+        const token = utils.createJWT({ id: user._id, role: "client" });
         utils.sendSuccess(res, "User logged in successfully", {
           token: token,
         });

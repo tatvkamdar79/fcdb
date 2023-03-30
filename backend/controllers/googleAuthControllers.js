@@ -1,4 +1,6 @@
-const role = require("../middlewares/auth").roleOfUser;
+const Client = require("../models/clientSchema");
+const Freelancer = require("../models/freelancerSchema");
+const utils = require("../utils/response");
 
 module.exports.handleIncomingUser = (
   accessToken,
@@ -6,21 +8,36 @@ module.exports.handleIncomingUser = (
   profile,
   done
 ) => {
-  // Find a user
-  console.log("Role");
-  console.log(role);
 
-  //   console.log(accessToken);
-  //   console.log(refreshToken);
   profile.accessToken = accessToken;
   profile.refreshToken = refreshToken;
   done(null, profile);
 };
 
-module.exports.handleIncomingUserCallback = (req, res) => {
-  //   console.log(req.user);
-  //   res.cookie("JWT_AUTH");
-  //   console.log(req.user);
-  console.log(req.role);
+module.exports.handleIncomingUserCallback = async (req, res) => {
+  const role = req.query.state;
+  const profile = req.user;
+  console.log(profile);
+  let newUser = {
+    name: profile.displayName,
+    email: profile.emails[0].value,
+    profilePicPath: profile.photos[0].value,
+    accessToken: profile.accessToken,
+    refreshToken: profile.refreshToken,
+  };
+  let user = null;
+  if (role == "client") {
+    user = await Client.find({ email: newUser.email });
+    if (!user) {
+      user = await Client.create(newUser);
+    }
+  } else {
+    user = await Freelancer.find({ email: newUser.email });
+    if (!user) {
+      user = await Freelancer.create(newUser);
+    }
+  }
+  const token = utils.createJWT({ id: user._id, role: role });
+  res.cookie("JWT_AUTH", token);
   res.redirect("http://localhost:3000");
 };

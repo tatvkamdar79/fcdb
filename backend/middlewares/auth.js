@@ -3,16 +3,8 @@ const Freelancer = require("../models/freelancerSchema");
 const jsonWebToken = require("jsonwebtoken");
 const utils = require("../utils/response");
 
-// module.exports.roleOfUser = "test";
-
 module.exports.setAuthenticatedUser = async function (req, res, next) {
-  // console.log(req.query);
-  console.log(req.query.role);
-  if (req.query.role) {
-    module.exports.roleOfUser = req.query.role;
-  }
   if (!req.headers || !req.headers.authorization) {
-    console.log("NO Header provided, sign in");
     next();
     return;
   }
