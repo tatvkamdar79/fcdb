@@ -6,7 +6,7 @@ const googleAuthController = require("../controllers/googleAuthControllers");
 router.get(
   "/auth/google/client",
   passport.authenticate("google", {
-    scope: ["email"],
+    scope: ["email", "profile"],
     session: false,
     state: "client",
   })
@@ -15,7 +15,7 @@ router.get(
 router.get(
   "/auth/google/freelancer",
   passport.authenticate("google", {
-    scope: ["email"],
+    scope: ["email", "profile"],
     session: false,
     state: "freelancer",
   })

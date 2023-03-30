@@ -16,7 +16,6 @@ module.exports.handleIncomingUser = (
 module.exports.handleIncomingUserCallback = async (req, res) => {
   const role = req.query.state;
   const profile = req.user;
-  console.log(profile);
   let newUser = {
     // name: profile.displayName,
     name: "hrithik",
