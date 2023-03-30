@@ -12,8 +12,8 @@ const adSchema = new Schema({
     type: String,
     required: true,
   },
-  coverPicPath:{
-    type: String
+  coverPicPath: {
+    type: String,
   },
   links: [
     {
@@ -24,8 +24,14 @@ const adSchema = new Schema({
   freelancer: Freelancer.schema,
   clientIds: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "clients",
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "clients",
+      },
+      isActive: {
+        type: Boolean,
+        default: true,
+      },
     },
   ],
   viewState: {
