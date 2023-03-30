@@ -8,6 +8,7 @@ const pictureController = require("./pictures_controllers");
 
 module.exports.getAdsOnCategoryName = async function (req, res) {
   const categoryName = req.params.categoryName;
+  console.log(categoryName);
   try {
     const ads = await Ads.find({ category: categoryName });
     utils.sendSuccess(res, `Ads on category ${categoryName}`, ads);
@@ -18,12 +19,16 @@ module.exports.getAdsOnCategoryName = async function (req, res) {
 
 module.exports.createAd = async function (req, res) {
   try {
-    console.log(req.file)
-    if(req.role == "client"){
+    console.log(req.file);
+    if (req.role == "client") {
       return utils.sendError(res, "You are not allowed to create Ads");
     }
     // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);
-    const newAd = await Ads.create({ ...req.body, freelancer: req.user, coverPicPath: req.uploadedFilePath });
+    const newAd = await Ads.create({
+      ...req.body,
+      freelancer: req.user,
+      coverPicPath: req.uploadedFilePath,
+    });
     console.log(newAd);
     const res1 = await Freelancer.updateOne(
       { email: req.user.email },

@@ -28,6 +28,6 @@ module.exports.sendError = function (
 };
 
 module.exports.createJWT = (data) => {
-  const token = jsonWebToken.sign({ id: user._id, role: "client" }, secretKey);
+  const token = jsonWebToken.sign(data, secretKey);
   return token;
 };
