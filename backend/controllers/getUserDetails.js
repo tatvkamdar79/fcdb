@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
   let result = {
     user: req.user,
     conversations: data,
+    // role:
   };
   if (req.user) utils.sendSuccess(res, "Got User Successfully", result, 200);
   else utils.sendError(res, "Please sign in");
