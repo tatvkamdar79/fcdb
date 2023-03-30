@@ -7,10 +7,10 @@ router.get(
   "/auth/google",
   passport.authenticate(
     "google",
-    { scope: ["email"], session: false },
+    { scope: ["email"], session: false, state: "clienthijdahrithik" },
     function (req, res) {
-      console.log(req.user);
       console.log("In here");
+      console.log(req.user);
     }
   )
 );
