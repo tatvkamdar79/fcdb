@@ -14,6 +14,7 @@ router.get(
     }
   )
 );
+
 router.get(
   "/auth/google/freelancer",
   passport.authenticate(
