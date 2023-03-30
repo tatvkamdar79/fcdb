@@ -70,8 +70,8 @@ const SignInForm = () => {
 
           setUser(fetchedUser);
 
-          navigate("/home");
-          window.location.reload(true);
+          navigate("../home");
+          navigate(0);
         }
       })
       .catch((err) => {
