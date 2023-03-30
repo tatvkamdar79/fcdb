@@ -20,6 +20,7 @@ router.get(
     state: "freelancer",
   })
 );
+
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/lol", session: false }),

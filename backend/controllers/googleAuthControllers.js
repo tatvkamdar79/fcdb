@@ -8,6 +8,7 @@ module.exports.handleIncomingUser = (
   profile,
   done
 ) => {
+
   profile.accessToken = accessToken;
   profile.refreshToken = refreshToken;
   done(null, profile);
