@@ -14,11 +14,11 @@ const SignInForm = () => {
   };
   const [formDetails, setFormDetails] = useState(initialFormDetails);
 
-  useEffect(() => {
-    if (user.loggedIn) {
-      navigate("/home");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user.loggedIn) {
+  //     navigate("/home");
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (user.loggedIn) {
@@ -71,37 +71,38 @@ const SignInForm = () => {
           setUser(fetchedUser);
 
           navigate("/home");
+          window.location.reload(true);
         }
       })
       .catch((err) => {
         console.log("err", err.response.status);
-        switch (err.response.status) {
-          case 400:
-            alert("Invalid Credentials");
-            break;
-          case 401:
-            alert("User Not Found!");
-            break;
-          default:
-            alert("User Not Authenticated");
-        }
+        // switch (err.response.status) {
+        //   case 400:
+        //     alert("Invalid Credentials");
+        //     break;
+        //   case 401:
+        //     alert("User Not Found!");
+        //     break;
+        //   default:
+        //     alert("User Not Authenticated");
+        // }
       });
   }
 
   return (
     <div className="w-screen">
       <div className="flex flex-col w-full items-center h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
-        <div>
-          <Link to="/">
-            <h3 className="text-4xl font-bold text-blue">FCDB</h3>
-          </Link>
-        </div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
+        <div className="w-5/6 px-6 py-4 mt-6 overflow-hidden bg-white shadow-lg shadow-gray-400 sm:max-w-lg sm:rounded-lg">
+          <div className="text-center p-3">
+            <Link to="/">
+              <h3 className="text-5xl font-serif font-bold text-blue">FCDB</h3>
+            </Link>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 undefined"
+                className="block text-lg font-semibold text-gray-600 undefined"
               >
                 Email
               </label>
@@ -111,14 +112,14 @@ const SignInForm = () => {
                   name="email"
                   value={formDetails.email}
                   onChange={changeDetails}
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="block w-full mt-1 p-1 rounded-md shadow-sm border border-gray-500 focus:border-blue focus:ring outline-none focus:ring-blue transition-all duration-500"
                 />
               </div>
             </div>
             <div className="mt-4">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 undefined"
+                className="block text-lg font-semibold text-gray-600 undefined"
               >
                 Password
               </label>
@@ -128,7 +129,7 @@ const SignInForm = () => {
                   name="password"
                   value={formDetails.password}
                   onChange={changeDetails}
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="block w-full mt-1 p-1 rounded-md shadow-sm border border-gray-500 focus:border-blue focus:ring outline-none focus:ring-blue transition-all duration-500"
                 />
               </div>
             </div>
@@ -144,9 +145,9 @@ const SignInForm = () => {
           <div className="mt-4 text-grey-600">
             Create an account?{" "}
             <span>
-              <a className="text-blue hover:underline" href="/signup/client">
+              <Link className="text-blue hover:underline" to="/signup">
                 Sign up
-              </a>
+              </Link>
             </span>
           </div>
           <div className="flex items-center w-full my-4">

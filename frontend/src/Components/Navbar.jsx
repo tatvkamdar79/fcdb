@@ -87,7 +87,7 @@ const Navbar = () => {
     console.log("Logged Out");
     setNavItems([
       { id: 1, title: "Home", link: "/home", style: "" },
-      { id: 2, title: "Categories", link: "/categories", style: "" },
+      // { id: 2, title: "Categories", link: "/categories", style: "" },
       { id: 3, title: "Sign in", link: "/signin", style: "" },
       {
         id: 4,
@@ -109,7 +109,7 @@ const Navbar = () => {
     if (user.loggedIn === true) {
       setNavItems([
         { id: 1, title: "Home", link: "/home", style: "" },
-        { id: 2, title: "Categories", link: "/categories", style: "" },
+        // { id: 2, title: "Categories", link: "/categories", style: "" },
       ]);
     }
   }, [user.loggedIn]);
