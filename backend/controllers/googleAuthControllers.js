@@ -8,7 +8,6 @@ module.exports.handleIncomingUser = (
   profile,
   done
 ) => {
-
   profile.accessToken = accessToken;
   profile.refreshToken = refreshToken;
   done(null, profile);
@@ -17,7 +16,6 @@ module.exports.handleIncomingUser = (
 module.exports.handleIncomingUserCallback = async (req, res) => {
   const role = req.query.state;
   const profile = req.user;
-  console.log(profile);
   let newUser = {
     name: profile.displayName,
     email: profile.emails[0].value,
@@ -27,12 +25,12 @@ module.exports.handleIncomingUserCallback = async (req, res) => {
   };
   let user = null;
   if (role == "client") {
-    user = await Client.find({ email: newUser.email });
+    user = await Client.findOne({ email: newUser.email });
     if (!user) {
       user = await Client.create(newUser);
     }
   } else {
-    user = await Freelancer.find({ email: newUser.email });
+    user = await Freelancer.findOne({ email: newUser.email });
     if (!user) {
       user = await Freelancer.create(newUser);
     }
