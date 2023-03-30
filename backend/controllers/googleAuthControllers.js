@@ -22,6 +22,6 @@ module.exports.handleIncomingUserCallback = (req, res) => {
   // console.log(req.user);
   //   res.cookie("JWT_AUTH");
   //   console.log(req.user);
-  console.log(req.url);
+  console.log(req.query.state);
   res.redirect("http://localhost:3000");
 };
