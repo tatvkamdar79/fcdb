@@ -110,7 +110,7 @@ const CategoryPage = () => {
         const response = await axios.get(apiUrl, { headers });
         console.log(response.data.data);
         setAds(response.data.data);
-        console.log(response.data.data[1]._id);
+        console.log(response.data.data[1]?._id);
         return response.data.data;
       } catch (error) {
         console.log("error", error);
