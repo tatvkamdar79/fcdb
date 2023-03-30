@@ -24,8 +24,8 @@ const freelancerSchema = new Schema({
   about: {
     type: String,
   },
-  profilePicPath:{
-    type:String
+  profilePicPath: {
+    type: String,
   },
   ads: [
     {
@@ -35,6 +35,12 @@ const freelancerSchema = new Schema({
       },
     },
   ],
+  accessToken: {
+    type: String,
+  },
+  refreshToken: {
+    type: String,
+  },
   workingWith: [
     {
       clientId: {

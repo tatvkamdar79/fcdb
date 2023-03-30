@@ -5,26 +5,20 @@ const googleAuthController = require("../controllers/googleAuthControllers");
 
 router.get(
   "/auth/google/client",
-  passport.authenticate(
-    "google",
-    { scope: ["email"], session: false, state: "client" },
-    function (req, res) {
-      console.log("In here");
-      console.log(req.user);
-    }
-  )
+  passport.authenticate("google", {
+    scope: ["email"],
+    session: false,
+    state: "client",
+  })
 );
 
 router.get(
   "/auth/google/freelancer",
-  passport.authenticate(
-    "google",
-    { scope: ["email"], session: false, state: "freelancer" },
-    function (req, res) {
-      console.log("In here");
-      console.log(req.user);
-    }
-  )
+  passport.authenticate("google", {
+    scope: ["email"],
+    session: false,
+    state: "freelancer",
+  })
 );
 router.get(
   "/auth/google/callback",
