@@ -100,8 +100,14 @@ function App() {
 
           {/* Signup Routes */}
           <Route path={"/signup"} element={<Signup />} />
-          <Route path={"/signup/client"} element={<SignUpForm />} />
-          <Route path={"/signup/freelancer"} element={<SignUpForm />} />
+          <Route
+            path={"/signup/client"}
+            element={<SignUpForm role={"client"} />}
+          />
+          <Route
+            path={"/signup/freelancer"}
+            element={<SignUpForm role={"freelancer"} />}
+          />
 
           {/* Signin Routes */}
           <Route path={"/signin"} element={<SignInForm />} />

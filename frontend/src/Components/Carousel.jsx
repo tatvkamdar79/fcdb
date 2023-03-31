@@ -38,7 +38,7 @@ const Carousel = () => {
       <div className="flex">
         <div
           id="content"
-          className="p-4 flex gap-x-2 items-center justify-start overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
+          className=" p-4 flex gap-x-2 items-center justify-start overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
         >
           {cards.map(({ id, ServiceName, Description, ImageLink, link }) => (
             <Card

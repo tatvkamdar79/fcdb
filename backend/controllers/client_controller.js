@@ -3,9 +3,15 @@ const utils = require("../utils/response");
 const bcrypt = require("bcrypt");
 const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
+const validateClientSchema = require("../models/clientSchema")
 
 module.exports.signUp = async function (req, res) {
   console.log("Here");
+  const {error,data} = validateClientSchema({email:req.body.email,password:req.body.password});
+  if(error){
+    utils.sendError(res, error.details[0].message);
+    return;
+  }
   try {
     const client = await Client.findOne({ email: req.body.email });
     if (!client) {
@@ -81,17 +87,33 @@ module.exports.getClient = async (req, res) => {
 
 module.exports.createGmeet = async (req, res) => {
   const Meeting = require("google-meet-api").meet;
-
+  let date = req.body.meetDate;
+  let time = req.body.meetTime;
+  let summary = req.body.meetSummary || "Client Freelancer Discussion";
+  let location = "Lite Hain";
+  let description =
+    req.body.meetDescription ||
+    "A general or specific meeting to discuss about the Ad";
   Meeting({
     clientId: req.body.clientId,
     clientSecret: req.body.clientSecret,
     refreshToken: req.body.clientRefreshToken,
-    date: "2023-03-29",
-    time: "03:00",
-    summary: "summary",
-    location: "location",
-    description: "description",
-  }).then(function (result) {
-    console.log(result); //result it the final link
+    date: date,
+    time: time,
+    summary: "Client Freelancer Discussion Session 😉",
+    location: "Your Home HH",
+    description: "Discussion Session",
+  }).then(function (meetLink) {
+    console.log(meetLink); //result it the final link
+    utils.sendSuccess(
+      res,
+      meetLink,
+      {
+        time: "AAJ",
+        summary: "blablbla",
+        location: "tere ghar bhaiiii",
+      },
+      200
+    );
   });
 };

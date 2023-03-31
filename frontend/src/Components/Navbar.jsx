@@ -124,9 +124,9 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-50">
       <nav
-        className={`w-full h-[90px] py-5 px-5 border-b-2 border-gray-400 bg-gradient-to-b to-white ${
-          scrolled && "from-gray-300"
-        }`}
+        className={`w-full h-[90px] py-5 px-5 border-b-2 border-gray-400 ${
+          scrolled ? "bg-neutral-400 text-white" : "bg-white"
+        } transition-all duration-700`}
       >
         {/* <Icon /> */}
         <div className="flex justify-between w-full pl-4 relative">
@@ -175,7 +175,9 @@ const Navbar = () => {
           ) : (
             // )
             <div>
-              <ul className="flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair">
+              <ul
+                className={`flex place-items-center justify-center m-2 gap-x-8 text-lg font-playfair`}
+              >
                 {navItems.map(({ id, title, link, style }) => (
                   <li key={id} className={style}>
                     <Link to={link}>{title}</Link>
@@ -192,11 +194,15 @@ const Navbar = () => {
         </div>
       </nav>
       {scrolled && (
-        <div className="hidden xl:block border border-gray-500 z-50 bg-white">
+        <div
+          className={`hidden xl:block z-50 text-gray-600 ${
+            scrolled && "bg-neutral-500 text-white font-serif font-bold"
+          }`}
+        >
           <ul className="flex justify-between px-10">
             {categories.map(({ id, category, link }) => (
               <Link key={id} to={link}>
-                <li className="text-gray-600 m-1">{category}</li>
+                <li className="mb-1">{category}</li>
               </Link>
             ))}
           </ul>
