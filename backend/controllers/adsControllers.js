@@ -20,19 +20,16 @@ module.exports.getAdsOnCategoryName = async function (req, res) {
 
 module.exports.createAd = async function (req, res) {
   try {
-    console.log(req.file);
     if (req.role == "client") {
       return utils.sendError(res, "You are not allowed to create Ads");
     }
-    // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);]
 
     //Validating the ad object
     const {error, data} = validateAdSchema({...req.body, freelancer: req.user})
     if(error){
       return utils.sendError(res, error.details[0].message);
     }
-    const newAd = await Ads.create({ ...req.body, freelancer: req.user, coverPicPath: req.uploadedFilePath });
-    // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);
+
     const newAd = await Ads.create({
       ...req.body,
       freelancer: req.user,
@@ -51,7 +48,7 @@ module.exports.createAd = async function (req, res) {
     }
   } catch (err) {
     utils.sendError(res, `Some error occurred while creating, ${err}`);
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -69,11 +66,18 @@ module.exports.deleteAd = async (req, res) => {
   }
   try {
     const ad = await Ads.findById(req.params.adId);
+    if (!ad) {
+      return utils.sendError(res, "Ad not found");
+    }
     if (ad.freelancer._id.equals(req.user._id) == false) {
       return utils.sendError(
         res,
         "You are not allowed to delete Ads, only the creator can delete the Ad"
       );
+    }
+    const activeClients = ad.clientIds.filter((obj) => obj.isActive);
+    if (activeClients.length > 0) {
+      return utils.sendError(res, "Can't delete Ad that has active clients");
     }
     let promises = [
       Freelancer.updateOne(
@@ -84,7 +88,7 @@ module.exports.deleteAd = async (req, res) => {
     for (const clientId of ad.clientIds) {
       promises.push(
         Client.updateOne(
-          { _id: clientId },
+          { _id: clientId.id },
           { $pull: { workingWith: { adId: ad._id } } }
         )
       );
@@ -95,6 +99,43 @@ module.exports.deleteAd = async (req, res) => {
     ]);
     // Check for result and success of query
     utils.sendSuccess(res, "Ad Deleted", {});
+  } catch (err) {
+    utils.sendError(res, "Some error has occurred");
+    console.log(err);
+  }
+};
+
+module.exports.endAdContract = async (req, res) => {
+  if (req.role == "freelancer") {
+    return utils.sendError(
+      res,
+      "Only Clients are allowed to end the Ad contract"
+    );
+  }
+  try {
+    let ad = await Ads.findById(req.body.adId);
+    const isAdPresentAndActive = ad.clientIds.filter(
+      (obj) => req.user._id.equals(obj._id) && obj.isActive
+    );
+    if (isAdPresentAndActive.length == 0) {
+      return utils.sendError(res, "Ad is not active");
+    }
+    let result = await Promise.all([
+      Ads.updateOne(
+        { _id: ad._id, "clientIds.id": req.user._id },
+        { "clientIds.isActive": false }
+      ),
+      Client.updateOne(
+        { _id: req.user._id, "workingWith.adId": ad._id },
+        { "workingWith.$.isAdActive": false }
+      ),
+      Freelancer.updateOne(
+        { _id: ad.freelancer._id, "workingWith.adId": ad._id },
+        { "workingWith.$.isAdActive": false }
+      ),
+    ]);
+    console.log(result);
+    utils.sendSuccess(res, "GG");
   } catch (err) {
     utils.sendError(res, "Some error has occurred");
     console.log(err);
