@@ -5,6 +5,7 @@ const UnconfirmedPurchase = require("../models/unconfirmedPurchaseSchema");
 const utils = require("../utils/response");
 const { response } = require("express");
 const pictureController = require("./pictures_controllers");
+const validateAdSchema = require("../validators/adSchema")
 
 module.exports.getAdsOnCategoryName = async function (req, res) {
   const categoryName = req.params.categoryName;
@@ -23,6 +24,14 @@ module.exports.createAd = async function (req, res) {
     if (req.role == "client") {
       return utils.sendError(res, "You are not allowed to create Ads");
     }
+    // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);]
+
+    //Validating the ad object
+    const {error, data} = validateAdSchema({...req.body, freelancer: req.user})
+    if(error){
+      return utils.sendError(res, error.details[0].message);
+    }
+    const newAd = await Ads.create({ ...req.body, freelancer: req.user, coverPicPath: req.uploadedFilePath });
     // const CoverPhotoPath = await pictureController.getCoverPhotoPath(req,res);
     const newAd = await Ads.create({
       ...req.body,

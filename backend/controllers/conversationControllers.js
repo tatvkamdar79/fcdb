@@ -3,12 +3,19 @@ const Ads = require("../models/adSchema");
 const Freelancer = require("../models/freelancerSchema");
 const Client = require("../models/clientSchema");
 const utils = require("../utils/response");
+const validateConversationSchema = require("../models/conversationSchema");
 
 module.exports.createMessage = async (req, res) => {
   try {
     const adId = req.body.adId;
     const clientId = req.body.clientId;
     const freelancerId = req.body.freelancerId;
+    const {error,data} = validateConversationSchema({adId,clientId,freelancerId});
+
+    if(error){
+      return utils.sendError(res, error.details[0].message);
+    }
+
     const ad = await Ads.findById(adId);
     if (!ad) {
       return utils.sendError(res, "Ad doesn't exist");

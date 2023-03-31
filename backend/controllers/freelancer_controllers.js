@@ -3,8 +3,15 @@ const utils = require("../utils/response");
 const bcrypt = require("bcrypt");
 const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
+const validateFreelancerSchema = require("../models/freelancerSchema");
+
 
 module.exports.signUp = async function (req, res) {
+  const {error,data} = validateFreelancerSchema({email: req.body.email, password: req.body.password});
+  if(error){
+    utils.sendError(res, error.details[0].message);
+    return;
+  }
   try {
     const freelancer = await Freelancer.findOne({ email: req.body.email });
     if (!freelancer) {
