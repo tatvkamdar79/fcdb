@@ -1,12 +1,5 @@
 import Signup from "./Views/Signup";
-import {
-  Routes,
-  Route,
-  useNavigate,
-  Outlet,
-  Navigate,
-  Link,
-} from "react-router-dom";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import SignUpForm from "./Views/SignUpForm";
 import SignInForm from "./Views/SignInForm";
 // import PostSignUpModal from "./Components/PostSignUpModal";
@@ -14,10 +7,9 @@ import Navbar from "./Components/Navbar";
 import Landing from "./Views/Landing";
 import CategoryPage from "./Views/CategoryPage";
 import AdPage from "./Views/AdPage";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Home from "./Views/Home";
-import { ProfilePic } from "./Components/ProfilePic";
-import { getCookie, setCookie } from "./Hooks/useCookies";
+import { getCookie } from "./Hooks/useCookies";
 import axios from "axios";
 import Chat from "./Views/Chat";
 import CreateAd from "./Views/CreateAd";
@@ -26,13 +18,12 @@ import AdsInProgress from "./Views/AdsInProgress";
 const UserContext = createContext({});
 
 function App() {
-  const navigate = useNavigate();
   const [user, setUser] = useState({ loggedIn: false });
 
   useEffect(() => {
     async function getUserDetails() {
       let jwt = getCookie("JWT_AUTH");
-      if (jwt.length == 0) {
+      if (jwt.length === 0) {
         return;
       }
 
@@ -58,15 +49,12 @@ function App() {
       getUserDetails();
       console.log(user);
     }
-  }, []);
+  }, [user]);
 
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
         <Navbar />
-        <Routes>
-          <Route path={"/"} element={<Landing />} />
-        </Routes>
         {/* <Link to={"/home"} className="border-2 border-black px-3">
           Home
           </Link>
@@ -87,7 +75,8 @@ function App() {
             path={"/categories/:categoryName"}
             element={<CategoryPage />}
           />
-          {/* User Authenticated Routes */}
+
+          {/* Client Authenticated Routes */}
           <Route element={<UserAuthContext user={user} />}>
             <Route path={"/home"} element={<Home />} />
             <Route
@@ -103,12 +92,22 @@ function App() {
               element={<AdsInProgress />}
             />
           </Route>
-          {/* User Authenticated Routes */}
+          {/* Client Authenticated Routes */}
+
+          {/* Freelancer Authenticated Routes */}
+
+          {/* Freelancer Authenticated Routes */}
 
           {/* Signup Routes */}
           <Route path={"/signup"} element={<Signup />} />
-          <Route path={"/signup/client"} element={<SignUpForm />} />
-          <Route path={"/signup/freelancer"} element={<SignUpForm />} />
+          <Route
+            path={"/signup/client"}
+            element={<SignUpForm role={"client"} />}
+          />
+          <Route
+            path={"/signup/freelancer"}
+            element={<SignUpForm role={"freelancer"} />}
+          />
 
           {/* Signin Routes */}
           <Route path={"/signin"} element={<SignInForm />} />

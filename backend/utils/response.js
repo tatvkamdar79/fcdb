@@ -1,3 +1,6 @@
+const secretKey = process.env.SECRET_KEY;
+const jsonWebToken = require("jsonwebtoken");
+
 function sendResponse(response, message, data, success, statusCode) {
   response.status(statusCode).send({
     success,
@@ -22,4 +25,9 @@ module.exports.sendError = function (
   statusCode = 400
 ) {
   sendResponse(response, message, data, false, statusCode);
+};
+
+module.exports.createJWT = (data) => {
+  const token = jsonWebToken.sign(data, secretKey);
+  return token;
 };

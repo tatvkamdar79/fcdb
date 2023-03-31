@@ -6,6 +6,6 @@ router.use("/freelancer", require("./freelancers"));
 router.use("/ads", require("./ads"));
 router.use("/conversations", require("./conversations"));
 router.get("/getUserDetails", require("../controllers/getUserDetails"));
-router.use('/pictures',require("./pictures"));
-
+router.use("/pictures", require("./pictures"));
+router.use("/users", require("./users"));
 module.exports = router;

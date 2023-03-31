@@ -53,10 +53,7 @@ module.exports.signIn = async function (req, res) {
       if (!validPassword) {
         utils.sendError(res, "Invalid password");
       } else {
-        const token = jsonWebToken.sign(
-          { id: user._id, role: "client" },
-          secretKey
-        );
+        const token = utils.createJWT({ id: user._id, role: "client" });
         utils.sendSuccess(res, "User logged in successfully", {
           token: token,
         });
@@ -90,17 +87,33 @@ module.exports.getClient = async (req, res) => {
 
 module.exports.createGmeet = async (req, res) => {
   const Meeting = require("google-meet-api").meet;
-
+  let date = req.body.meetDate;
+  let time = req.body.meetTime;
+  let summary = req.body.meetSummary || "Client Freelancer Discussion";
+  let location = "Lite Hain";
+  let description =
+    req.body.meetDescription ||
+    "A general or specific meeting to discuss about the Ad";
   Meeting({
     clientId: req.body.clientId,
     clientSecret: req.body.clientSecret,
     refreshToken: req.body.clientRefreshToken,
-    date: "2023-03-29",
-    time: "03:00",
-    summary: "summary",
-    location: "location",
-    description: "description",
-  }).then(function (result) {
-    console.log(result); //result it the final link
+    date: date,
+    time: time,
+    summary: "Client Freelancer Discussion Session 😉",
+    location: "Your Home HH",
+    description: "Discussion Session",
+  }).then(function (meetLink) {
+    console.log(meetLink); //result it the final link
+    utils.sendSuccess(
+      res,
+      meetLink,
+      {
+        time: "AAJ",
+        summary: "blablbla",
+        location: "tere ghar bhaiiii",
+      },
+      200
+    );
   });
 };

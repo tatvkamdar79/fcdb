@@ -110,11 +110,11 @@ const CategoryPage = () => {
         const response = await axios.get(apiUrl, { headers });
         console.log(response.data.data);
         setAds(response.data.data);
-        console.log(response.data.data[1]._id);
+        console.log(response.data.data[1]?._id);
         return response.data.data;
       } catch (error) {
         console.log("error", error);
-        alert(error.message);
+        // alert(error.message);
         return [];
       }
     }
@@ -192,13 +192,13 @@ const CategoryPage = () => {
           >
             <img
               // src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              src={ad.link}
+              src={"http://localhost:8080/" + ad?.coverPicPath}
               alt="gigimg"
               className=""
             />
             <div className="flex justify-start place-items-center px-2 my-2 py-2 font-semibold">
               <FaUserCircle size={22} className="mr-2" />
-              <h2>{ad.user}</h2>
+              <h2>{ad?.freelancer?.name}</h2>
             </div>
             <p className="px-1 py-1 text-lg text-gray-900">{ad.title}</p>
             <p className="text-sm px-1 py-1 font-serif text-gray-600">

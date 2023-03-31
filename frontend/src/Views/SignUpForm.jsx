@@ -18,7 +18,7 @@ const Users = [
   },
 ];
 
-const SignUpForm = () => {
+const SignUpForm = ({ role }) => {
   const initialFormDetails = {
     name: "",
     email: "",
@@ -182,14 +182,15 @@ const SignUpForm = () => {
             <hr className="w-full" />
           </div>
           <div className="my-6 space-y-2">
-            <button
+            <a
+              href={`http://localhost:8080/api/users/auth/google/${role}`}
               aria-label="Login with Google"
               type="button"
               className="flex items-center justify-center w-full p-2 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-blue hover:scale-105 transition duration-500"
             >
               <FcGoogle size={25} />
               <p>Login with Google</p>
-            </button>
+            </a>
             <button
               aria-label="Login with GitHub"
               className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-blue hover:scale-105 transition duration-500"

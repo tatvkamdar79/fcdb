@@ -30,7 +30,7 @@ const AdPage = () => {
             {ad.user}
           </p>
           <div className="flex justify-center place-items-center bg-gray-200 my-4">
-            <img src={ad.link} alt="Ad Img" className="my-3 max-h-[500px]" />
+            <img src={"http://localhost:8080/"+ad?.coverPicPath} alt="Ad Img" className="my-3 max-h-[500px]" />
           </div>
           <div>
             <p className="text-3xl font-semibold text-gray-700 underline">
