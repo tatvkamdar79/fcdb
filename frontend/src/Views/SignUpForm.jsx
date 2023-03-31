@@ -18,7 +18,7 @@ const Users = [
   },
 ];
 
-const SignUpForm = () => {
+const SignUpForm = ({ role }) => {
   const initialFormDetails = {
     name: "",
     email: "",
@@ -183,7 +183,7 @@ const SignUpForm = () => {
           </div>
           <div className="my-6 space-y-2">
             <a
-              href="http://localhost:8080/api/users/auth/google/client"
+              href={`http://localhost:8080/api/users/auth/google/${role}`}
               aria-label="Login with Google"
               type="button"
               className="flex items-center justify-center w-full p-2 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-blue hover:scale-105 transition duration-500"

@@ -6,9 +6,11 @@ const googleAuthController = require("../controllers/googleAuthControllers");
 router.get(
   "/auth/google/client",
   passport.authenticate("google", {
-    scope: ["email", "profile"],
+    scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"],
     session: false,
     state: "client",
+    accessType: "offline",
+    prompt: "consent",
   })
 );
 
