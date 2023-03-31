@@ -28,11 +28,21 @@ module.exports.handleIncomingUserCallback = async (req, res) => {
     user = await Client.findOne({ email: newUser.email });
     if (!user) {
       user = await Client.create(newUser);
+    } else {
+      user.accessToken = newUser.accessToken;
+      user.refreshToken = newUser.refreshToken;
+      user.profilePicPath = newUser.profilePicPath;
+      await user.save();
     }
   } else {
     user = await Freelancer.findOne({ email: newUser.email });
     if (!user) {
       user = await Freelancer.create(newUser);
+    } else {
+      user.accessToken = newUser.accessToken;
+      user.refreshToken = newUser.refreshToken;
+      user.profilePicPath = newUser.profilePicPath;
+      await user.save();
     }
   }
   const token = utils.createJWT({ id: user._id, role: role });
