@@ -5,7 +5,7 @@ const UnconfirmedPurchase = require("../models/unconfirmedPurchaseSchema");
 const utils = require("../utils/response");
 const { response } = require("express");
 const pictureController = require("./pictures_controllers");
-const validateAdSchema = require("../validators/adSchema")
+const validateAdSchema = require("../validators/adSchema");
 
 module.exports.getAdsOnCategoryName = async function (req, res) {
   const categoryName = req.params.categoryName;
@@ -25,8 +25,11 @@ module.exports.createAd = async function (req, res) {
     }
 
     //Validating the ad object
-    const {error, data} = validateAdSchema({...req.body, freelancer: req.user})
-    if(error){
+    const { error, data } = validateAdSchema({
+      ...req.body,
+      freelancer: req.user,
+    });
+    if (error) {
       return utils.sendError(res, error.details[0].message);
     }
 
@@ -120,7 +123,7 @@ module.exports.endAdContract = async (req, res) => {
     if (isAdPresentAndActive.length == 0) {
       return utils.sendError(res, "Ad is not active");
     }
-    let result = await Promise.all([
+    let results = await Promise.all([
       Ads.updateOne(
         { _id: ad._id, "clientIds.id": req.user._id },
         { "clientIds.isActive": false }
@@ -134,8 +137,12 @@ module.exports.endAdContract = async (req, res) => {
         { "workingWith.$.isAdActive": false }
       ),
     ]);
-    console.log(result);
-    utils.sendSuccess(res, "GG");
+    for (const result of results) {
+      if (result.acknowledged == false || result.modifiedCount != 1) {
+        return utils.sendError(res, "Some error occurred while updating");
+      }
+    }
+    utils.sendSuccess(res, "Contract resolved successfully");
   } catch (err) {
     utils.sendError(res, "Some error has occurred");
     console.log(err);
