@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import { SlLike } from "react-icons/sl";
+import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import { getCookie } from "../Hooks/useCookies";
 import axios from "axios";
+import LoadingCard from "../Components/LoadingCard";
 // import axios from "axios";
 
 const CategoryPage = () => {
@@ -78,15 +79,8 @@ const CategoryPage = () => {
   //   price: 2000,
   //   link: "https://source.unsplash.com/random/400x300",
   // },
-  const [ads, setAds] = useState([
-    {
-      id: 1,
-      title: "Ad Title",
-      aboutAd: "about Ad",
-      price: 3000,
-      link: "https://source.unsplash.com/random/1200x900",
-    },
-  ]);
+  const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Styling Properties
   const isAboveSmallScreens = useMediaQuery("(min-width: 1730px)");
@@ -110,6 +104,7 @@ const CategoryPage = () => {
         const response = await axios.get(apiUrl, { headers });
         console.log(response.data.data);
         setAds(response.data.data);
+        setLoading(false);
         console.log(response.data.data[1]?._id);
         return response.data.data;
       } catch (error) {
@@ -140,9 +135,9 @@ const CategoryPage = () => {
 
   useEffect(() => {
     // API to get all ads in the current category
-    // To send Params -> [categoryname]
     if (!categories.includes(categoryName)) {
       navigate("/home");
+      // To send Params -> [categoryname]
     }
   }, [categoryName]);
   return (
@@ -182,6 +177,18 @@ const CategoryPage = () => {
             : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
         } justify-center mx-auto place-items-center gap-y-10 gap-x-2`}
       >
+        {loading && (
+          <>
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+            <LoadingCard />
+          </>
+        )}
         {ads.map((ad) => (
           <Link
             // key={ad._id}
@@ -194,20 +201,22 @@ const CategoryPage = () => {
               // src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
               src={"http://localhost:8080/" + ad?.coverPicPath}
               alt="gigimg"
-              className=""
+              className="h-[150px] border border-gray-400"
             />
-            <div className="flex justify-start place-items-center px-2 my-2 py-2 font-semibold">
+            <div className="flex justify-start place-items-center px-2 py-1 font-semibold">
               <FaUserCircle size={22} className="mr-2" />
               <h2>{ad?.freelancer?.name}</h2>
             </div>
-            <p className="px-1 py-1 text-lg text-gray-900">{ad.title}</p>
-            <p className="text-sm px-1 py-1 font-serif text-gray-600">
+            <p className="px-2 text-lg h-16 flex place-items-start text-justify mx-auto text-gray-900">
+              {ad.title}
+            </p>
+            <p className="flex place-items-center text-sm px-2 py-1 h-10 font-serif text-gray-600">
               {ad.shortDescription}
             </p>
-            <hr className="my-2" />
-            <div className="flex justify-between place-items-center px-4 pb-1">
-              <SlLike size={22} />
-              <div className="flex flex-col justify-end place-items-end">
+            <div className="flex justify-between place-items-center px-4 py-1">
+              <BsBookmark size={22} className="fill-gray-800" />
+              {/* <BsFillBookmarkFill size={22} className="fill-green-500" /> */}
+              <div className="flex flex-col place-items-end ">
                 <p>Starting at</p>
                 <p>{ad.price}</p>
               </div>
