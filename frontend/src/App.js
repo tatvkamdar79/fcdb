@@ -39,8 +39,6 @@ function App() {
       );
       console.log("Got data on first fetch", response.data.data.user);
       const fetchedData = response.data.data;
-      const messages = response.data.data;
-      console.log("messages", messages);
       fetchedData["loggedIn"] = true;
       setUser(fetchedData);
       console.log("fetch", fetchedData);

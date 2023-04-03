@@ -30,7 +30,11 @@ const AdPage = () => {
             {ad.user}
           </p>
           <div className="flex justify-center place-items-center bg-gray-200 my-4">
-            <img src={"http://localhost:8080/"+ad?.coverPicPath} alt="Ad Img" className="my-3 max-h-[500px]" />
+            <img
+              src={"http://localhost:8080/" + ad?.coverPicPath}
+              alt="Ad Img"
+              className="my-3 max-h-[500px]"
+            />
           </div>
           <div>
             <p className="text-3xl font-semibold text-gray-700 underline">
@@ -68,10 +72,10 @@ const AdPage = () => {
       <div className="flex justify-center mt-20 md:mt-0">
         <div className="border border-gray-400 rounded-sm w-[500px] h-fit relative top-10">
           <p className="flex justify-between place-items-center font-serif text-lg px-5 py-3">
-            <span>{ad.title}</span>
-            <span>
-              <BiRupee size={20} className="inline mb-1" />
-              {ad.price}
+            <span className="w-4/5">{ad.title}</span>
+            <span className="flex justify-center">
+              <BiRupee size={20} className="mt-1" />
+              {ad.price.toLocaleString()}
             </span>
           </p>
           <div className="flex text-justify px-5 my-4">

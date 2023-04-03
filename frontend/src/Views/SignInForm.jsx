@@ -66,12 +66,15 @@ const SignInForm = () => {
           console.log("Set cookie for jwt");
 
           const fetchedUser = await getUserDetails();
-          fetchedUser["loggedIn"] = true;
-
-          setUser(fetchedUser);
+          console.log("fetchedUser Signin -> ", fetchedUser);
+          setUser({
+            user: fetchedUser,
+            role: response.data.data.role,
+            loggedIn: true,
+          });
 
           navigate("../home");
-          navigate(0);
+          // navigate(0);
         }
       })
       .catch((err) => {

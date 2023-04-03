@@ -7,7 +7,9 @@ const Home = () => {
   const [currentUser, setCurrentUser] = useState({
     name: "Loading...",
   });
-  let { user } = useContext(UserContext);
+  let { user, setUser } = useContext(UserContext);
+  
+  console.log("Home.User -> ", user);
   useEffect(() => {
     setCurrentUser(user.user);
   }, []);

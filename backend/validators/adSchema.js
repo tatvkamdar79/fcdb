@@ -12,7 +12,7 @@ const validateAdSchema = Joi.object({
     viewState: Joi.boolean()
     .required(),
 
-    price:Joi.number().integer().min(0).max(100000).required(),
+    price:Joi.number().integer().min(0).max(10000000).required(),
 
     title: Joi.string()
     .alphanum()

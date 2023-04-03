@@ -1,17 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const CreateAd = () => {
+  // const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [revisions, setRevisions] = useState("");
+  const [tag1, setTag1] = useState("");
+  const [tag2, setTag2] = useState("");
+  const [tag3, setTag3] = useState("");
+  const [tag4, setTag4] = useState("");
+
+  const getTitle = (e) => {
+    console.log(e.target.value);
+  };
+  const getCategory = (e) => {
+    console.log(e.target.value);
+  };
+  const getDescription = (e) => {
+    console.log(e.target.value);
+  };
+  const getShortDescription = (e) => {
+    console.log(e.target.value);
+  };
+  const getDeliveryTime = (e) => {
+    console.log(e.target.value);
+  };
+  const getRevisions = (e) => {
+    console.log(e.target.value);
+  };
+  const getTag1 = (e) => {
+    console.log(e.target.value);
+  };
+  const getTag2 = (e) => {
+    console.log(e.target.value);
+  };
+  const getTag3 = (e) => {
+    console.log(e.target.value);
+  };
+  const getTag4 = (e) => {
+    console.log(e.target.value);
+  };
+
+  const createAdHandler = () => {};
+
+  useEffect(() => {
+    console.log(title);
+  }, [title]);
   return (
     <div>
       <p className="font-serif text-3xl font-semibold text-center relative sm:top-10 text-cyan-800 underline py-2 pb-3 sm:p-0">
         Create an ad
       </p>
-      <form className="flex flex-col sm:flex-row w-5/6 h-[80vh] mx-auto gap-x-1">
+      <form
+        className="flex flex-col sm:flex-row w-5/6 h-[80vh] mx-auto gap-x-1"
+        onSubmit={createAdHandler}
+      >
         <div className="w-full md:w-1/2 h-5/6 my-auto border border-gray-700 rounded-sm flex flex-col justify-evenly">
           <label htmlFor="title" className="flex ml-2">
             Title
           </label>
           <input
+            onKeyUp={getTitle}
             type="text"
             name="title"
             className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 m-2 p-2 mb-10"
@@ -21,18 +73,24 @@ const CreateAd = () => {
             Category
           </label>
           <select
+            onChange={getCategory}
             name="category"
             id=""
             className="border border-gray-500 rounded-md outline-none focus:border-blue focus:outline-blue transition-all duration-500 m-2 p-3 mb-10"
           >
-            <option value="Select a Category" selected disabled hidden>Select a Category</option>
+            <option value="Select a Category" selected disabled hidden>
+              Select a Category
+            </option>
             <option value="graphics-and-design" className="font-serif text-lg">
               Graphics and Design
             </option>
             <option value="video-and-animation" className="font-serif text-lg">
               Video and Animation
             </option>
-            <option value="writing-and-translation" className="font-serif text-lg">
+            <option
+              value="writing-and-translation"
+              className="font-serif text-lg"
+            >
               Writing and Translation
             </option>
             <option value="ai-services" className="font-serif text-lg">
@@ -61,6 +119,7 @@ const CreateAd = () => {
             Description
           </label>
           <input
+            onKeyUp={getDescription}
             type="text"
             name="description"
             className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 m-2 p-2 mb-10"
@@ -71,6 +130,7 @@ const CreateAd = () => {
             Short Description
           </label>
           <input
+            onKeyUp={getShortDescription}
             type="text"
             name="short-description"
             className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 m-2 p-2 mb-5 "
@@ -80,6 +140,7 @@ const CreateAd = () => {
             Delivery Time (Days)
           </label>
           <input
+            onKeyUp={getDeliveryTime}
             type="number"
             name="delivery-time"
             id=""
@@ -90,6 +151,7 @@ const CreateAd = () => {
             Revisions
           </label>
           <input
+            onKeyUp={getRevisions}
             type="number"
             name="revisions"
             id=""
@@ -101,26 +163,30 @@ const CreateAd = () => {
               Tags
             </label>
             <input
+              onKeyUp={getTag1}
               type="text"
-              name="tags"
+              name="tag1"
               className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 mx-2 my-1"
             />
             <br />
             <input
+              onKeyUp={getTag2}
               type="text"
-              name="tags"
+              name="tag2"
               className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 mx-2 my-1"
             />
             <br />
             <input
+              onKeyUp={getTag3}
               type="text"
-              name="tags"
+              name="tag3"
               className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 mx-2 my-1"
             />
             <br />
             <input
+              onKeyUp={getTag4}
               type="text"
-              name="tags"
+              name="tag4"
               className="border border-gray-500 rounded-sm outline-none focus:border-blue focus:outline-blue transition-all duration-500 mx-2 my-1"
             />
           </div>

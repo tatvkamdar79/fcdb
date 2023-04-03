@@ -3,10 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 
 const AdsInProgress = () => {
   const { state } = useLocation();
-  const user = state;
-  const currentUser = user.user;
-  console.log(currentUser);
+  console.log("state -> ", state);
+  const [user, setUser] = useState(state);
+  const [currentUser, setCurrentUser] = useState(user.user);
+  // console.log(currentUser);
   const categoryName = "graphics-and-design";
+
+  useEffect(() => {
+    console.log("user -> ", user);
+    // console.log("user.user -> ", user.user);
+    setCurrentUser(user.user);
+  }, [user, currentUser]);
 
   return (
     <div className="w-full sm:w-11/12 h-screen mx-auto">

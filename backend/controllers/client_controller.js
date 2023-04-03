@@ -3,12 +3,15 @@ const utils = require("../utils/response");
 const bcrypt = require("bcrypt");
 const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
-const validateClientSchema = require("../models/clientSchema")
+const validateClientSchema = require("../models/clientSchema");
 
 module.exports.signUp = async function (req, res) {
   console.log("Here");
-  const {error,data} = validateClientSchema({email:req.body.email,password:req.body.password});
-  if(error){
+  const { error, data } = validateClientSchema({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  if (error) {
     utils.sendError(res, error.details[0].message);
     return;
   }
@@ -56,6 +59,7 @@ module.exports.signIn = async function (req, res) {
         const token = utils.createJWT({ id: user._id, role: "client" });
         utils.sendSuccess(res, "User logged in successfully", {
           token: token,
+          role: "client",
         });
       }
     }
