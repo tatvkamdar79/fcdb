@@ -16,7 +16,7 @@ const onConnection = (socket) => {
   const userId = socket.handshake.auth.token;
   const userRole = socket.handshake.auth.role;
   socket.join(userId);
-
+  console.log("Hello connected");
   socket.on("sendMessage", (message, recieverId, adId) => {
     if (
       socketControllers.createMessage(
