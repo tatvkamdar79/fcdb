@@ -25,10 +25,7 @@ module.exports.createAd = async function (req, res) {
     }
 
     //Validating the ad object
-    const { error, data } = validateAdSchema({
-      ...req.body,
-      freelancer: req.user,
-    });
+    const { error, data } = validateAdSchema.validate(req.body);
     if (error) {
       return utils.sendError(res, error.details[0].message);
     }
