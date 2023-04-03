@@ -6,7 +6,7 @@ const Socketss = () => {
   useEffect(() => {
     console.log("In here");
     socket.on("recieveMessage", (data) => {
-      console.log(`I recievied a ot of ${data}`);
+      console.log(`I recievied a lot of ${data}`);
     });
   }, []);
 

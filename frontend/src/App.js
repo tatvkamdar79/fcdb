@@ -14,6 +14,7 @@ import axios from "axios";
 import Chat from "./Views/Chat";
 import CreateAd from "./Views/CreateAd";
 import AdsInProgress from "./Views/AdsInProgress";
+import Socketss from "./Components/Socketss";
 
 const UserContext = createContext({});
 
@@ -68,6 +69,7 @@ function App() {
           //   abc
         // </Link> */}
         <Routes>
+          <Route path="/sockets" element={<Socketss />} />
           <Route path={"/"} element={<Landing />} />
           <Route path={"/createAd"} element={<CreateAd />} />
 
@@ -128,7 +130,7 @@ export { UserContext };
 //   const jwt = getCookie("JWT_AUTH");
 //   alert(jwt);
 //   if (jwt.length !== 0) {
-//     console.log(jwt);
+//     consoxle.log(jwt);
 //   }
 //   const fetchedUser = await getUserDetails();
 //   fetchedUser["loggedIn"] = true;
