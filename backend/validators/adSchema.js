@@ -1,44 +1,28 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const validateAdSchema = Joi.object({
-    title: Joi.string()
-    .alphanum()
-    .required(),
+  title: Joi.string().alphanum().required(),
 
-    description: Joi.string()
-    .alphanum()
-    .required(),
+  description: Joi.string().alphanum().required(),
 
-    viewState: Joi.boolean()
-    .required(),
+  viewState: Joi.boolean(),
 
-    price:Joi.number().integer().min(0).max(100000).required(),
+  price: Joi.number().integer().min(0).max(100000).required(),
 
-    title: Joi.string()
-    .alphanum()
-    .required(),
+  title: Joi.string().alphanum().required(),
 
-    category: Joi.string()
-    .alphanum()
-    .required(),
+  category: Joi.string().alphanum().required(),
 
-    shortDescription: Joi.string()
-    .alphanum()
-    .required(),
+  shortDescription: Joi.string().alphanum().required(),
 
-    deliveryTime: Joi.number().integer().required(),
-    
-    revisions: Joi.number().integer().required()
-    
+  deliveryTime: Joi.number().integer().required(),
 
-})
+  revisions: Joi.number().integer().required(),
+});
 
 // console.log(validateAdSchema.validate({price:8000,title:"website",description:"website",category:"website",shortDescription:"website",deliveryTime:5, revisions:9,viewState:true}))
 // console.log(validateAdSchema.validate({title:"website",description:"website",category:"website",shortDescription:"website",deliveryTime:5, revisions:9,viewState:true}))
 // console.log(validateAdSchema.validate({price:100005,title:"website",description:"website",category:"website",shortDescription:"website",deliveryTime:5, revisions:9,viewState:true}))
 // console.log(validateAdSchema.validate({title:"website",description:"website",category:"website",shortDescription:"website",deliveryTime:5, revisions:9,viewState:true}))
-
-const {error,value} = validateAdSchema.validate({title:"website",description:"website",category:"website",shortDescription:"website",deliveryTime:5, revisions:9,viewState:true});
-console.log(error.details[0].message)
 
 module.exports = validateAdSchema;

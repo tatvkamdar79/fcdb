@@ -3,12 +3,15 @@ const utils = require("../utils/response");
 const bcrypt = require("bcrypt");
 const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
-const validateClientSchema = require("../models/clientSchema")
+const validateClientSchema = require("../models/clientSchema");
 
 module.exports.signUp = async function (req, res) {
   console.log("Here");
-  const {error,data} = validateClientSchema({email:req.body.email,password:req.body.password});
-  if(error){
+  const { error, data } = validateClientSchema({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  if (error) {
     utils.sendError(res, error.details[0].message);
     return;
   }
@@ -40,6 +43,7 @@ module.exports.signUp = async function (req, res) {
 };
 
 module.exports.signIn = async function (req, res) {
+  console.log("Hello everyone");
   const userEmail = req.body.email;
   try {
     const user = await Client.findOne({ email: userEmail });
@@ -51,10 +55,10 @@ module.exports.signIn = async function (req, res) {
         user.password
       );
       if (!validPassword) {
-        utils.sendError(res, "Invalid password");
+        utils.sendError(res, "Invalid credentials");
       } else {
         const token = utils.createJWT({ id: user._id, role: "client" });
-        utils.sendSuccess(res, "User logged in successfully", {
+        return utils.sendSuccess(res, "User logged in successfully", {
           token: token,
         });
       }
@@ -66,14 +70,21 @@ module.exports.signIn = async function (req, res) {
 };
 
 module.exports.getActiveAds = (req, res) => {
-  console.log("here", req);
-  const activeAds = req.user.workingWith.filter((obj) => obj.isAdActive);
-  utils.sendSuccess(res, "", activeAds);
+  if (req.user) {
+    const activeAds = req.user.workingWith.filter((obj) => obj.isAdActive);
+    utils.sendSuccess(res, "Ads fetched successfully", activeAds);
+  } else {
+    utils.sendError(res, "Please login first");
+  }
 };
 
 module.exports.getPreviousAds = (req, res) => {
-  const previousAds = req.user.workingWith.filter((obj) => !obj.isAdActive);
-  utils.sendSuccess(res, "", previousAds);
+  if (req.user) {
+    const previousAds = req.user.workingWith.filter((obj) => !obj.isAdActive);
+    utils.sendSuccess(res, "Ads fetched successfully", previousAds);
+  } else {
+    utils.sendError(res, "Please login first");
+  }
 };
 
 module.exports.getClient = async (req, res) => {
@@ -86,6 +97,10 @@ module.exports.getClient = async (req, res) => {
 };
 
 module.exports.createGmeet = async (req, res) => {
+  if (!req.user) {
+    return utils.sendError(res, "Please login first");
+  }
+
   const Meeting = require("google-meet-api").meet;
   let date = req.body.meetDate;
   let time = req.body.meetTime;
@@ -94,26 +109,25 @@ module.exports.createGmeet = async (req, res) => {
   let description =
     req.body.meetDescription ||
     "A general or specific meeting to discuss about the Ad";
-  Meeting({
-    clientId: req.body.clientId,
-    clientSecret: req.body.clientSecret,
-    refreshToken: req.body.clientRefreshToken,
-    date: date,
-    time: time,
-    summary: "Client Freelancer Discussion Session 😉",
-    location: "Your Home HH",
-    description: "Discussion Session",
-  }).then(function (meetLink) {
+  try {
+    const meetLink = await Meeting({
+      clientId: req.body.clientId,
+      clientSecret: req.body.clientSecret,
+      refreshToken: req.body.clientRefreshToken,
+      date: date,
+      time: time,
+      summary: "Client Freelancer Discussion Session 😉",
+      location: "Your Home HH",
+      description: "Discussion Session",
+    });
     console.log(meetLink); //result it the final link
-    utils.sendSuccess(
-      res,
-      meetLink,
-      {
-        time: "AAJ",
-        summary: "blablbla",
-        location: "tere ghar bhaiiii",
-      },
-      200
-    );
-  });
+    utils.sendSuccess(res, meetLink, {
+      time: "AAJ",
+      summary: "blablbla",
+      location: "tere ghar bhaiiii",
+    });
+  } catch (err) {
+    utils.sendError(res, "Some error occurred");
+    console.log(err);
+  }
 };

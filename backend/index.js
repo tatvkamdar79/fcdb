@@ -1,7 +1,10 @@
 const http = require("http");
 const app = require("./temp");
+const mongoose = require("mongoose");
+const db = require("./config/mongoose").connectToDatabase();
 const socketIO = require("socket.io");
 const socketControllers = require("./controllers/socketsControllers");
+
 const PORT = 8080;
 app.set("port", PORT);
 
