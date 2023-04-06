@@ -9,7 +9,7 @@ const AdCard = ({ ad }) => {
         <img src={ad.img} alt="Ad image" />
         <div className="info">
           <div className="user">
-            <img src={ad.pp} alt="Profile Picture" />
+            <img src={ad?.pp} alt="Profile Picture" />
             <span>{ad.username}</span>
           </div>
           <p>{ad.description}</p>
@@ -18,7 +18,7 @@ const AdCard = ({ ad }) => {
               src="https://upload.wikimedia.org/wikipedia/commons/2/29/Gold_Star.svg"
               alt="Rating/Star Picture"
             />
-            <span>{ad.star}</span>
+            <span>{ad?.star}</span>
           </div>
         </div>
         <hr />
@@ -30,7 +30,7 @@ const AdCard = ({ ad }) => {
           <div className="price">
             <span>STARTING AT</span>
             <h2>
-              Rs. {ad.price}
+              Rs. {ad?.price}
               <sup>99</sup>
             </h2>
           </div>

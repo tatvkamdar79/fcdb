@@ -50,15 +50,15 @@ const CreateAd = () => {
     console.log(title);
   }, [title]);
   return (
-    <div>
-      <p className="font-serif text-3xl font-semibold text-center relative sm:top-10 text-cyan-800 underline py-2 pb-3 sm:p-0">
+    <div className="h-screen flex flex-col">
+      <p className="w-5/6 font-serif text-3xl font-semibold text-center relative sm:top-9 text-cyan-800 underline mx-auto py-2 pb-3 sm:p-0">
         Create an ad
       </p>
       <form
         className="flex flex-col sm:flex-row w-5/6 h-[80vh] mx-auto gap-x-1"
         onSubmit={createAdHandler}
       >
-        <div className="w-full md:w-1/2 h-5/6 my-auto border border-gray-700 rounded-sm flex flex-col justify-evenly">
+        <div className="w-full md:w-1/2 h-5/6 my-auto rounded-sm flex flex-col justify-evenly">
           <label htmlFor="title" className="flex ml-2">
             Title
           </label>
@@ -192,6 +192,13 @@ const CreateAd = () => {
           </div>
         </div>
       </form>
+      <div className="w-5/6 max-w-[600px] mx-auto flex justify-center place-items-center relative">
+        <input
+          type="submit"
+          value="Create an Ad"
+          className="w-1/2 bg-gray-300 rounded-md text-2xl text-gray-800 font-semibold font-serif cursor-pointer py-1 absolute bottom-1 hover:bg-blue hover:text-white hover:scale-105 hover:w-2/3 border-2 border-gray-600 transition-all duration-500"
+        />
+      </div>
     </div>
   );
 };

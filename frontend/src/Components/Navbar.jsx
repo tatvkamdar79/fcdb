@@ -107,19 +107,12 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user.loggedIn === true) {
-      setNavItems([
-        { id: 1, title: "Home", link: "/home", style: "" },
-        // { id: 2, title: "Categories", link: "/categories", style: "" },
-      ]);
+      setNavItems([{ id: 1, title: "Home", link: "/home", style: "" }]);
     }
   }, [user.loggedIn]);
 
   // useEffect(() => {
   // }, [user.user.loggedIn]);
-
-  useEffect(() => {
-    // navigate("/home");
-  }, [user.loggedIn]);
 
   return (
     <div className="sticky top-0 z-50">
@@ -193,7 +186,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      {scrolled && (
+      {scrolled && !window.location.href.includes("createAd") && (
         <div
           className={`hidden xl:block z-50 text-gray-600 ${
             scrolled && "bg-neutral-500 text-white font-serif font-bold"

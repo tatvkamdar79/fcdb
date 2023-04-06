@@ -15,6 +15,7 @@ import Chat from "./Views/Chat";
 import CreateAd from "./Views/CreateAd";
 import AdsInProgress from "./Views/AdsInProgress";
 import Socketss from "./Components/Socketss";
+import CreateAd2 from "./Views/CreateAd2";
 
 const UserContext = createContext({});
 
@@ -70,6 +71,7 @@ function App() {
           <Route path="/sockets" element={<Socketss />} />
           <Route path={"/"} element={<Landing />} />
           <Route path={"/createAd"} element={<CreateAd />} />
+          <Route path={"/createAd2"} element={<CreateAd2 />} />
 
           <Route
             path={"/categories/:categoryName"}
