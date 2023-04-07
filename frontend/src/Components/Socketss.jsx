@@ -8,7 +8,7 @@ const Socketss = () => {
     socket.on("recieveMessage", (data) => {
       console.log(`I recievied a lot of ${data}`);
     });
-  }, []);
+  }, [socket]);
 
   return <div>Hellooo</div>;
 };

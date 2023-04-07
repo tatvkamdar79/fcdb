@@ -39,27 +39,6 @@ const SignUpForm = ({ role }) => {
     setFormDetails(updatedValue);
   };
 
-  async function handleStaticSubmit(e) {
-    e.preventDefault();
-    console.log(formDetails);
-    let usersList = JSON.parse(localStorage.getItem("users"));
-    console.log(usersList);
-    let isUserRegistered = usersList.filter(
-      (user) => user.email === formDetails.email
-    );
-    if (
-      isUserRegistered.length === 0 &&
-      formDetails.password === formDetails.confirmPassword
-    ) {
-      const newUser = {
-        email: formDetails.email,
-        password: formDetails.password,
-      };
-      const newUsersList = [...usersList, newUser];
-      localStorage.setItem("users", JSON.stringify(newUsersList));
-    }
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(formDetails);

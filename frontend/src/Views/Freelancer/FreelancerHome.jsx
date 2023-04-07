@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../App";
-import Carousel from "../Components/Carousel";
+import { UserContext } from "../../App";
+import Carousel from "../../Components/Carousel";
 
-const Home = () => {
+const FreelancerHome = () => {
   const [currentUser, setCurrentUser] = useState({
     name: "Loading...",
   });
@@ -35,7 +35,7 @@ const Home = () => {
           </p>
           <div className="flex justify-center py-5">
             <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 w-full place-items-center justify-between gap-y-5 transition-all">
-              <Link to={"/client/ads-in-progress"} state={user}>
+              <Link to={"/freelancer/ads-in-progress"} state={user}>
                 <div
                   className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
                   style={{
@@ -80,4 +80,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default FreelancerHome;

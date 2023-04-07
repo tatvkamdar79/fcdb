@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import axios from "axios";
-import loading from "../Assets/carouselLoading.jpg";
 
 const Carousel = () => {
   const [cards, setCards] = useState([]);

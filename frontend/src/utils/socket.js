@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext } from "react";
 import io from "socket.io-client";
 import { UserContext } from "../App";

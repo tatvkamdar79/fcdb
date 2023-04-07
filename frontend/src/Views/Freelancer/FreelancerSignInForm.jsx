@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { getCookie, setCookie } from "../Hooks/useCookies";
-import { UserContext } from "../App";
+import { getCookie, setCookie } from "../../Hooks/useCookies";
+import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 
 const SignInForm = ({ role }) => {
@@ -55,7 +55,7 @@ const SignInForm = ({ role }) => {
       "content-type": "application/x-www-form-urlencoded",
     };
 
-    const url = "http://localhost:8080/api/client/signin";
+    const url = "http://localhost:8080/api/freelancer/signin";
     await axios
       .post(url, formDetails, { headers })
       .then(async (response) => {
