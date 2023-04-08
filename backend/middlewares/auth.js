@@ -21,9 +21,13 @@ module.exports.setAuthenticatedUser = async function (req, res, next) {
     }
   } else {
     try {
-      user = await Freelancer.findById(data.id, { password: 0 }).populate(
-        "ads"
-      );
+      user = await Freelancer.findById(data.id, { password: 0 }).populate({
+        path: "ads",
+        model: "ad",
+        populate: {
+          path: "_id",
+        },
+      });
       console.log(user);
     } catch (err) {
       return utils.sendError(res, err);

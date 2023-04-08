@@ -37,39 +37,46 @@ const FreelancerHome = () => {
             <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 w-full place-items-center justify-between gap-y-5 transition-all">
               <Link to={"/freelancer/ads-in-progress"} state={user}>
                 <div
-                  className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+                  className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"
                   style={{
                     backgroundImage:
                       "url(" +
-                      "https://bestanimations.com/media/loading-gears/2074796765loading-gears-animation-3.gif" +
+                      "https://i.pinimg.com/originals/9c/fb/09/9cfb09f0c029e1f8c938208a7e278d76.gif" +
                       ")",
                   }}
                 >
-                  Ads in Progress
+                  <p className="flex justify-center w-fit px-4 pb-1 bg-white rounded-full place-items-center text-center opacity-60 group-hover:opacity-100 transition-all duration-300">
+                    In Progress
+                  </p>
                 </div>
               </Link>
               <div
-                className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+                className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"
                 style={{
                   backgroundImage:
                     "url(" +
-                    "https://images.ctfassets.net/lzny33ho1g45/4fky3wOHSVpT8XJgm9duVg/356716caa0252a01be7e4961cc4e5611/move_kanban_card_to_list?w=1400" +
+                    "https://cdn.dribbble.com/users/1241550/screenshots/18301637/media/6f062219345707081809631a0cdda7c3.gif" +
                     ")",
                 }}
               >
-                Completed Ads
+                <p className="flex justify-center w-fit px-4 pb-1 bg-white rounded-full place-items-center text-center opacity-60 group-hover:opacity-100 transition-all duration-300">
+                  My Ads
+                </p>
               </div>
-              <div
-                className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-white p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer"
+              <Link
+                to={"/freelancer/createAd"}
+                className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"
                 style={{
                   backgroundImage:
                     "url(" +
-                    "https://cdn.dribbble.com/users/722246/screenshots/13583386/media/ad2aa9b15f63ded04fe6407693a9c2c2.gif" +
+                    "https://cdn.dribbble.com/users/945601/screenshots/18267115/media/a98d71a893184d112f2cbe0fb1d94119.gif" +
                     ")",
                 }}
               >
-                Bookmarked Ads
-              </div>
+                <p className="flex justify-center w-fit px-4 pb-1 bg-white rounded-full place-items-center text-center opacity-60 group-hover:opacity-100 transition-all duration-300">
+                  Create Ad
+                </p>
+              </Link>
             </div>
           </div>
           <p className="text-2xl font-serif font-bold">Categories</p>

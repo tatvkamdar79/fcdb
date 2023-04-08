@@ -15,7 +15,7 @@ import axios from "axios";
 import Chat from "./Views/Chat";
 import AdsInProgress from "./Views/AdsInProgress";
 import Socketss from "./Components/Socketss";
-import CreateAd from "./Views/CreateAd";
+import CreateAd from "./Views/Freelancer/CreateAd";
 import FreelancerHome from "./Views/Freelancer/FreelancerHome";
 import FreelancerAdsInProgress from "./Views/Freelancer/FreelancerAdsInProgress";
 
@@ -72,7 +72,6 @@ function App() {
         <Routes>
           <Route path="/sockets" element={<Socketss />} />
           <Route path={"/"} element={<Landing />} />
-          <Route path={"/createAd"} element={<CreateAd />} />
 
           <Route
             path={"/categories/:categoryName"}
@@ -102,6 +101,7 @@ function App() {
                   path="/freelancer/ads-in-progress"
                   element={<FreelancerAdsInProgress />}
                 />
+                <Route path={"/freelancer/createAd"} element={<CreateAd />} />
               </>
             )}
           </Route>
