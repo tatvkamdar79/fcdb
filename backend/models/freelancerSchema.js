@@ -29,11 +29,9 @@ const freelancerSchema = new Schema({
   },
   ads: [
     {
-      adId: {
-        type: Schema.Types.ObjectId,
-        ref: "ads",
-      },
-    },
+      type: Schema.Types.ObjectId,
+      ref: "ads",
+    }
   ],
   accessToken: {
     type: String,

@@ -1,5 +1,6 @@
 const Client = require("../models/clientSchema");
 const Freelancer = require("../models/freelancerSchema");
+const Ad = require("../models/adSchema");
 const jsonWebToken = require("jsonwebtoken");
 const utils = require("../utils/response");
 
@@ -20,7 +21,10 @@ module.exports.setAuthenticatedUser = async function (req, res, next) {
     }
   } else {
     try {
-      user = await Freelancer.findById(data.id, { password: 0 });
+      user = await Freelancer.findById(data.id, { password: 0 }).populate(
+        "ads"
+      );
+      console.log(user);
     } catch (err) {
       return utils.sendError(res, err);
     }

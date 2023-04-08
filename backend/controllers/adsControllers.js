@@ -38,7 +38,7 @@ module.exports.createAd = async function (req, res) {
     console.log(newAd);
     const res1 = await Freelancer.updateOne(
       { email: req.user.email },
-      { $push: { ads: newAd._id } }
+      { $push: { ads: {adId:newAd._id }} }
     );
     console.log(res1);
     if (newAd && res1.modifiedCount == 1) {
