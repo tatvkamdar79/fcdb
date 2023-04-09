@@ -7,10 +7,12 @@ import { UserContext } from "../../App";
 import { BsCardImage } from "react-icons/bs";
 import axios from "axios";
 import { getCookie } from "../../Hooks/useCookies";
+import { useNavigate } from "react-router";
 
 const CreateAd = () => {
   const { user, setUser } = useContext(UserContext);
   const currentUser = user.user;
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("Ad Title");
   const [shortDescription, setShortDescription] = useState("Short Description");
@@ -73,6 +75,7 @@ const CreateAd = () => {
       if (response.status === 200) {
         await getUserDetails();
         alert("Created Ad Successfully");
+        navigate("/freelancer/myAds");
       }
     } catch (err) {
       let errorMessage = err.response.data.message;
