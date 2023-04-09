@@ -9,7 +9,7 @@ const FreelancerHome = () => {
   });
   let { user } = useContext(UserContext);
 
-  console.log("Home.User -> ", user);
+  console.log("Freelancer Home.User -> ", user);
   useEffect(() => {
     setCurrentUser(user.user);
   }, [user.user]);
@@ -50,7 +50,8 @@ const FreelancerHome = () => {
                   </p>
                 </div>
               </Link>
-              <div
+              <Link
+                to={"/freelancer/myAds"}
                 className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"
                 style={{
                   backgroundImage:
@@ -62,7 +63,7 @@ const FreelancerHome = () => {
                 <p className="flex justify-center w-fit px-4 pb-1 bg-white rounded-full place-items-center text-center opacity-60 group-hover:opacity-100 transition-all duration-300">
                   My Ads
                 </p>
-              </div>
+              </Link>
               <Link
                 to={"/freelancer/createAd"}
                 className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"

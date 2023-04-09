@@ -28,7 +28,7 @@ module.exports.setAuthenticatedUser = async function (req, res, next) {
           path: "_id",
         },
       });
-      console.log(user);
+      // console.log(user);
     } catch (err) {
       return utils.sendError(res, err);
     }

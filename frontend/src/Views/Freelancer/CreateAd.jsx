@@ -5,9 +5,11 @@ import { FaClock, FaUserCircle } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
 import { UserContext } from "../../App";
 import { BsCardImage } from "react-icons/bs";
+import axios from "axios";
+import { getCookie } from "../../Hooks/useCookies";
 
 const CreateAd = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const currentUser = user.user;
 
   const [title, setTitle] = useState("Ad Title");
@@ -29,21 +31,21 @@ const CreateAd = () => {
   };
 
   const categories = [
-    { id: 1, name: "Graphics and Design", value: "graphics-and-design" },
-    { id: 2, name: "Video and Animation", value: "video-and-animation" },
+    { id: 1, name: "Graphics and Design", value: "graphicsAndDesign" },
+    { id: 2, name: "Video and Animation", value: "videoAndAnimation" },
     {
       id: 3,
       name: "Writing and Translation",
-      value: "writing-and-translation",
+      value: "writingAndTranslation",
     },
-    { id: 4, name: "AI Services", value: "ai-services" },
-    { id: 5, name: "Digital Marketing", value: "digital-marketing" },
-    { id: 6, name: "Music and Audio", value: "music-and-audio" },
-    { id: 7, name: "Programming and tech", value: "programming-and-tech" },
+    { id: 4, name: "AI Services", value: "aiServices" },
+    { id: 5, name: "Digital Marketing", value: "digitalMarketing" },
+    { id: 6, name: "Music and Audio", value: "musicAndAudio" },
+    { id: 7, name: "Programming and tech", value: "programmingAndTech" },
     { id: 8, name: "Business", value: "business" },
   ];
 
-  const createAdFormValidator = (e) => {
+  const createAdFormValidator = async (e) => {
     e.preventDefault();
     const ad = {
       title: title,
@@ -52,12 +54,53 @@ const CreateAd = () => {
       category: category,
       deliveryTime: deliveryTime,
       revisions: revisions,
-      tags: tags,
-      draft: draft,
+      // tags: tags,
+      viewState: !draft,
+      price: Number(price.split(",").join("")),
     };
     console.log(ad);
-    // API Call to create Ad
+    console.log(tags);
+    try {
+      // API Call to create Ad
+      const response = await axios.post(
+        "http://localhost:8080/api/ads/create/",
+        ad,
+        {
+          headers: { Authorization: `Bearer ${getCookie("JWT_AUTH")}` },
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        await getUserDetails();
+        alert("Created Ad Successfully");
+      }
+    } catch (err) {
+      let errorMessage = err.response.data.message;
+      alert(errorMessage);
+    }
   };
+
+  async function getUserDetails() {
+    let jwt = getCookie("JWT_AUTH");
+    if (jwt.length === 0) {
+      return;
+    }
+
+    const headers = {
+      authorization: `Bearer ${jwt}`,
+    };
+    const response = await axios.get(
+      "http://localhost:8080/api/getUserDetails",
+      {
+        headers,
+      }
+    );
+    const fetchedData = response.data.data;
+    fetchedData["loggedIn"] = true;
+    setUser(fetchedData);
+    console.log("fetched After Ad Creation", fetchedData);
+    return;
+  }
 
   function ProgressBar() {
     const fields = [
@@ -95,19 +138,18 @@ const CreateAd = () => {
       { id: 7, field: "Price", variable: price, defaultValue: "Price" },
     ];
     return (
-      <div className="grid grid-cols-1 md:grid-cols-7 mx-auto w-fit lg:w-full justify-evenly place-items-center mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-7 mx-auto w-fit lg:w-full justify-evenly place-items-center mt-3">
         {fields.map(({ id, field, variable, defaultValue }) => (
           <div
             key={id}
             className="flex flex-col justify-center place-items-center"
           >
             <div
-              className={`w-7 h-7 sm:h-10 sm:w-10 text-xs sm:text-md flex justify-center place-items-center rounded-full font-semibold border-2 border-orange-400
-                ${
-                  variable !== defaultValue &&
-                  variable.trim() !== "" &&
-                  "border-green-500 text-green-500"
-                } m-2 transition-all duration-500`}
+              className={`w-7 h-7 sm:h-10 sm:w-10 text-xs sm:text-md flex justify-center place-items-center rounded-full font-semibold border-2 ${
+                variable !== defaultValue && variable.trim() !== ""
+                  ? "border-green-500 text-green-500"
+                  : "border-orange-400"
+              } m-2 transition-all duration-500`}
             >
               {variable === defaultValue || variable.trim() === "" ? (
                 <p className="text-gray-600">{id}</p>
@@ -242,9 +284,9 @@ const CreateAd = () => {
                   className="flex flex-col justify-evenly sm:px-14 mx-auto my-20 h-fit"
                   id="slide-2"
                 >
-                  <div className="flex flex-col h-full justify-center gap-y-10 mb-20">
+                  <div className="flex flex-col h-full justify-start gap-y-7">
                     {/* Delivery Time and Revisions */}
-                    <div className="flex justify-start gap-x-10 sm:gap-x-20">
+                    <div className="w-fit ml-10 xs:ml-0 pl-10 xs:pl-0 flex flex-col xs:flex-row justify-start gap-x-10 sm:gap-x-20">
                       {/* Delivery Time */}
                       <div className="flex flex-col">
                         <input
@@ -282,7 +324,7 @@ const CreateAd = () => {
                       </div>
                     </div>
                     {/* Price */}
-                    <div className="-mb-4">
+                    <div className="-mb-4 ml-20 xs:ml-0">
                       <div className="flex flex-col">
                         <input
                           type="number"
@@ -305,7 +347,7 @@ const CreateAd = () => {
                       </div>
                     </div>
                     {/* Image */}
-                    <div className="mb-9">
+                    <div className="mb-9 ml-20 xs:ml-0">
                       <input
                         type="file"
                         name="adImage"
@@ -320,7 +362,7 @@ const CreateAd = () => {
                       />
                     </div>
                     {/* Tags */}
-                    <div>
+                    <div className="ml-20 xs:ml-0">
                       <input
                         type="text"
                         name="tags"
@@ -345,7 +387,7 @@ const CreateAd = () => {
                         Tags (Comma Separated, Max 4)
                       </label>
                     </div>
-                    <div className="my-4">
+                    <div className="my-4 ml-20 xs:ml-0">
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input
                           type="checkbox"

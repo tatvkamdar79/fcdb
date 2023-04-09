@@ -38,7 +38,7 @@ module.exports.createAd = async function (req, res) {
     console.log(newAd);
     const res1 = await Freelancer.updateOne(
       { email: req.user.email },
-      { $push: { ads: {adId:newAd._id }} }
+      { $push: { ads: newAd._id } }
     );
     console.log(res1);
     if (newAd && res1.modifiedCount == 1) {
@@ -150,6 +150,7 @@ module.exports.updateAd = async (req, res) => {
   if (req.role == "client") {
     return utils.sendError(res, "You are not allowed to delete Ads");
   }
+  console.log("Printing Req.Body", req.body);
   try {
     let ad = await Ads.findById(req.params.adId);
     if (ad.freelancer._id.equals(req.user._id) == false) {
@@ -158,7 +159,7 @@ module.exports.updateAd = async (req, res) => {
         "You are not allowed to delete Ads, only the creator can delete the Ad"
       );
     }
-    ad = await Ads.updateOne({ _id: ad._id }, { ...req.body });
+    ad = await Ads.updateOne({ _id: ad._id }, { ...req.body.ad });
     const newAd = await Ads.findById(req.params.adId);
     if (ad.modifiedCount == 1) utils.sendSuccess(res, "Ad Updated", { newAd });
     else

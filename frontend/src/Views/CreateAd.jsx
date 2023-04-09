@@ -149,7 +149,6 @@ const CreateAd = () => {
                 // breakpoints={[{ maxWidth: "md", slideSize: "100%", height: "200" }]}
                 withControls
                 withKeyboardEvents={false}
-                className=""
               >
                 <Carousel.Slide className="flex flex-col justify-evenly sm:px-14 mx-auto my-20 h-fit">
                   {/* Ad Title */}

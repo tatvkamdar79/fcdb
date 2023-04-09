@@ -18,6 +18,8 @@ import Socketss from "./Components/Socketss";
 import CreateAd from "./Views/Freelancer/CreateAd";
 import FreelancerHome from "./Views/Freelancer/FreelancerHome";
 import FreelancerAdsInProgress from "./Views/Freelancer/FreelancerAdsInProgress";
+import FreelancerMyAds from "./Views/Freelancer/FreelancerMyAds";
+import NotFound404Page from "./Views/NotFound404Page";
 
 const UserContext = createContext({});
 
@@ -101,6 +103,10 @@ function App() {
                   path="/freelancer/ads-in-progress"
                   element={<FreelancerAdsInProgress />}
                 />
+                <Route
+                  path={"/freelancer/myAds"}
+                  element={<FreelancerMyAds />}
+                />
                 <Route path={"/freelancer/createAd"} element={<CreateAd />} />
               </>
             )}
@@ -128,6 +134,7 @@ function App() {
             path={"/freelancer/signin"}
             element={<FreelancerSignInForm />}
           />
+          <Route path="*" element={<NotFound404Page />} />
         </Routes>
       </UserContext.Provider>
     </>
