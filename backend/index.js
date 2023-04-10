@@ -18,22 +18,29 @@ const io = new socketIO.Server(server, {
 const onConnection = (socket) => {
   const userId = socket.handshake.auth.token;
   const userRole = socket.handshake.auth.role;
+  console.log(userId);
   socket.join(userId);
   console.log("Hello connected");
   // console.log(userId, userRole);
   console.log(socket.handshake.auth);
+  io.to(userId).emit("recieveMessage", "kjhgfghjk", userId, "abcd");
+  setTimeout(() => {
+    io.to(userId).emit("recieveMessage", "22222kjhgfghjk", userId, "abcd");
+  }, 3000);
+
   socket.on("sendMessage", (message, recieverId, adId) => {
-    if (
-      socketControllers.createMessage(
-        message,
-        userId,
-        recieverId,
-        adId,
-        userRole
-      )
-    ) {
-      socket.to(recieverId).emit("recieveMessage", message, userId);
-    }
+    io.to(userId).emit("recieveMessage", message, userId, "abcd");
+    // if (
+    //   socketControllers.createMessage(
+    //     message,
+    //     userId,
+    //     recieverId,
+    //     adId,
+    //     userRole
+    //   )
+    // ) {
+    console.log("Sending data");
+    // }
   });
 
   // socket.on("")

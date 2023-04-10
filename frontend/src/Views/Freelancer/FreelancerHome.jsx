@@ -35,7 +35,7 @@ const FreelancerHome = () => {
           </p>
           <div className="flex justify-center py-5">
             <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 w-full place-items-center justify-between gap-y-5 transition-all">
-              <Link to={"/freelancer/ads-in-progress"} state={user}>
+              <Link to={"/freelancer/ads-in-progress"}>
                 <div
                   className="border border-gray-500 rounded-md w-[300px] xs:w-[220px] sm:w-[300px] h-[200px] text-3xl font-bold font-serif bg-no-repeat bg-center bg-cover shadow-xl shadow-gray-500 bg-black text-black p-2 hover:scale-105 transition-all duration-500 hover:shadow-lg cursor-pointer group"
                   style={{
