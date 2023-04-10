@@ -17,25 +17,32 @@ const mockRequest = () => {
 
 describe("Testing /api/client", () => {
   const url = "/api/client/";
+  const validClient = {
+    email: "test@gmail.com",
+    password: "12345",
+    name: "test",
+  };
+  const invalidClient = {
+    email: "teeadt",
+    password: "12345",
+    name: "test",
+  };
   let clientJWT;
 
   beforeAll(async () => {
     await connectToDatabase();
-    console.log("Hello World");
   });
 
   describe("Testing /signup", () => {
     test("should return 200", async () => {
-      const req = mockRequest();
       const obj = await api
         .post("/api/client/signup")
-        .send(req)
+        .send(validClient)
         .set("Content-Type", "application/x-www-form-urlencoded");
       expect(obj.status).toEqual(200);
     }, 10000);
 
     test("should return 400", async () => {
-      const req = mockRequest();
       const obj = await api
         .post("/api/client/signup")
         .send({ email: "test@99" })
@@ -44,7 +51,7 @@ describe("Testing /api/client", () => {
     }, 10000);
 
     afterAll(async () => {
-      await Client.deleteOne({ email: mockRequest().email });
+      await Client.deleteOne({ email: validClient.email });
     });
   });
 

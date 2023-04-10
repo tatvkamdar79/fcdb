@@ -1,19 +1,19 @@
 const Joi = require("joi");
 
 const validateAdSchema = Joi.object({
-  title: Joi.string().alphanum().required(),
+  title: Joi.string().required(),
 
-  description: Joi.string().alphanum().required(),
+  description: Joi.string().required(),
 
   viewState: Joi.boolean(),
 
   price: Joi.number().integer().min(0).max(10000000).required(),
 
-  title: Joi.string().alphanum().required(),
+  title: Joi.string().required(),
 
-  category: Joi.string().alphanum().required(),
+  category: Joi.string().required(),
 
-  shortDescription: Joi.string().alphanum().required(),
+  shortDescription: Joi.string().required(),
 
   deliveryTime: Joi.number().integer().required(),
 

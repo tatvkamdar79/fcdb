@@ -555,6 +555,7 @@ FNF:1
 FNH:0
 FNDA:0,(anonymous_0)
 DA:1,2
+<<<<<<< HEAD
 DA:2,2
 DA:5,2
 DA:7,0
@@ -577,6 +578,21 @@ LF:19
 LH:3
 BRDA:32,0,0,0
 BRDA:32,0,1,0
+=======
+DA:4,2
+DA:6,0
+DA:7,0
+DA:8,0
+DA:25,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+LF:10
+LH:2
+BRDA:31,0,0,0
+BRDA:31,0,1,0
+>>>>>>> b74db865792eff062177ab1ad1f598737950f0c0
 BRF:2
 BRH:0
 end_of_record

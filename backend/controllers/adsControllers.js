@@ -201,8 +201,8 @@ const confirmAd = async (req, res) => {
     if (!ad) {
       return utils.sendError(res, "Ad not found");
     }
-    const isAdAlreadyBought = ad.clientIds.filter((id) =>
-      id.equals(req.user._id)
+    const isAdAlreadyBought = ad.clientIds.filter((obj) =>
+      obj._id.equals(req.body.clientId)
     );
     if (isAdAlreadyBought.length > 0) {
       return utils.sendError(res, "Ad is already bought");
@@ -235,6 +235,13 @@ module.exports.buyAd = async (req, res) => {
   const adId = req.body.adId;
   const freelancerId = req.body.freelancerId;
   const clientId = req.body.clientId;
+  let ad = await Ads.findById(adId);
+  if (!ad.freelancer._id.equals(freelancerId)) {
+    return utils.sendError(
+      res,
+      "Invalid request, ad freelancer and provided freelancer id is different"
+    );
+  }
   let unconfirmedPurchase = await UnconfirmedPurchase.findOne({
     adId: adId,
     freelancerId: freelancerId,
