@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.75% </span>
+                <span class="strong">15.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/16</span>
+                <span class='fraction'>3/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">15.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/15</span>
+                <span class='fraction'>3/19</span>
             </div>
         
             
@@ -92,27 +92,25 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,13 +118,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const utils = require("../utils/response");
-const Conversation = require("../models/conversationSchema");
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const conversation = require("../models/conversationSchema");
+const utils = require("../utils/response");
+// const Conversation = require("../models/conversationSchema");
 &nbsp;
 module.exports = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+  // res.send("kjhghjk")
+<span class="cstat-no" title="statement not covered" >  console.log("accessed getUserDetails");</span>
+<span class="cstat-no" title="statement not covered" >  console.log(req.user);</span>
   let data = <span class="cstat-no" title="statement not covered" >[];</span>
-  let conversations = <span class="cstat-no" title="statement not covered" >await Conversation.find({</span>
+  let conversations = <span class="cstat-no" title="statement not covered" >await conversation.find({</span>
     $or: [{ clientId: req.user._id }, { freelancerId: req.user._id }],
   });
 <span class="cstat-no" title="statement not covered" >  for (let conversation of conversations) {</span>
@@ -144,10 +160,12 @@ module.exports = <span class="fstat-no" title="function not covered" >as</span>y
   }
   let result = <span class="cstat-no" title="statement not covered" >{</span>
     user: req.user,
-    conversations: data,
+    conversations: [],
     role: req.role,
   };
-<span class="cstat-no" title="statement not covered" >  if (req.user) <span class="cstat-no" title="statement not covered" >utils.sendSuccess(res, "Got User Successfully", result, 200);</span></span>
+<span class="cstat-no" title="statement not covered" >  console.log("getUserDetails.js", result);</span>
+<span class="cstat-no" title="statement not covered" >  if (req.user !== null)</span>
+<span class="cstat-no" title="statement not covered" >    utils.sendSuccess(res, "Got User Successfully", result, 200);</span>
   else <span class="cstat-no" title="statement not covered" >utils.sendError(res, "Please sign in");</span>
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -157,7 +175,7 @@ module.exports = <span class="fstat-no" title="function not covered" >as</span>y
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-04T09:23:34.260Z
+                at 2023-04-10T12:39:25.174Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.07% </span>
+                <span class="strong">12.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/130</span>
+                <span class='fraction'>17/131</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.28% </span>
+                <span class="strong">13.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/128</span>
+                <span class='fraction'>17/129</span>
             </div>
         
             
@@ -325,7 +325,8 @@
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
 <a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -348,9 +349,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -477,6 +478,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -608,11 +610,11 @@ module.exports.getAdsOnCategoryName = <span class="fstat-no" title="function not
 };
 &nbsp;
 module.exports.createAd = <span class="fstat-no" title="function not covered" >as</span>ync function (req, res) {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    if (req.role == "client") {</span>
-<span class="cstat-no" title="statement not covered" >      return utils.sendError(res, "You are not allowed to create Ads");</span>
-    }
+<span class="cstat-no" title="statement not covered" >  if (req.role == "client") {</span>
+<span class="cstat-no" title="statement not covered" >    return utils.sendError(res, "You are not allowed to create Ads");</span>
+  }
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  try {</span>
     //Validating the ad object
     const { error, data } = <span class="cstat-no" title="statement not covered" >validateAdSchema.validate(req.body);</span>
 <span class="cstat-no" title="statement not covered" >    if (error) {</span>
@@ -739,6 +741,7 @@ module.exports.updateAd = <span class="fstat-no" title="function not covered" >a
 <span class="cstat-no" title="statement not covered" >  if (req.role == "client") {</span>
 <span class="cstat-no" title="statement not covered" >    return utils.sendError(res, "You are not allowed to delete Ads");</span>
   }
+<span class="cstat-no" title="statement not covered" >  console.log("Printing Req.Body", req.body);</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
     let ad = <span class="cstat-no" title="statement not covered" >await Ads.findById(req.params.adId);</span>
 <span class="cstat-no" title="statement not covered" >    if (ad.freelancer._id.equals(req.user._id) == false) {</span>
@@ -747,7 +750,7 @@ module.exports.updateAd = <span class="fstat-no" title="function not covered" >a
         "You are not allowed to delete Ads, only the creator can delete the Ad"
       );
     }
-<span class="cstat-no" title="statement not covered" >    ad = await Ads.updateOne({ _id: ad._id }, { ...req.body });</span>
+<span class="cstat-no" title="statement not covered" >    ad = await Ads.updateOne({ _id: ad._id }, { ...req.body.ad });</span>
     const newAd = <span class="cstat-no" title="statement not covered" >await Ads.findById(req.params.adId);</span>
 <span class="cstat-no" title="statement not covered" >    if (ad.modifiedCount == 1) <span class="cstat-no" title="statement not covered" >utils.sendSuccess(res, "Ad Updated", { newAd });</span></span>
     else
@@ -783,7 +786,7 @@ module.exports.getAd = <span class="fstat-no" title="function not covered" >as</
   }
 };
 &nbsp;
-const buyAd = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+const confirmAd = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const ad = <span class="cstat-no" title="statement not covered" >await Ads.findById(req.body.adId);</span>
 <span class="cstat-no" title="statement not covered" >    if (!ad) {</span>
@@ -819,7 +822,7 @@ const buyAd = <span class="fstat-no" title="function not covered" >as</span>ync 
   }
 };
 &nbsp;
-module.exports.confirmAd = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+module.exports.buyAd = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
   const adId = <span class="cstat-no" title="statement not covered" >req.body.adId;</span>
   const freelancerId = <span class="cstat-no" title="statement not covered" >req.body.freelancerId;</span>
   const clientId = <span class="cstat-no" title="statement not covered" >req.body.clientId;</span>
@@ -845,7 +848,7 @@ module.exports.confirmAd = <span class="fstat-no" title="function not covered" >
     unconfirmedPurchase.clientStatus == true &amp;&amp;
     unconfirmedPurchase.freelancerStatus == true
   ) {
-<span class="cstat-no" title="statement not covered" >    return buyAd(req, res);</span>
+<span class="cstat-no" title="statement not covered" >    return confirmAd(req, res);</span>
   }
 <span class="cstat-no" title="statement not covered" >  utils.sendSuccess(res, "Confirmation of the order sent", {});</span>
 };
@@ -856,7 +859,7 @@ module.exports.confirmAd = <span class="fstat-no" title="function not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-04T09:23:34.260Z
+                at 2023-04-10T12:39:25.174Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
