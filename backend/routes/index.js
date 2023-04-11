@@ -8,4 +8,5 @@ router.use("/conversations", require("./conversations"));
 router.get("/getUserDetails", require("../controllers/getUserDetails"));
 router.use("/pictures", require("./pictures"));
 router.use("/users", require("./users"));
+router.use("/admin", require("./admin"));
 module.exports = router;
