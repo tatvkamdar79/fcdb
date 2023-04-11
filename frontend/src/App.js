@@ -22,6 +22,7 @@ import FreelancerMyAds from "./Views/Freelancer/FreelancerMyAds";
 import NotFound404Page from "./Views/NotFound404Page";
 import { io } from "socket.io-client";
 import FreelancerEditAd from "./Views/Freelancer/FreelancerEditAd";
+import AdminPage from "./Views/Admin/AdminPage";
 
 const UserContext = createContext({});
 const SocketContext = createContext({});
@@ -80,6 +81,7 @@ function App() {
           //   abc
         // </Link> */}
           <Routes>
+            <Route path={"/admin"} element={<AdminPage />} />
             <Route path="/sockets" element={<Socketss />} />
             <Route path={"/"} element={<Landing />} />
 
