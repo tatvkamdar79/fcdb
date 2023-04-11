@@ -108,6 +108,9 @@ const FreelancerMyAds = () => {
     <div className="flex flex-col w-full justify-center place-items-center p-2">
       {currentUser.ads.length && (
         <div className="w-5/6">
+          <p className="text-xl font-playfair font-semibold ml-7">
+            {currentUser.name}'s Ads
+          </p>
           <p className="ml-8 my-2 text-xl font-semibold">Filter</p>
           <div className="grid grid-cols-3 lg:grid-cols-4 justify-evenly place-items-center gap-x-5 gap-y-2">
             {categories.map(({ is, name, value }) => (

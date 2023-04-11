@@ -1,32 +1,32 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserContext } from "../../App";
 import { getCookie } from "../../Hooks/useCookies";
 
 const FreelancerAdsInProgress = () => {
-  const { state } = useLocation();
-  console.log("state -> ", state);
-  const [user, setUser] = useState(state);
-  // setUser(user);
+  const { user, setUser } = useContext(UserContext);
   const [currentUser, setCurrentUser] = useState(user.user);
-  console.log("CUR", currentUser);
+  const workingWith = currentUser.workingWith;
+  console.log("ww", workingWith);
+  console.log("ww", Object.keys(workingWith));
   const categoryName = "graphics-and-design";
 
-  useEffect(() => {
-    console.log("user -> ", user);
-    // console.log("user.user -> ", user.user);
-    setCurrentUser(user.user);
+  // useEffect(() => {
+  //   console.log("user -> ", user);
+  //   // console.log("user.user -> ", user.user);
+  //   setCurrentUser(user.user);
 
-    async function getAllAds() {
-      const data = await axios.get(
-        `http://localhost:8080/api/client/getAllAds`,
-        { headers: { authorization: `Bearer ${getCookie("JWT_AUTH")}` } }
-      );
-      console.log("All Ads", data);
-    }
+  //   async function getAllAds() {
+  //     const data = await axios.get(
+  //       `http://localhost:8080/api/client/getAdsInProgress`,
+  //       { headers: { authorization: `Bearer ${getCookie("JWT_AUTH")}` } }
+  //     );
+  //     console.log("All Ads", data);
+  //   }
 
-    getAllAds();
-  }, [user, currentUser]);
+  //   getAllAds();
+  // }, [user, currentUser]);
 
   return (
     <div className="w-full sm:w-11/12 h-screen mx-auto">
@@ -40,16 +40,16 @@ const FreelancerAdsInProgress = () => {
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 p-5 place-items-center gap-y-7">
           {currentUser?.workingWith.map(
             ({
+              clientId,
+              clientName,
+              clientEmail,
               adId,
               adTitle,
-              freelancerEmail,
-              freelancerId,
-              freelancerName,
               isAdActive,
               _id,
             }) => (
               <Link
-                to={`/categories/${categoryName}/${adId}/chat`}
+                to={`/categories/${categoryName}/${adId}`}
                 key={_id}
                 state={{
                   ad: {
@@ -57,12 +57,12 @@ const FreelancerAdsInProgress = () => {
                     title: adTitle,
                     aboutAd: "About the Ad",
                     price: 2000,
-                    user: currentUser?.name,
-                  },
-                  freelancer: {
-                    freelancerId: freelancerId,
-                    freelancerEmail: freelancerEmail,
-                    freelancerName: freelancerName,
+                    user: clientName,
+                    freelancer: {
+                      freelancerId: currentUser._id,
+                      freelancerEmail: currentUser.email,
+                      freelancerName: currentUser.name,
+                    },
                   },
                 }}
                 className="h-fit w-[290px] xs:w-[90%] border border-gray-700 shadow-lg shadow-gray-700 bg-gray-200 rounded-md hover:scale-105 transition-all duration-500 overflow-hidden"
@@ -76,7 +76,7 @@ const FreelancerAdsInProgress = () => {
                   {adTitle}
                 </p>
                 <p className="flex text-center font-playfair font-extrabold px-1">
-                  By: {freelancerName}
+                  For Client: {clientName}
                 </p>
               </Link>
             )

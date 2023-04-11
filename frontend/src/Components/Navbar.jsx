@@ -22,6 +22,12 @@ const Navbar = () => {
     { id: 3, title: "Sign in", link: "/signin", style: "" },
     {
       id: 4,
+      title: "Freelancer Portal",
+      link: "/freelancer/signin",
+      style: "",
+    },
+    {
+      id: 5,
       title: "Join",
       link: "/signup",
       style:

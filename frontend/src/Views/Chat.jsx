@@ -1,12 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { AiOutlineSend } from "react-icons/ai";
 import { RiStarSFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { UserContext } from "../App";
+import { SocketContext, UserContext } from "../App";
 
 const Chat = () => {
   const { state } = useLocation();
+  const bottomRef = useRef(null);
+  const socket = useContext(SocketContext);
+  console.log(socket);
+
   // console.log(Object.keys(state), state.ad);
   const ad = state.ad;
   const freelancer = state.freelancer;
@@ -14,59 +18,50 @@ const Chat = () => {
 
   const { user, setUser } = useContext(UserContext);
   const currentUser = user.user;
+  const [convo, setConvo] = useState([]);
   // console.log(currentUser);
   let stars = [];
   // for (let i = 0; i < freelancer.rating; i++) {
   //   stars.push(i);
   // }
   useEffect(() => {
-    // API to get conversation between the client and freelancer
-    // To send params -> [ad.id, freelancer.id, client.id]
+    bottomRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, []);
-  const convo = [
-    { id: 1, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 2, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 3, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 4, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 5, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 6, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 7, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 8, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 9, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 10, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 11, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 12, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 13, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 14, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 15, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 16, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 17, sender: true, message: "I Like pani puri, you like masala puri" },
-    { id: 18, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 19, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 20, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 28, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 38, sender: false, message: "I Like pani puri, you like masala puri" },
-    { id: 48, sender: false, message: "I Like pani puri, you like masala puri" },
-    {
-      id: 58,
-      sender: false,
-      message:
-        "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-  ];
+
   function dateFormat(d) {
     let x = new Date();
     return x.getHours() + ":" + x.getMinutes();
   }
+  const sendMessage = (msg) => {
+    // console.log(freelancer);
+    let receiverId = freelancer._id;
+    let adId = ad._id;
+    socket.socket.emit("sendMessage", msg, receiverId, adId);
+  };
+
+  useEffect(() => {
+    socket.socket.on("recieveMessage", (msg, senderId, adId) => {
+      console.log("Message", msg);
+      setConvo((convo) => [
+        ...convo,
+        { id: 9, sender: senderId, message: msg },
+      ]);
+    });
+  }, []);
   return (
-    <div className="flex flex-col lg:flex-row justify-between place-items-center w-screen xl:w-5/6 mx-auto">
-      <div className="h-[80vh] w-full sm:w-5/6 lg:w-4/5 flex flex-col justify-end mx-auto border-2 rounded-md border-gray-700 relative">
-        <div className="h-full overflow-y-scroll justify-end p-3 gap-y-2">
-          {convo.map(({ id, sender, message, style }) => (
+    <div className="flex flex-col lg:flex-row justify-between place-items-center w-screen xl:w-5/6 mx-auto p-5">
+      <div className="h-[85vh] w-full sm:w-5/6 lg:w-4/5 flex flex-col justify-end mx-auto border-2 rounded-md border-gray-700 relative">
+        <div
+          className="h-full overflow-y-scroll justify-end p-3 gap-y-2"
+          id="messages"
+        >
+          {convo.map(({ id, sender, message }, index) => (
             <div
-              key={id}
+              key={index}
               className={`flex w-fit h-fit min-h-[40px] max-w-[200px] lg:max-w-[700px] p-2 m-5 border border-gray-600 rounded-md ${
-                sender ? "ml-auto bg-sky-300" : "mr-auto bg-gray-100"
+                sender === currentUser._id
+                  ? "ml-auto bg-green-400"
+                  : "mr-auto bg-gray-200"
               } relative`}
             >
               {message}
@@ -82,6 +77,7 @@ const Chat = () => {
               </span>
             </div>
           ))}
+          <div ref={bottomRef} />
         </div>
         <div className="flex p-3 place-items-center justify-end">
           <input
@@ -89,6 +85,13 @@ const Chat = () => {
             name="messageBox"
             id="messageBox"
             className="w-5/6 p-2 mx-4 border-2 border-gray-500 rounded-md"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.target.value.trim() != "") {
+                let msg = e.target.value;
+                sendMessage(msg);
+                e.target.value = "";
+              }
+            }}
           />
           <AiOutlineSend size={30} className="text-emerald-700" />
         </div>

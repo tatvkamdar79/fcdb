@@ -94,7 +94,7 @@ const SignInForm = ({ role }) => {
 
   return (
     <div className="w-screen">
-      <div className="flex flex-col w-full items-center h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+      <div className="flex flex-col w-full items-center h-[80vh] pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div className="w-5/6 px-6 py-4 mt-6 overflow-hidden bg-white shadow-lg shadow-gray-400 sm:max-w-lg sm:rounded-lg">
           <div className="text-center p-3">
             <Link to="/">

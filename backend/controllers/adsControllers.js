@@ -19,11 +19,11 @@ module.exports.getAdsOnCategoryName = async function (req, res) {
 };
 
 module.exports.createAd = async function (req, res) {
-  try {
-    if (req.role == "client") {
-      return utils.sendError(res, "You are not allowed to create Ads");
-    }
+  if (req.role == "client") {
+    return utils.sendError(res, "You are not allowed to create Ads");
+  }
 
+  try {
     //Validating the ad object
     const { error, data } = validateAdSchema.validate(req.body);
     if (error) {
@@ -195,7 +195,7 @@ module.exports.getAd = async (req, res) => {
   }
 };
 
-const buyAd = async (req, res) => {
+const confirmAd = async (req, res) => {
   try {
     const ad = await Ads.findById(req.body.adId);
     if (!ad) {
@@ -231,7 +231,7 @@ const buyAd = async (req, res) => {
   }
 };
 
-module.exports.confirmAd = async (req, res) => {
+module.exports.buyAd = async (req, res) => {
   const adId = req.body.adId;
   const freelancerId = req.body.freelancerId;
   const clientId = req.body.clientId;
@@ -264,7 +264,7 @@ module.exports.confirmAd = async (req, res) => {
     unconfirmedPurchase.clientStatus == true &&
     unconfirmedPurchase.freelancerStatus == true
   ) {
-    return buyAd(req, res);
+    return confirmAd(req, res);
   }
   utils.sendSuccess(res, "Confirmation of the order sent", {});
 };

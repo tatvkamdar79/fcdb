@@ -31,7 +31,7 @@ const AdPage = () => {
           </p>
           <div className="flex justify-center place-items-center bg-gray-200 my-4">
             <img
-              src={"http://localhost:8080/" + ad?.coverPicPath}
+              // src={"http://localhost:8080/" + ad?.coverPicPath}
               alt="Ad Img"
               className="my-3 max-h-[500px]"
             />
