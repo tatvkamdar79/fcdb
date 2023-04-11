@@ -4,6 +4,8 @@ import { AiOutlineSend } from "react-icons/ai";
 import { RiStarSFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { SocketContext, UserContext } from "../App";
+import axios from "axios";
+import { getCookie } from "../Hooks/useCookies";
 
 const Chat = () => {
   const { state } = useLocation();
@@ -48,6 +50,25 @@ const Chat = () => {
       ]);
     });
   }, []);
+  const confirmPurchase = async () => {
+    if (window.confirm("Do you want to purchase this ad")) {
+      console.log("Confirmed");
+      const response = await axios.post(
+        "http://localhost:8080/api/ads/buyAd",
+        {
+          adId: ad._id,
+          freelancerId: freelancer._id,
+          clientId: currentUser._id,
+        },
+        { headers: { Authorization: `Bearer ${getCookie("JWT_AUTH")}` } }
+      );
+      if (response.status === 200) {
+        let successMessage = response.data.message;
+        alert(successMessage);
+        console.log(response);
+      }
+    }
+  };
   return (
     <div className="flex flex-col lg:flex-row justify-between place-items-center w-screen xl:w-5/6 mx-auto p-5">
       <div className="h-[85vh] w-full sm:w-5/6 lg:w-4/5 flex flex-col justify-end mx-auto border-2 rounded-md border-gray-700 relative">
@@ -80,11 +101,19 @@ const Chat = () => {
           <div ref={bottomRef} />
         </div>
         <div className="flex p-3 place-items-center justify-end">
+          <div className="w-1/2 flex justify-center place-items-center">
+            <button
+              className="w-full p-2 border-2 border-gray-500 rounded-lg bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out text-gray-800 font-medium outline-none focus:outline-blue"
+              onClick={confirmPurchase}
+            >
+              Purchase Ad
+            </button>
+          </div>
           <input
             type="text"
             name="messageBox"
             id="messageBox"
-            className="w-5/6 p-2 mx-4 border-2 border-gray-500 rounded-md"
+            className="w-full p-2 mx-4 border-2 border-gray-500 rounded-md"
             onKeyDown={(e) => {
               if (e.key === "Enter" && e.target.value.trim() != "") {
                 let msg = e.target.value;
