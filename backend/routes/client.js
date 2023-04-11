@@ -6,6 +6,7 @@ router.post("/signup", clientController.signUp);
 router.post("/signin", clientController.signIn);
 router.get("/getActiveAds", clientController.getActiveAds);
 router.get("/getPreviousAds", clientController.getPreviousAds);
-router.post("/createGmeet", clientController.createGmeet);
+router.get("/getClient/:clientId", clientController.getClient);
+// router.post("/createGmeet", clientController.createGmeet);
 
 module.exports = router;

@@ -31,3 +31,9 @@ module.exports.createJWT = (data) => {
   const token = jsonWebToken.sign(data, secretKey);
   return token;
 };
+
+module.exports.decodeJWT = (req) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const data = jsonWebToken.verify(token, process.env.SECRET_KEY);
+  return data;
+};
