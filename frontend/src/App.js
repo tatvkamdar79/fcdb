@@ -21,6 +21,7 @@ import FreelancerAdsInProgress from "./Views/Freelancer/FreelancerAdsInProgress"
 import FreelancerMyAds from "./Views/Freelancer/FreelancerMyAds";
 import NotFound404Page from "./Views/NotFound404Page";
 import { io } from "socket.io-client";
+import FreelancerEditAd from "./Views/Freelancer/FreelancerEditAd";
 
 const UserContext = createContext({});
 const SocketContext = createContext({});
@@ -118,6 +119,10 @@ function App() {
                     element={<FreelancerMyAds />}
                   />
                   <Route path={"/freelancer/createAd"} element={<CreateAd />} />
+                  <Route
+                    path={"/freelancer/myAds/editAd"}
+                    element={<FreelancerEditAd />}
+                  />
                 </>
               )}
             </Route>

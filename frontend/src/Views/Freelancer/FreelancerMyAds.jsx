@@ -182,7 +182,7 @@ const FreelancerMyAds = () => {
                           </div>
                         </div>
                       </div>
-                      <p className="px-2 text-lg flex place-items-start text-justify mx-auto text-gray-900">
+                      <p className="px-2 text-lg flex place-items-start mx-auto text-gray-900">
                         {ad.title}
                       </p>
                       <p className="flex place-items-center text-sm px-2 py-1 font-serif text-gray-600">
@@ -199,8 +199,8 @@ const FreelancerMyAds = () => {
                     </div>
                     <div className="flex max-w-[350px] sm:max-w-[450px] md:w-[300px] justify-between place-items-center mt-1 border-t-2 border-gray-400">
                       <button
-                        className={`p-2 border hover:scale-105 transition-all duration-300 rounded-lg m-1 ${
-                          ad.viewState ? "bg-green-500" : "bg-orange-500"
+                        className={`w-1/3 p-2 border hover:scale-105 transition-all duration-300 rounded-lg m-1 ${
+                          ad.viewState ? "bg-green-500" : "bg-gray-500 opacity-80"
                         }`}
                         // value={ad}
                         onClick={() => changeViewState(ad)}
@@ -208,11 +208,18 @@ const FreelancerMyAds = () => {
                         {ad.viewState ? "Active" : "Disabled"}
                       </button>
                       <button
-                        className="p-2 border border-gray-400 rounded-lg m-2 bg-[#ff3526]"
+                        className="w-1/3 p-2 border border-gray-400 rounded-lg m-2 bg-orange-600 hover:scale-105 transition-all duration-300"
                         onClick={() => deleteAd(ad)}
                       >
-                        Delete Ad
+                        Delete
                       </button>
+                      <Link
+                        to={"/freelancer/myAds/editAd"}
+                        state={ad}
+                        className="w-1/3 p-2 border border-gray-400 rounded-lg m-2 bg-blue hover:scale-105 text-center transition-all duration-300"
+                      >
+                        Edit
+                      </Link>
                     </div>
                   </div>
                 )
