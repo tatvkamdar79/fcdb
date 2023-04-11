@@ -1,19 +1,10 @@
 const app = require("../temp");
-const signup = require("../controllers/client_controller");
 const supertest = require("supertest");
 const api = supertest(app);
 const Client = require("../models/clientSchema");
-const validateClientSchema = require("../validators/clientSchema");
-const joi = require("joi");
 const { connectToDatabase } = require("../config/mongoose");
-
-const mockRequest = () => {
-  return {
-    email: "test@gmail.com",
-    password: "12345",
-    name: "test",
-  };
-};
+const jsonWebToken = require("jsonwebtoken");
+const utils = require("../utils/response");
 
 describe("Testing /api/client", () => {
   const url = "/api/client/";
@@ -45,9 +36,19 @@ describe("Testing /api/client", () => {
     test("should return 400", async () => {
       const obj = await api
         .post("/api/client/signup")
-        .send({ email: "test@99" })
+        .send(invalidClient)
         .set("Content-Type", "application/x-www-form-urlencoded");
       expect(obj.status).toEqual(400);
+    }, 10000);
+
+    test("should return 400", async () => {
+      const obj = await api
+        .post("/api/client/signup")
+        .send(validClient)
+        .set("Content-Type", "application/x-www-form-urlencoded");
+      const response = JSON.parse(obj.text);
+      expect(obj.status).toEqual(400);
+      expect(response.message).toEqual("Failed to create, User already exists");
     }, 10000);
 
     afterAll(async () => {
@@ -125,5 +126,31 @@ describe("Testing /api/client", () => {
       expect(obj.statusCode).toBe(400);
       expect(response.message).toBe("Please login first");
     });
+  });
+
+  describe("Testing /getClient/:clientId", () => {
+    test("should return 200", async () => {
+      const clientId = jsonWebToken.verify(
+        clientJWT,
+        process.env.SECRET_KEY
+      ).id;
+      const obj = await api
+        .get(url + `getClient/${clientId}`)
+        .set("Authorization", `Bearer ${clientJWT}`);
+      const response = JSON.parse(obj.text);
+      expect(obj.statusCode).toBe(200);
+    });
+
+    test("should return 400", async () => {
+      const invalidClientId =
+        "a" +
+        jsonWebToken.verify(clientJWT, process.env.SECRET_KEY).id.slice(1);
+      const obj = await api
+        .get(url + `getClient/${invalidClientId}`)
+        .set("Authorization", `Bearer ${clientJWT}`);
+      const response = JSON.parse(obj.text);
+      expect(obj.statusCode).toBe(400);
+      expect(response.message).toBe("No such Client found");
+    }, 10000);
   });
 });

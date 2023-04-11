@@ -10,8 +10,7 @@ module.exports.setAuthenticatedUser = async function (req, res, next) {
     return;
   }
   let user;
-  const token = req.headers.authorization.split(" ")[1];
-  const data = jsonWebToken.verify(token, process.env.SECRET_KEY);
+  const data = utils.decodeJWT(req);
   console.log(data);
   if (data.role == "client") {
     try {
