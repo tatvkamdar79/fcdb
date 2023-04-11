@@ -56,6 +56,12 @@ const clientSchema = new Schema({
       },
     },
   ],
+  bookMarkedAds:[
+    {
+      type:Schema.Types.ObjectId,
+      ref:"ad"
+    }
+  ]
 });
 
 const client = mongoose.model("client", clientSchema);

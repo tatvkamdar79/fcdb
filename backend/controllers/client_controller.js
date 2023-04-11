@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
 const validateClientSchema = require("../models/clientSchema");
+const mongoose = require("mongoose");
 
 module.exports.signUp = async function (req, res) {
   console.log("Here");
@@ -132,3 +133,54 @@ module.exports.createGmeet = async (req, res) => {
     console.log(err);
   }
 };
+
+
+module.exports.getBookMarkedAds = async (req,res) => {
+  const clientId = req.user.id;
+  try{
+    const ads = await Client.findById(clientId,{"bookMarkedAds":1}).populate("bookMarkedAds");
+    utils.sendSuccess(res,"Bookmarked ads fetched",ads);
+  }
+  catch (err) {
+    utils.sendError(res, "Some error occurred");
+    console.log(err);
+  }
+
+}
+
+module.exports.bookMarkAd  = async (req,res) => {
+  console.log("Book marked a ad");
+  const adId = req.query.adId;
+  const clientId = req.user.id;
+
+  try{
+    const obj = await Client.findByIdAndUpdate(clientId,{$push:{"bookMarkedAds":adId}},{"new":true});
+    console.log(obj);
+    utils.sendSuccess(res,"Bookmarked Ad successfully");
+  }
+  catch(err){
+    console.log(err);
+    utils.sendError(res, "Some error occurred");
+  }
+
+}
+
+module.exports.removeBookMark  = async (req,res) => {
+  console.log("Bookmark removed");
+  const adId = req.query.adId;
+  const clientId = req.user.id;
+  try{
+    let allAds = await Client.findById(clientId,{"bookMarkedAds":1});
+    allAds = allAds.bookMarkedAds;
+    console.log(allAds);
+    let newAllAds = allAds.filter((ad) => ad!= new mongoose.Types.ObjectId(adId));
+    console.log(newAllAds);
+    const updateAds = await Client.findByIdAndUpdate(clientId,{"bookMarkedAds":newAllAds});
+    // console.log(updateAds);
+    utils.sendSuccess(res,"Bookmarked removed successfully");
+  }
+  catch(err){
+    console.log(err);
+    utils.sendError(res, "Some error occurred");
+  }
+}
