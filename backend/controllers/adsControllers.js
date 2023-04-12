@@ -151,6 +151,7 @@ module.exports.updateAd = async (req, res) => {
     return utils.sendError(res, "You are not allowed to delete Ads");
   }
   console.log("Printing Req.Body", req.body);
+  console.log("I am here bro")
   try {
     let ad = await Ads.findById(req.params.adId);
     if (ad.freelancer._id.equals(req.user._id) == false) {
@@ -160,7 +161,9 @@ module.exports.updateAd = async (req, res) => {
       );
     }
     ad = await Ads.updateOne({ _id: ad._id }, { ...req.body.ad });
+    console.log(ad);
     const newAd = await Ads.findById(req.params.adId);
+    console.log(newAd);
     if (ad.modifiedCount == 1) utils.sendSuccess(res, "Ad Updated", { newAd });
     else
       utils.sendError(res, "Some error occurred while updating the Ad", {

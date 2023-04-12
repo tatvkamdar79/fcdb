@@ -30,11 +30,14 @@ const FreelancerAdsInProgress = () => {
 
   return (
     <div className="w-full sm:w-11/12 h-screen mx-auto">
-      Ads Currently In Progress
       <p className="text-3xl font-semibold font-serif py-5"></p>
       {currentUser?.workingWith?.length === 0 ? (
-        <p className="text-2xl font-semibold font-serif">
+        <p className="text-2xl font-semibold font-serif flex flex-col w-fit">
           You have no ads in progress to show currently
+          <img
+            src="https://thumbs.gfycat.com/AnotherAmazingBirdofparadise.webp"
+            width={150}
+          />
         </p>
       ) : (
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 p-5 place-items-center gap-y-7">
