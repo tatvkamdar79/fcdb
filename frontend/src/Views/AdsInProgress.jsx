@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
 const AdsInProgress = () => {
@@ -52,19 +53,24 @@ const AdsInProgress = () => {
                     freelancerName: freelancerName,
                   },
                 }}
-                className="h-fit w-[290px] xs:w-[90%] border border-gray-700 shadow-lg shadow-gray-700 bg-gray-200 rounded-md hover:scale-105 transition-all duration-500 overflow-hidden"
+                className="h-fit w-[290px] xs:w-[90%] border border-gray-700 shadow-lg shadow-gray-700 rounded-md hover:scale-105 transition-all duration-500 overflow-hidden"
               >
                 <img
                   src="https://source.unsplash.com/random/400x200"
                   alt="Ad Cover"
                   className="border-inherit"
                 />
-                <p className="text`-justify font-bold text-lg px-1 pt-1">
+                <p className="text`-justify font-semibold text-md px-1 pt-1">
+                  Ad: {adTitle}
+                </p>
+
+                <p className="px-2 h-16 flex place-items-center text-md mx-auto text-gray-900">
                   {adTitle}
                 </p>
-                <p className="flex text-center font-playfair font-extrabold px-1">
-                  By: {freelancerName}
-                </p>
+                <div className="flex justify-start place-items-center px-2 py-1 font-semibold">
+                  <FaUserCircle size={22} className="mr-2" />
+                  <h2>{freelancerName}</h2>
+                </div>
               </Link>
             )
           )}

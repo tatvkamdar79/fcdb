@@ -181,6 +181,25 @@ const Chat = () => {
   useEffect(() => {
     console.log("USER AFTER UPDATING", user);
   }, [user]);
+
+  const makeGmeet = async () => {
+    let now = new Date();
+    let meetFormatDate = now.getFullYear() + "-" + "04" + "-" + now.getDate();
+    const response = await axios.post(
+      "http://localhost:8080/api/client/createGmeet",
+      {
+        meetDate: meetFormatDate,
+        meetTime: now.getHours() + ":" + now.getMinutes(),
+      },
+      { headers: { authorization: `Bearer ${getCookie("JWT_AUTH")}` } }
+    );
+    console.log(response);
+    if (response.data.message === "You are busy for this time slot!") {
+      alert("You are busy at this time slot! Please Free up your calendar");
+    } else {
+      sendMessage(response.data.message);
+    }
+  };
   return (
     <div className="flex flex-col lg:flex-row justify-between place-items-center w-screen xl:w-5/6 mx-auto p-5">
       <div className="h-[85vh] w-full sm:w-5/6 lg:w-4/5 flex flex-col justify-end mx-auto border-2 rounded-md border-gray-700 relative">
@@ -242,12 +261,18 @@ const Chat = () => {
           )}
           <div ref={bottomRef} />
         </div>
-        <div className="flex p-3 place-items-center justify-end">
+        <div className="flex p-3 place-items-center justify-end gap-x-2">
           <button
             className={`border border-black bg-gray-100 text-green-500 hover:scale-105 hover:bg-green-500 hover:text-white rounded-md w-1/4 p-2 transition-all duration-300`}
             onClick={confirmPurchase}
           >
             Purchase this Ad
+          </button>
+          <button
+            className={`border border-black bg-gray-100 text-green-500 hover:scale-105 hover:bg-green-500 hover:text-white rounded-md w-1/4 p-2 transition-all duration-300`}
+            onClick={makeGmeet}
+          >
+            Make Google Meet
           </button>
           <input
             type="text"

@@ -96,38 +96,58 @@ module.exports.getClient = async (req, res) => {
   }
 };
 
-// module.exports.createGmeet = async (req, res) => {
-//   if (!req.user) {
-//     return utils.sendError(res, "Please login first");
-//   }
+module.exports.createGmeet = async (req, res) => {
+  if (!req.user) {
+    return utils.sendError(res, "Please login first");
+  }
 
-//   const Meeting = require("google-meet-api").meet;
-//   let date = req.body.meetDate;
-//   let time = req.body.meetTime;
-//   let summary = req.body.meetSummary || "Client Freelancer Discussion";
-//   let location = "Lite Hain";
-//   let description =
-//     req.body.meetDescription ||
-//     "A general or specific meeting to discuss about the Ad";
-//   try {
-//     const meetLink = await Meeting({
-//       clientId: req.body.clientId,
-//       clientSecret: req.body.clientSecret,
-//       refreshToken: req.body.clientRefreshToken,
-//       date: date,
-//       time: time,
-//       summary: "Client Freelancer Discussion Session 😉",
-//       location: "Your Home HH",
-//       description: "Discussion Session",
-//     });
-//     console.log(meetLink); //result it the final link
-//     utils.sendSuccess(res, meetLink, {
-//       time: "AAJ",
-//       summary: "blablbla",
-//       location: "tere ghar bhaiiii",
-//     });
-//   } catch (err) {
-//     utils.sendError(res, "Some error occurred");
-//     console.log(err);
-//   }
-// };
+  const Meeting = require("google-meet-api").meet;
+
+  let date = req.body.meetDate;
+
+  let time = req.body.meetTime;
+
+  let summary = req.body.meetSummary || "Client Freelancer Discussion";
+
+  let location = "Lite Hain";
+
+  let description =
+    req.body.meetDescription ||
+    "A general or specific meeting to discuss about the Ad";
+
+  try {
+    let meetLink = await Meeting({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+      refreshToken: req.user.refreshToken,
+
+      date: date,
+
+      time: time,
+
+      summary: "Client Freelancer Discussion Session 😉",
+
+      location: "Your Home HH",
+
+      description: "Discussion Session",
+    });
+
+    if (!meetLink) {
+      meetLink = "You are busy for this time slot!";
+    }
+
+    utils.sendSuccess(res, meetLink, {
+      time: "AAJ",
+
+      summary: "blablbla",
+
+      location: "tere ghar bhaiiii",
+    });
+  } catch (err) {
+    utils.sendError(res, "Some error occurred");
+
+    console.log(err);
+  }
+};

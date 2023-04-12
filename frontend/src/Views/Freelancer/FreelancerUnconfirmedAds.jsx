@@ -160,7 +160,7 @@ const FreelancerUnconfirmedAds = () => {
                     >
                       <div
                         key={ad._id}
-                        className="w-full sm:max-w-[450px] md:w-[300px] hover:scale-105 rounded-sm transition-all duration-500 shadow-xl shadow-gray-500"
+                        className="w-full sm:max-w-[450px] md:w-[300px] hover:scale-105 rounded-sm transition-all duration-500 shadow-xl shadow-gray-500 h-full"
                       >
                         <div className="flex justify-center place-items-center">
                           {/* {adImage ?? adImage !== "" ? (
@@ -172,6 +172,7 @@ const FreelancerUnconfirmedAds = () => {
                       className="h-[150px] w-full border border-gray-400 bg-no-repeat"
                     />
                   ) : ( */}
+                          <img src={ad.adId.coverPicPath} alt="" />
                           <BsCardImage
                             className="h-[150px] w-full border-2 border-gray-500 opacity-60"
                             size={120}
@@ -188,14 +189,14 @@ const FreelancerUnconfirmedAds = () => {
                           {ad.adId.title}
                         </p>
                       </div>
-                      <div className="flex max-w-[350px] sm:max-w-[450px] md:w-[300px] justify-between place-items-center mt-1 border-t-2 border-gray-400">
+                      {/* <div className="flex max-w-[350px] sm:max-w-[450px] md:w-[300px] justify-between place-items-center mt-1 border-t-2 border-gray-400">
                         <button
                           className="p-2 border border-gray-400 rounded-lg m-2 bg-[#ff3526]"
                           onClick={() => deleteAd(ad)}
                         >
-                          Delete Ad
+                          Decline
                         </button>
-                      </div>
+                      </div> */}
                     </Link>
                   )
               )}
