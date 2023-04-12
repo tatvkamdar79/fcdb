@@ -5,10 +5,12 @@ const secretKey = process.env.SECRET_KEY;
 const jsonWebToken = require("jsonwebtoken");
 const validateFreelancerSchema = require("../models/freelancerSchema");
 
-
 module.exports.signUp = async function (req, res) {
-  const {error,data} = validateFreelancerSchema({email: req.body.email, password: req.body.password});
-  if(error){
+  const { error, data } = validateFreelancerSchema({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  if (error) {
     utils.sendError(res, error.details[0].message);
     return;
   }
@@ -21,6 +23,7 @@ module.exports.signUp = async function (req, res) {
         ...req.body,
         password: hashedPassword,
       });
+      console.log("New freelancer", newFreelancer);
       if (!newFreelancer) {
         utils.sendError(res, "Failed to create, server error");
       } else {
@@ -42,7 +45,7 @@ module.exports.signIn = async function (req, res) {
   console.log(req.body);
   try {
     const user = await Freelancer.findOne({ email: userEmail });
-    console.log(user);
+    console.log("User is ", user);
     if (!user) {
       utils.sendError(res, "User not found", {}, 401);
     } else {

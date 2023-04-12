@@ -31,7 +31,7 @@ const AdPage = () => {
           </p>
           <div className="flex justify-center place-items-center bg-gray-200 my-4">
             <img
-              // src={"http://localhost:8080/" + ad?.coverPicPath}
+              src={ad?.coverPicPath}
               alt="Ad Img"
               className="my-3 max-h-[500px]"
             />
@@ -51,7 +51,7 @@ const AdPage = () => {
           {/* Profile Img and profile Page of Freelancer */}
           <Link to={"/freelancer/" + freelancer.id} className="flex w-fit">
             <img
-              src="https://source.unsplash.com/random/80x80"
+              src={freelancer.profilePicPath}
               alt="Freelancer Image"
               className="rounded-full my-2"
             />

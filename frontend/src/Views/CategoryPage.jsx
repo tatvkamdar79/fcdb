@@ -103,7 +103,10 @@ const CategoryPage = () => {
       try {
         const response = await axios.get(apiUrl, { headers });
         console.log(response.data.data);
-        setAds(response.data.data);
+        let visibleAds = response.data.data.filter((ad) => {
+          return ad.viewState;
+        });
+        setAds(visibleAds);
         setLoading(false);
         console.log(response.data.data[1]?._id);
         return response.data.data;
@@ -195,19 +198,19 @@ const CategoryPage = () => {
             key={ad._id}
             to={`/categories/${categoryName}/${ad._id}`}
             state={{ ...ad }}
-            className="shadow-md shadow-gray-400 max-w-[300px] sm:max-w-[400px] md:w-[350px] hover:scale-105 transition-all duration-500"
+            className="shadow-md shadow-gray-400 w-[350px] sm:w-[350px] md:w-[350px] hover:scale-105 transition-all duration-500"
           >
             <img
               // src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              src={"http://localhost:8080/" + ad?.coverPicPath}
+              src={ad?.coverPicPath}
               alt="gigimg"
-              className="h-[150px] border border-gray-400"
+              className="h-[150px] border border-gray-400 w-full"
             />
             <div className="flex justify-start place-items-center px-2 py-1 font-semibold">
               <FaUserCircle size={22} className="mr-2" />
               <h2>{ad?.freelancer?.name}</h2>
             </div>
-            <p className="px-2 text-lg h-16 flex place-items-start text-justify mx-auto text-gray-900">
+            <p className="px-2 h-16 flex place-items-center text-md mx-auto text-gray-900">
               {ad.title}
             </p>
             <p className="flex place-items-center text-sm px-2 py-1 h-10 font-serif text-gray-600">

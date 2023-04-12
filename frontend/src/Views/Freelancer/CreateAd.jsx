@@ -33,17 +33,17 @@ const CreateAd = () => {
   };
 
   const categories = [
-    { id: 1, name: "Graphics and Design", value: "graphicsAndDesign" },
-    { id: 2, name: "Video and Animation", value: "videoAndAnimation" },
+    { id: 1, name: "Graphics and Design", value: "graphics-and-design" },
+    { id: 2, name: "Video and Animation", value: "video-and-animation" },
     {
       id: 3,
       name: "Writing and Translation",
-      value: "writingAndTranslation",
+      value: "writing-and-translation",
     },
-    { id: 4, name: "AI Services", value: "aiServices" },
-    { id: 5, name: "Digital Marketing", value: "digitalMarketing" },
-    { id: 6, name: "Music and Audio", value: "musicAndAudio" },
-    { id: 7, name: "Programming and tech", value: "programmingAndTech" },
+    { id: 4, name: "AI Services", value: "ai-services" },
+    { id: 5, name: "Digital Marketing", value: "digital-marketing" },
+    { id: 6, name: "Music and Audio", value: "music-and-audio" },
+    { id: 7, name: "Programming and tech", value: "programming-and-tech" },
     { id: 8, name: "Business", value: "business" },
   ];
 

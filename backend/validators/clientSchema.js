@@ -6,6 +6,7 @@ const validateClientSchema = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "in"] } })
     .required(),
   password: Joi.string().required(),
+  confirmPassword: Joi.string(),
 });
 
 module.exports = validateClientSchema;

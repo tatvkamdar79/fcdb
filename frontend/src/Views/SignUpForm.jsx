@@ -46,7 +46,7 @@ const SignUpForm = ({ role }) => {
       "content-type": "application/x-www-form-urlencoded",
     };
 
-    const url = "http://localhost:8080/api/client/signup";
+    const url = `http://localhost:8080/api/${role}/signup`;
     await axios
       .post(url, formDetails, { headers })
       .then((response) => {

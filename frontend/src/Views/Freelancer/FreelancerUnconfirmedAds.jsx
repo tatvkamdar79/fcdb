@@ -11,7 +11,7 @@ import { getCookie } from "../../Hooks/useCookies";
 const FreelancerUnconfirmedAds = () => {
   const { user, setUser } = useContext(UserContext);
   const [currentUser, setCurrentUser] = useState(user.user);
-  const [ads, setAds] = useState([]);
+  const [ads, setAds] = useState(["loading"]);
   const [filterArray, setFilterArray] = useState(["All"]);
   const navigate = useNavigate();
   console.log("Current User Ads ", ads);
@@ -144,26 +144,26 @@ const FreelancerUnconfirmedAds = () => {
           </div>
         </div>
       )}
-
       {currentUser.ads.length > 0 ? (
         ads.length > 0 ? (
-          <div className="my-4 w-full sm:w-5/6 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-4">
-            {ads.map(
-              (ad) =>
-                (filterArray.length === 0 ||
-                  filterArray.includes("All") ||
-                  filterArray.includes(ad.category)) && (
-                  <Link
-                    to={"/freelancer/unconfirmedAds/chat"}
-                    state={ad}
-                    className="flex flex-col place-items-center"
-                  >
-                    <div
-                      key={ad._id}
-                      className="w-full sm:max-w-[450px] md:w-[300px] hover:scale-105 rounded-sm transition-all duration-500 shadow-xl shadow-gray-500"
+          ads[0] != "loading" ? (
+            <div className="my-4 w-full sm:w-5/6 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-4">
+              {ads.map(
+                (ad) =>
+                  (filterArray.length === 0 ||
+                    filterArray.includes("All") ||
+                    filterArray.includes(ad.category)) && (
+                    <Link
+                      to={"/freelancer/unconfirmedAds/chat"}
+                      state={ad}
+                      className="flex flex-col place-items-center"
                     >
-                      <div className="flex justify-center place-items-center">
-                        {/* {adImage ?? adImage !== "" ? (
+                      <div
+                        key={ad._id}
+                        className="w-full sm:max-w-[450px] md:w-[300px] hover:scale-105 rounded-sm transition-all duration-500 shadow-xl shadow-gray-500"
+                      >
+                        <div className="flex justify-center place-items-center">
+                          {/* {adImage ?? adImage !== "" ? (
                     <img
                       // src="https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600"
                       // src={"http://localhost:8080/" + ad?.coverPicPath}
@@ -172,34 +172,40 @@ const FreelancerUnconfirmedAds = () => {
                       className="h-[150px] w-full border border-gray-400 bg-no-repeat"
                     />
                   ) : ( */}
-                        <BsCardImage
-                          className="h-[150px] w-full border-2 border-gray-500 opacity-60"
-                          size={120}
-                        />
-                        {/* )} */}
-                      </div>
-                      <div className="flex justify-between place-items-center px-2 py-1 font-semibold">
-                        <div className="flex">
-                          <FaUserCircle size={22} className="mr-2" />
-                          <h2>{ad.clientId.name}</h2>
+                          <BsCardImage
+                            className="h-[150px] w-full border-2 border-gray-500 opacity-60"
+                            size={120}
+                          />
+                          {/* )} */}
                         </div>
+                        <div className="flex justify-between place-items-center px-2 py-1 font-semibold">
+                          <div className="flex">
+                            <FaUserCircle size={22} className="mr-2" />
+                            <h2>{ad.clientId.name}</h2>
+                          </div>
+                        </div>
+                        <p className="px-2 text-lg flex place-items-start text-justify mx-auto text-gray-900">
+                          {ad.adId.title}
+                        </p>
                       </div>
-                      <p className="px-2 text-lg flex place-items-start text-justify mx-auto text-gray-900">
-                        {ad.adId.title}
-                      </p>
-                    </div>
-                    <div className="flex max-w-[350px] sm:max-w-[450px] md:w-[300px] justify-between place-items-center mt-1 border-t-2 border-gray-400">
-                      <button
-                        className="p-2 border border-gray-400 rounded-lg m-2 bg-[#ff3526]"
-                        onClick={() => deleteAd(ad)}
-                      >
-                        Delete Ad
-                      </button>
-                    </div>
-                  </Link>
-                )
-            )}
-          </div>
+                      <div className="flex max-w-[350px] sm:max-w-[450px] md:w-[300px] justify-between place-items-center mt-1 border-t-2 border-gray-400">
+                        <button
+                          className="p-2 border border-gray-400 rounded-lg m-2 bg-[#ff3526]"
+                          onClick={() => deleteAd(ad)}
+                        >
+                          Delete Ad
+                        </button>
+                      </div>
+                    </Link>
+                  )
+              )}
+            </div>
+          ) : (
+            <img
+              src="https://miro.medium.com/v2/resize:fit:1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+              alt="Loading..."
+            />
+          )
         ) : (
           <p className="text-2xl font-semibold my-10">
             You have no ads in this category
@@ -214,12 +220,10 @@ const FreelancerUnconfirmedAds = () => {
             className="w-96 p-2 hover:scale-105 transition-all duration-300"
           />
           <br />
-          <Link
-            to={"/freelancer/createAd"}
-            className="underline text-2xl text-blue -mt-7 hover:text-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
-          >
-            Create Your First Ad Now!
-          </Link>
+          <div className="underline text-2xl text-blue -mt-7 hover:text-green-500 hover:scale-105 transition-all duration-300 ease-in-out text-center">
+            Stay Tight :) <br />
+            We're Working on getting clients!
+          </div>
         </p>
       )}
     </div>

@@ -149,6 +149,26 @@ const Chat = () => {
     // setAds(currentUser.ads);
     return;
   }
+  useEffect(() => {
+    const response = axios.post("http://localhost:8080/api/ads/buyAd", {
+      freelancerId: freelancer._id,
+      clientId: currentUser._id,
+      adId: ad._id,
+    });
+  }, []);
+  const confirmPurchase = async () => {
+    if (window.confirm("Do you want to converse with the freelancer")) {
+      const response = await axios.post("http://localhost:8080/api/ads/buyAd", {
+        freelancerId: freelancer._id,
+        clientId: currentUser._id,
+        adId: ad._id,
+      });
+      if (response.status === 200) {
+        alert("Your request has been received by the freelancer!");
+        console.log(response);
+      }
+    }
+  };
   // useEffect(() => {
   //   console.log("User.Conversation", user.conversations);
   //   let updatedUser = user;
@@ -213,7 +233,9 @@ const Chat = () => {
                     sender ? "right-1" : "left-1"
                   } font-serif`}
                 >
-                  {"tatv"}
+                  {sender === currentUser._id
+                    ? currentUser.name
+                    : freelancer.name}
                 </span>
               </div>
             )
@@ -221,6 +243,12 @@ const Chat = () => {
           <div ref={bottomRef} />
         </div>
         <div className="flex p-3 place-items-center justify-end">
+          <button
+            className={`border border-black bg-gray-100 text-green-500 hover:scale-105 hover:bg-green-500 hover:text-white rounded-md w-1/4 p-2 transition-all duration-300`}
+            onClick={confirmPurchase}
+          >
+            Purchase this Ad
+          </button>
           <input
             type="text"
             name="messageBox"
@@ -239,21 +267,23 @@ const Chat = () => {
       </div>
       <div className="flex max-w-[400px] lg:w-1/5 justify-center place-self-center lg:place-self-start">
         <div className="p-4 pt-0">
-          <p className="font-serif font-semibold text-xl underline">
-            For Ad : {ad.title}
-          </p>
+          <p className="font-serif font-semibold text-xl">{ad.title}</p>
           <p className="my-2 font-semibold font-serif underline text-lg text-gray-800">
             About the Seller
           </p>
           {/* Profile Img and profile Page of Freelancer */}
           <Link
             to={"/freelancer/" + freelancer.id}
-            className="flex w-full justify-evenly place-items-center mx-auto"
+            className="flex w-full justify-start place-items-center mx-auto"
           >
             <img
-              src="https://source.unsplash.com/random/80x80"
+              src={
+                "https://mastersofscale.com/wp-content/uploads/sites/2/2017/05/mark_zuckerberg-600x600.jpg"
+              }
               alt="Freelancer"
-              className="rounded-full my-2"
+              className="rounded-full my-2 w-20"
+              height={50}
+              width={150}
             />
             <div className="flex flex-col place-items-start justify-center px-4">
               <p>{freelancer.name}</p>

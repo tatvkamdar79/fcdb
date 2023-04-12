@@ -32,7 +32,7 @@ const FreelancerChat = () => {
 
   const [convo, setConvo] = useState([]);
   //   console.log("CONVO HAIN BHAI", convo);
-  let xyz = user.conversations[0].messages;
+  // let xyz = user.conversations[0].messages;
 
   useEffect(() => {
     console.log(user.conversations);
@@ -204,7 +204,9 @@ const FreelancerChat = () => {
                     sender ? "right-1" : "left-1"
                   } font-serif`}
                 >
-                  {"tatv"}
+                  {sender === currentUser._id
+                    ? currentUser.name
+                    : freelancer.name}
                 </span>
               </div>
             )
