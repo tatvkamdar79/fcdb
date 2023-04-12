@@ -11,6 +11,7 @@ module.exports = async (req, res) => {
     $or: [{ clientId: req.user._id }, { freelancerId: req.user._id }],
   });
   for (let conversation of conversations) {
+    console.log("Lele" + conversation);
     let newObj = {
       adId: conversation.adId,
       clientId: conversation.clientId,
@@ -25,7 +26,7 @@ module.exports = async (req, res) => {
   }
   let result = {
     user: req.user,
-    conversations: [],
+    conversations: data,
     role: req.role,
   };
   console.log("getUserDetails.js", result);

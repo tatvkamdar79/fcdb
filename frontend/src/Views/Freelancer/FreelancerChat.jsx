@@ -3,32 +3,36 @@ import { useLocation } from "react-router";
 import { AiOutlineSend } from "react-icons/ai";
 import { RiStarSFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { SocketContext, UserContext, ConversationsContext } from "../App";
+import { SocketContext, UserContext, ConversationsContext } from "../../App";
 import axios from "axios";
-import { getCookie } from "../Hooks/useCookies";
+import { getCookie } from "../../Hooks/useCookies";
 
-const Chat = () => {
+const FreelancerChat = () => {
   // const { user, setUser } = useContext(UserContext);
   const { state } = useLocation();
+  const ad = state.adId;
+
+  //   console.log(ad);
   const bottomRef = useRef(null);
   const socket = useContext(SocketContext);
   const { conversations, setConversations } = useContext(ConversationsContext);
-  // console.log(socket);
-  const freelancer = state.freelancer;
+  //   console.log(socket);
+  const freelancer = state.clientId;
   const [newMessages, setNewMessages] = useState([]);
 
   // console.log(Object.keys(state), state.ad);
-  const ad = state.ad;
-  const sender = state.freelancer;
+  const sender = state.clientId;
   // console.log("freelancer", sender, "ad", ad);
 
   // This is the user object whoch has role and everything
   const { user, setUser } = useContext(UserContext);
   // This is the current users details such as _id, name, email etc (user.user)
   const [currentUser, setCurrentUser] = useState(user.user);
-  console.log(user.conversations);
+  console.log("USER.CONVO lelo", user.conversations);
+
   const [convo, setConvo] = useState([]);
-  console.log("CONVO HAIN BHAI", convo);
+  //   console.log("CONVO HAIN BHAI", convo);
+  let xyz = user.conversations[0].messages;
 
   useEffect(() => {
     console.log(user.conversations);
@@ -47,8 +51,8 @@ const Chat = () => {
 
       if (
         curConversation.adId == ad._id &&
-        sender._id == curConversation.freelancerId &&
-        currentUser._id == curConversation.clientId
+        currentUser._id == curConversation.freelancerId &&
+        sender._id == curConversation.clientId
       ) {
         return true;
       } else return false;
@@ -60,6 +64,10 @@ const Chat = () => {
       console.log(newConvo[0]);
     }
   }, [user]);
+
+  useEffect(() => {
+    console.log("Conversations", convo);
+  }, [convo]);
 
   // console.log(currentUser);
   let stars = [];
@@ -77,16 +85,21 @@ const Chat = () => {
   const sendMessage = (msg) => {
     // console.log(freelancer);
     let receiverId = freelancer._id;
-    let adId = ad._id;
-    socket.socket.emit("sendMessage", msg, receiverId, adId);
+    socket.socket.emit("sendMessage", msg, receiverId, state.adId._id);
   };
 
   useEffect(() => {
     const try1 = (msg, senderId, adId) => {
-      if (adId == state.ad._id && senderId == freelancer._id) {
+      console.log("Freelancer is", freelancer);
+      console.log(state.ad);
+      if (adId == state.adId._id && senderId == freelancer._id) {
         console.log("Printing no bhai");
         console.log("Message", msg);
         console.log("Convo hai yeh", newMessages);
+        const temp = [
+          ...newMessages,
+          { sender: senderId, message: msg, id: 9 },
+        ];
 
         // setConvo({ ...convo, messages: newMessages });
         setNewMessages((curState) => {
@@ -97,7 +110,7 @@ const Chat = () => {
 
     const try2 = (msg, senderId, adId) => {
       console.log("svkjdlalhfsk;LHB,SKA", currentUser._id);
-      if (adId == state.ad._id && senderId == freelancer._id) {
+      if (adId == state.adId._id && senderId == freelancer._id) {
         console.log("Printing no bhai");
         console.log("Message", msg);
         console.log("Convo hai yeh", newMessages);
@@ -123,6 +136,10 @@ const Chat = () => {
   }, [user]);
 
   useEffect(() => {
+    console.log(convo.messages);
+  }, [convo]);
+
+  useEffect(() => {
     getUserDetails();
   }, []);
 
@@ -144,7 +161,7 @@ const Chat = () => {
     const fetchedData = response.data.data;
     fetchedData["loggedIn"] = true;
     setUser(fetchedData);
-    console.log("fetched Data bhaoiiiiiii ", fetchedData);
+    // console.log("fetched Data bhaoiiiiiii ", fetchedData);
     setCurrentUser(user.user);
     // setAds(currentUser.ads);
     return;
@@ -159,7 +176,7 @@ const Chat = () => {
   //   setUser(updatedUser);
   // }, [convo]);
   useEffect(() => {
-    console.log("USER AFTER UPDATING", user);
+    // console.log("USER AFTER UPDATING", user);
   }, [user]);
   return (
     <div className="flex flex-col lg:flex-row justify-between place-items-center w-screen xl:w-5/6 mx-auto p-5">
@@ -187,9 +204,7 @@ const Chat = () => {
                     sender ? "right-1" : "left-1"
                   } font-serif`}
                 >
-                  {sender === currentUser._id
-                    ? currentUser.name
-                    : freelancer.name}
+                  {"tatv"}
                 </span>
               </div>
             )
@@ -213,7 +228,9 @@ const Chat = () => {
                     sender ? "right-1" : "left-1"
                   } font-serif`}
                 >
-                  {"tatv"}
+                  {sender === currentUser._id
+                    ? currentUser.name
+                    : freelancer.name}
                 </span>
               </div>
             )
@@ -272,4 +289,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default FreelancerChat;
