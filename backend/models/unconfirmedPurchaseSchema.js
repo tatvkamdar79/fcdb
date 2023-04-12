@@ -4,15 +4,15 @@ const Schema = mongoose.Schema;
 const unconfirmedAdSchema = new Schema({
   adId: {
     type: Schema.Types.ObjectId,
-    ref: "ads",
+    ref: "ad",
   },
   freelancerId: {
     type: Schema.Types.ObjectId,
-    ref: "freelancers",
+    ref: "freelancer",
   },
   clientId: {
     type: Schema.Types.ObjectId,
-    ref: "clients",
+    ref: "client",
   },
   freelancerStatus: {
     type: Boolean,

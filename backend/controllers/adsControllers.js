@@ -264,7 +264,26 @@ module.exports.buyAd = async (req, res) => {
     unconfirmedPurchase.clientStatus == true &&
     unconfirmedPurchase.freelancerStatus == true
   ) {
+    await UnconfirmedPurchase.deleteOne({
+      adId: adId,
+      freelancerId: freelancerId,
+      clientId: clientId,
+    });
     return confirmAd(req, res);
   }
   utils.sendSuccess(res, "Confirmation of the order sent", {});
+};
+
+module.exports.unconfirmedAds = async (req, res) => {
+  console.log("Hello bhai");
+  // return;
+  const allUnconfirmedAds = await UnconfirmedPurchase.find({
+    freelancerId: req.user._id,
+  })
+    .populate("clientId")
+    .populate("adId");
+  const correctAds = allUnconfirmedAds.filter((ad) => {
+    return ad.adId != null;
+  });
+  utils.sendSuccess(res, "", correctAds);
 };

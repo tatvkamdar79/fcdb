@@ -21,13 +21,17 @@ import FreelancerAdsInProgress from "./Views/Freelancer/FreelancerAdsInProgress"
 import FreelancerMyAds from "./Views/Freelancer/FreelancerMyAds";
 import NotFound404Page from "./Views/NotFound404Page";
 import { io } from "socket.io-client";
+import FreelancerUnconfirmedAds from "./Views/Freelancer/FreelancerUnconfirmedAds";
+import FreelancerChat from "./Views/Freelancer/FreelancerChat";
 
 const UserContext = createContext({});
 const SocketContext = createContext({});
+const ConversationsContext = createContext({});
 
 function App() {
   const [user, setUser] = useState({ loggedIn: false });
   const [socket, setSocket] = useState({});
+  const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     async function getUserDetails() {
@@ -47,8 +51,11 @@ function App() {
       );
       console.log("Got data on first fetch", response.data.data.user);
       const fetchedData = response.data.data;
+      console.log(fetchedData);
+      console.log(response.data);
       fetchedData["loggedIn"] = true;
       setUser(fetchedData);
+      setConversations(fetchedData.conversations);
       console.log("fetch", fetchedData);
       setSocket(CreateSocket(fetchedData));
       return;
@@ -65,8 +72,11 @@ function App() {
     <>
       <UserContext.Provider value={{ user, setUser }}>
         <SocketContext.Provider value={{ socket }}>
-          <Navbar />
-          {/* <Link to={"/home"} className="border-2 border-black px-3">
+          <ConversationsContext.Provider
+            value={{ conversations, setConversations }}
+          >
+            <Navbar />
+            {/* <Link to={"/home"} className="border-2 border-black px-3">
           Home
           </Link>
           <Link to={"/signin"} className="border-2 border-black px-3">
@@ -78,74 +88,86 @@ function App() {
           // <Link to={"/categories/abc"} className="border-2 border-black px-3">
           //   abc
         // </Link> */}
-          <Routes>
-            <Route path="/sockets" element={<Socketss />} />
-            <Route path={"/"} element={<Landing />} />
+            <Routes>
+              <Route path="/sockets" element={<Socketss />} />
+              <Route path={"/"} element={<Landing />} />
 
-            <Route
-              path={"/categories/:categoryName"}
-              element={<CategoryPage />}
-            />
+              <Route
+                path={"/categories/:categoryName"}
+                element={<CategoryPage />}
+              />
 
-            <Route
-              path={"/categories/:categoryName/:id"}
-              element={<AdPage />}
-            />
+              <Route
+                path={"/categories/:categoryName/:id"}
+                element={<AdPage />}
+              />
 
-            {/* Authenticated Routes */}
-            <Route element={<UserAuthContext user={user} />}>
-              {user.role === "client" ? (
-                <>
-                  <Route path={"/home"} element={<Home />} />
-                  <Route
-                    path={"/categories/:categoryName/:id/chat"}
-                    element={<Chat />}
-                  />
-                  <Route
-                    path={"/client/ads-in-progress"}
-                    element={<AdsInProgress />}
-                  />
-                </>
-              ) : (
-                <>
-                  <Route path="/home" element={<FreelancerHome />} />
-                  <Route
-                    path="/freelancer/ads-in-progress"
-                    element={<FreelancerAdsInProgress />}
-                  />
-                  <Route
-                    path={"/freelancer/myAds"}
-                    element={<FreelancerMyAds />}
-                  />
-                  <Route path={"/freelancer/createAd"} element={<CreateAd />} />
-                </>
-              )}
-            </Route>
-            {/* Authenticated Routes */}
+              {/* Authenticated Routes */}
+              <Route element={<UserAuthContext user={user} />}>
+                {user.role === "client" ? (
+                  <>
+                    <Route path={"/home"} element={<Home />} />
+                    <Route
+                      path={"/categories/:categoryName/:id/chat"}
+                      element={<Chat />}
+                    />
+                    <Route
+                      path={"/client/ads-in-progress"}
+                      element={<AdsInProgress />}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Route path="/home" element={<FreelancerHome />} />
+                    <Route
+                      path="/freelancer/ads-in-progress"
+                      element={<FreelancerAdsInProgress />}
+                    />
+                    <Route
+                      path={"/freelancer/myAds"}
+                      element={<FreelancerMyAds />}
+                    />
+                    <Route
+                      path={"/freelancer/createAd"}
+                      element={<CreateAd />}
+                    />{" "}
+                    <Route
+                      path={"/freelancer/unconfirmedAds"}
+                      element={<FreelancerUnconfirmedAds />}
+                    />
+                    <Route
+                      path={"/freelancer/unconfirmedAds/chat"}
+                      element={<FreelancerChat />}
+                    />
+                  </>
+                )}
+              </Route>
+              {/* Authenticated Routes */}
 
-            {/* Freelancer Authenticated Routes */}
+              {/* Freelancer Authenticated Routes */}
 
-            {/* Freelancer Authenticated Routes */}
+              {/* Freelancer Authenticated Routes */}
 
-            {/* Signup Routes */}
-            <Route path={"/signup"} element={<Signup />} />
-            <Route
-              path={"/signup/client"}
-              element={<SignUpForm role={"client"} />}
-            />
-            <Route
-              path={"/signup/freelancer"}
-              element={<SignUpForm role={"freelancer"} />}
-            />
+              {/* Signup Routes */}
+              <Route path={"/signup"} element={<Signup />} />
+              <Route
+                path={"/signup/client"}
+                element={<SignUpForm role={"client"} />}
+              />
+              <Route
+                path={"/signup/freelancer"}
+                element={<SignUpForm role={"freelancer"} />}
+              />
 
-            {/* Signin Routes */}
-            <Route path={"/signin"} element={<SignInForm />} />
-            <Route
-              path={"/freelancer/signin"}
-              element={<FreelancerSignInForm />}
-            />
-            <Route path="*" element={<NotFound404Page />} />
-          </Routes>
+              {/* Signin Routes */}
+              <Route path={"/signin"} element={<SignInForm />} />
+              <Route
+                path={"/freelancer/signin"}
+                element={<FreelancerSignInForm />}
+              />
+              <Route path="*" element={<NotFound404Page />} />
+            </Routes>
+          </ConversationsContext.Provider>
         </SocketContext.Provider>
       </UserContext.Provider>
     </>
@@ -168,6 +190,7 @@ function CreateSocket(user) {
 export default App;
 export { UserContext };
 export { SocketContext };
+export { ConversationsContext };
 // const login = async () => {
 //   const jwt = getCookie("JWT_AUTH");
 //   alert(jwt);

@@ -11,6 +11,7 @@ router.post("/delete/:adId", adsControllers.deleteAd);
 router.post("/update/:adId", adsControllers.updateAd);
 router.post("/buyAd", adsControllers.buyAd);
 // router.post("/orderComplete/")
+router.get("/unconfirmedAds", adsControllers.unconfirmedAds);
 router.get("/clientsOnAd/:adId", adsControllers.getClientsOnAd);
 router.get("/:adId", adsControllers.getAd);
 
